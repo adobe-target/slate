@@ -1,6 +1,5 @@
 ---
 title: Target API v1.0
-
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -9,64 +8,38 @@ language_tabs:
   - python: Python
   - ruby: Ruby
   - java: Java
-
 toc_footers: []
 includes: []
 search: true
-highlight_theme: darkula
+highlight_theme: Xcode
 ---
 
 # Target API v1.0
 
-Target has three groups of APIs:
-
-- Delivery
-- Admin APIs
-- Legacy admin APIs
-
-Delivery APIs are publicly accessible and can be used to deliver content from Target edge servers to customer websites and servers. Legacy admin APIs require authentication credentials to be passed with every request. The current generation of APIs require both an API Key and a token in the headers to authenticate. See the Authentication page on how to obtain an API Key and token.
-
-Target’s admin APIs follow the same URL schema as the rest of the marketing cloud:
-
-https://mc-api.adobe.io/{tenant}/target/{rest-of-url}
-
 REST apis to list, create and modify Target Activities, Audiences and Offers.
 
-Base URL = mc.adobe.io
+Base URL = https://mc.adobe.io
 
 <a href="https://mc.adobe.io/target/">Terms of service</a>
 
 License: <a href="https://mc.adobe.io/target/">Adobe Target License Version 1.0</a>
 
-# Authentication
-
-You must go through Adobe's Developer Portal (see link above to 'API Keys') to get a set of credentials before
-using the following APIs:
-
-- All APIs listed under the 'AB and XT' dropdown
-
--Collection, Feed, and Entity APIs under the 'Recommendations' dropdown
-
-The other APIs listed here either don’t require authentication or have an authentication option that is specific to the API.   
-
-To get started with these APIs you must be authorized by your organization to use the administrative login for your organization. Only users who are designa
-
-# Activities
+# /activities
 
 Activity List Controller
 
-## Get Activities
+## activities.getActivitiesUsingGET
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X get ://mc.adobe.io//{tenant}/target/activities
+curl -X get https://mc.adobe.io/{tenant}/target/activities
 ````
 
 ````http
-GET ://mc.adobe.io//{tenant}/target/activities HTTP/1.1
-Host: mc.adobe.io
+GET https://mc.adobe.io/{tenant}/target/activities HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -74,7 +47,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://mc.adobe.io//{tenant}/target/activities',
+    url: 'https://mc.adobe.io/{tenant}/target/activities',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -85,7 +58,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://mc.adobe.io//{tenant}/target/activities', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -97,7 +70,7 @@ fetch('://mc.adobe.io//{tenant}/target/activities', { method: 'GET'})
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities', params:
   {
     # TODO
   }
@@ -108,7 +81,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities', params={
   # TODO
 })
 
@@ -116,7 +89,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -161,26 +134,26 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Create Activity
+## activities.ab.createActivityUsingPOST_1
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X post ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
+curl -X post https://mc.adobe.io/{tenant}/target/activities/ab
 ````
 
 ````http
-POST ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
-Content-Type: application/vnd.adobe.target.v1+json
-Accept: application/vnd.adobe.target.v1+json
+POST https://mc.adobe.io/{tenant}/target/activities/ab HTTP/1.1
+Host: api9.testandtarget.omniture.com
+Content-Type: application/vnd.adobe.target.v2+json
+Accept: application/vnd.adobe.target.v2+json
 ````
 
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab',
     method: 'post',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -191,7 +164,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab', { method: 'POST'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab', { method: 'POST'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -203,7 +176,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab', params:
+result = RestClient.post 'https://mc.adobe.io/{tenant}/target/activities/ab', params:
   {
     # TODO
   }
@@ -214,7 +187,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.post('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab', params={
+r = requests.post('https://mc.adobe.io/{tenant}/target/activities/ab', params={
   # TODO
 })
 
@@ -222,7 +195,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -269,26 +242,26 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Get Activities
+## activities.ab.getActivityUsingGET_1
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}
+curl -X get https://mc.adobe.io/{tenant}/target/activities/ab/{id}
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/activities/ab/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
-Accept: application/vnd.adobe.target.v1+json
+Accept: application/vnd.adobe.target.v2+json
 ````
 
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -299,7 +272,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -311,7 +284,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}', params:
   {
     # TODO
   }
@@ -322,7 +295,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities/ab/{id}', params={
   # TODO
 })
 
@@ -330,7 +303,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -375,26 +348,26 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Update Activity
+## activities.ab.updateActivityUsingPUT_1
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}
+curl -X put https://mc.adobe.io/{tenant}/target/activities/ab/{id}
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
-Content-Type: application/vnd.adobe.target.v1+json
-Accept: application/vnd.adobe.target.v1+json
+PUT https://mc.adobe.io/{tenant}/target/activities/ab/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
+Content-Type: application/vnd.adobe.target.v2+json
+Accept: application/vnd.adobe.target.v2+json
 ````
 
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -405,7 +378,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -417,7 +390,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}', params:
   {
     # TODO
   }
@@ -428,7 +401,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/ab/{id}', params={
   # TODO
 })
 
@@ -436,7 +409,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -485,18 +458,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Delete Activity
+## activities.ab.deleteActivityUsingDELETE
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X delete ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}
+curl -X delete https://mc.adobe.io/{tenant}/target/activities/ab/{id}
 ````
 
 ````http
-DELETE ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+DELETE https://mc.adobe.io/{tenant}/target/activities/ab/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -504,7 +477,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}',
     method: 'delete',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -515,7 +488,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', { method: 'DELETE'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}', { method: 'DELETE'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -527,7 +500,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.delete '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', params:
+result = RestClient.delete 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}', params:
   {
     # TODO
   }
@@ -538,7 +511,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.delete('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}', params={
+r = requests.delete('https://mc.adobe.io/{tenant}/target/activities/ab/{id}', params={
   # TODO
 })
 
@@ -546,7 +519,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -592,18 +565,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Update AB activity
+## activities.ab.name.updateNameUsingPUT
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/name
+curl -X put https://mc.adobe.io/{tenant}/target/activities/ab/{id}/name
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/name HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/ab/{id}/name HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -611,7 +584,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/name',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/name',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -622,7 +595,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/name', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/name', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -634,7 +607,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/name', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/name', params:
   {
     # TODO
   }
@@ -645,7 +618,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/name', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/name', params={
   # TODO
 })
 
@@ -653,7 +626,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/name");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}/name");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -708,12 +681,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/priority
+curl -X put https://mc.adobe.io/{tenant}/target/activities/ab/{id}/priority
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/priority HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/ab/{id}/priority HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -721,7 +694,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/priority',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/priority',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -732,7 +705,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/priority', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/priority', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -744,7 +717,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/priority', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/priority', params:
   {
     # TODO
   }
@@ -755,7 +728,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/priority', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/priority', params={
   # TODO
 })
 
@@ -763,7 +736,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/priority");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}/priority");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -812,18 +785,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Update Activity Schedule
+## activities.ab.schedule.updateScheduleUsingPUT
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/schedule
+curl -X put https://mc.adobe.io/{tenant}/target/activities/ab/{id}/schedule
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/schedule HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/ab/{id}/schedule HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -831,7 +804,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/schedule',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/schedule',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -842,7 +815,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/schedule', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/schedule', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -854,7 +827,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/schedule', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/schedule', params:
   {
     # TODO
   }
@@ -865,7 +838,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/schedule', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/schedule', params={
   # TODO
 })
 
@@ -873,7 +846,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/schedule");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}/schedule");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -922,18 +895,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Update Activity State
+## activities.ab.state.updateStateUsingPUT
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/state
+curl -X put https://mc.adobe.io/{tenant}/target/activities/ab/{id}/state
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/state HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/ab/{id}/state HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -941,7 +914,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/state',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/state',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -952,7 +925,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/state', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/state', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -964,7 +937,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/state', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/state', params:
   {
     # TODO
   }
@@ -975,7 +948,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/state', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/state', params={
   # TODO
 })
 
@@ -983,7 +956,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/state");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}/state");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -1032,18 +1005,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## XT activities
+## activities.xt.createActivityUsingPOST
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X post ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
+curl -X post https://mc.adobe.io/{tenant}/target/activities/xt
 ````
 
 ````http
-POST ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+POST https://mc.adobe.io/{tenant}/target/activities/xt HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1051,7 +1024,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt',
     method: 'post',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1062,7 +1035,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt', { method: 'POST'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt', { method: 'POST'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1074,7 +1047,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt', params:
+result = RestClient.post 'https://mc.adobe.io/{tenant}/target/activities/xt', params:
   {
     # TODO
   }
@@ -1085,7 +1058,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.post('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt', params={
+r = requests.post('https://mc.adobe.io/{tenant}/target/activities/xt', params={
   # TODO
 })
 
@@ -1093,7 +1066,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -1140,18 +1113,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Get XT Activity
+## activities.xt.getActivityUsingGET
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}
+curl -X get https://mc.adobe.io/{tenant}/target/activities/xt/{id}
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/activities/xt/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1159,7 +1132,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1170,7 +1143,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1182,7 +1155,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}', params:
   {
     # TODO
   }
@@ -1193,7 +1166,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities/xt/{id}', params={
   # TODO
 })
 
@@ -1201,7 +1174,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1246,18 +1219,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Update XT Activity
+## activities.xt.updateActivityUsingPUT
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}
+curl -X put https://mc.adobe.io/{tenant}/target/activities/xt/{id}
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/xt/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1265,7 +1238,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1276,7 +1249,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1288,7 +1261,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}', params:
   {
     # TODO
   }
@@ -1299,7 +1272,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/xt/{id}', params={
   # TODO
 })
 
@@ -1307,7 +1280,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -1356,18 +1329,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Delete XT Activity
+## activities.xt.deleteActivityUsingDELETE
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X delete ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}
+curl -X delete https://mc.adobe.io/{tenant}/target/activities/xt/{id}
 ````
 
 ````http
-DELETE ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+DELETE https://mc.adobe.io/{tenant}/target/activities/xt/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1375,7 +1348,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}',
     method: 'delete',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1386,7 +1359,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', { method: 'DELETE'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}', { method: 'DELETE'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1398,7 +1371,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.delete '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', params:
+result = RestClient.delete 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}', params:
   {
     # TODO
   }
@@ -1409,7 +1382,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.delete('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}', params={
+r = requests.delete('https://mc.adobe.io/{tenant}/target/activities/xt/{id}', params={
   # TODO
 })
 
@@ -1417,7 +1390,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -1463,18 +1436,18 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-## Update XT Activity
+## activities.xt.name.updateNameUsingPUT
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/name
+curl -X put https://mc.adobe.io/{tenant}/target/activities/xt/{id}/name
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/name HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/xt/{id}/name HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1482,7 +1455,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/name',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/name',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1493,7 +1466,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/name', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/name', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1505,7 +1478,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/name', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/name', params:
   {
     # TODO
   }
@@ -1516,7 +1489,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/name', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/name', params={
   # TODO
 })
 
@@ -1524,7 +1497,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/name");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}/name");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -1579,12 +1552,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/priority
+curl -X put https://mc.adobe.io/{tenant}/target/activities/xt/{id}/priority
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/priority HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/xt/{id}/priority HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1592,7 +1565,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/priority',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/priority',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1603,7 +1576,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/priority', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/priority', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1615,7 +1588,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/priority', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/priority', params:
   {
     # TODO
   }
@@ -1626,7 +1599,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/priority', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/priority', params={
   # TODO
 })
 
@@ -1634,7 +1607,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/priority");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}/priority");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -1689,12 +1662,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/schedule
+curl -X put https://mc.adobe.io/{tenant}/target/activities/xt/{id}/schedule
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/schedule HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/xt/{id}/schedule HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1702,7 +1675,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/schedule',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/schedule',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1713,7 +1686,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/schedule', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/schedule', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1725,7 +1698,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/schedule', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/schedule', params:
   {
     # TODO
   }
@@ -1736,7 +1709,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/schedule', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/schedule', params={
   # TODO
 })
 
@@ -1744,7 +1717,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/schedule");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}/schedule");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -1799,12 +1772,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/state
+curl -X put https://mc.adobe.io/{tenant}/target/activities/xt/{id}/state
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/state HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/xt/{id}/state HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1812,7 +1785,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/state',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/state',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1823,7 +1796,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/state', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/state', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1835,7 +1808,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/state', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/state', params:
   {
     # TODO
   }
@@ -1846,7 +1819,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/state', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/state', params={
   # TODO
 })
 
@@ -1854,7 +1827,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/state");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}/state");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -1909,12 +1882,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/changelog
+curl -X get https://mc.adobe.io/{tenant}/target/activities/{id}/changelog
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/changelog HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/activities/{id}/changelog HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -1922,7 +1895,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/changelog',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/{id}/changelog',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -1933,7 +1906,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/changelog', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/{id}/changelog', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -1945,7 +1918,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{i
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/changelog', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities/{id}/changelog', params:
   {
     # TODO
   }
@@ -1956,7 +1929,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/changelog', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities/{id}/changelog', params={
   # TODO
 })
 
@@ -1964,7 +1937,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/changelog");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/{id}/changelog");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2016,12 +1989,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/name
+curl -X put https://mc.adobe.io/{tenant}/target/activities/{id}/name
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/name HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/{id}/name HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2029,7 +2002,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/name',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/{id}/name',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2040,7 +2013,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/name', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/{id}/name', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2052,7 +2025,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{i
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/name', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/{id}/name', params:
   {
     # TODO
   }
@@ -2063,7 +2036,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/name', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/{id}/name', params={
   # TODO
 })
 
@@ -2071,7 +2044,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/name");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/{id}/name");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -2126,12 +2099,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/priority
+curl -X put https://mc.adobe.io/{tenant}/target/activities/{id}/priority
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/priority HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/{id}/priority HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2139,7 +2112,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/priority',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/{id}/priority',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2150,7 +2123,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/priority', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/{id}/priority', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2162,7 +2135,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{i
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/priority', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/{id}/priority', params:
   {
     # TODO
   }
@@ -2173,7 +2146,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/priority', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/{id}/priority', params={
   # TODO
 })
 
@@ -2181,7 +2154,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/priority");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/{id}/priority");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -2236,12 +2209,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/schedule
+curl -X put https://mc.adobe.io/{tenant}/target/activities/{id}/schedule
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/schedule HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/{id}/schedule HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2249,7 +2222,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/schedule',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/{id}/schedule',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2260,7 +2233,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/schedule', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/{id}/schedule', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2272,7 +2245,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{i
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/schedule', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/{id}/schedule', params:
   {
     # TODO
   }
@@ -2283,7 +2256,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/schedule', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/{id}/schedule', params={
   # TODO
 })
 
@@ -2291,7 +2264,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/schedule");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/{id}/schedule");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -2346,12 +2319,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/state
+curl -X put https://mc.adobe.io/{tenant}/target/activities/{id}/state
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/state HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/{id}/state HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2359,7 +2332,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/state',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/{id}/state',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2370,7 +2343,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/state', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/{id}/state', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2382,7 +2355,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{i
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/state', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/{id}/state', params:
   {
     # TODO
   }
@@ -2393,7 +2366,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/state', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/{id}/state', params={
   # TODO
 })
 
@@ -2401,7 +2374,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/{id}/state");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/{id}/state");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -2450,22 +2423,22 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-# Reports
+# /reports
 
-AP Performance Reports
+ABT Performance Report Controller
 
-## Get Report
+## activities.ab.report.performance.getReportByIdUsingGET
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/report/performance
+curl -X get https://mc.adobe.io/{tenant}/target/activities/ab/{id}/report/performance
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/report/performance HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/activities/ab/{id}/report/performance HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2473,7 +2446,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/report/performance',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/report/performance',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2484,7 +2457,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/report/performance', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/report/performance', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2496,7 +2469,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/report/performance', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities/ab/{id}/report/performance', params:
   {
     # TODO
   }
@@ -2507,7 +2480,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/report/performance', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities/ab/{id}/report/performance', params={
   # TODO
 })
 
@@ -2515,7 +2488,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab/{id}/report/performance");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/ab/{id}/report/performance");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2567,12 +2540,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}/report/performance
+curl -X get https://mc.adobe.io/{tenant}/target/activities/abt/{id}/report/performance
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}/report/performance HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/activities/abt/{id}/report/performance HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2580,7 +2553,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}/report/performance',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}/report/performance',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2591,7 +2564,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}/report/performance', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/abt/{id}/report/performance', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2603,7 +2576,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}/report/performance', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}/report/performance', params:
   {
     # TODO
   }
@@ -2614,7 +2587,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}/report/performance', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities/abt/{id}/report/performance', params={
   # TODO
 })
 
@@ -2622,7 +2595,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}/report/performance");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/abt/{id}/report/performance");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2674,12 +2647,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/report/performance
+curl -X get https://mc.adobe.io/{tenant}/target/activities/xt/{id}/report/performance
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/report/performance HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/activities/xt/{id}/report/performance HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2687,7 +2660,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/report/performance',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/report/performance',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2698,7 +2671,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/report/performance', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/report/performance', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2710,7 +2683,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/report/performance', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities/xt/{id}/report/performance', params:
   {
     # TODO
   }
@@ -2721,7 +2694,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/report/performance', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities/xt/{id}/report/performance', params={
   # TODO
 })
 
@@ -2729,7 +2702,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/xt/{id}/report/performance");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/xt/{id}/report/performance");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2775,7 +2748,7 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-# Automated Personalization Activities
+# /activities/abt
 
 ABT Campaign Controller
 
@@ -2785,12 +2758,12 @@ ABT Campaign Controller
 
 ````shell
 # You can also use wget
-curl -X post ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt
+curl -X post https://mc.adobe.io/{tenant}/target/activities/abt
 ````
 
 ````http
-POST ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+POST https://mc.adobe.io/{tenant}/target/activities/abt HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2798,7 +2771,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/abt',
     method: 'post',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2809,7 +2782,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt', { method: 'POST'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/abt', { method: 'POST'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2821,7 +2794,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt', params:
+result = RestClient.post 'https://mc.adobe.io/{tenant}/target/activities/abt', params:
   {
     # TODO
   }
@@ -2832,7 +2805,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.post('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt', params={
+r = requests.post('https://mc.adobe.io/{tenant}/target/activities/abt', params={
   # TODO
 })
 
@@ -2840,7 +2813,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/abt");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -2893,12 +2866,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}
+curl -X get https://mc.adobe.io/{tenant}/target/activities/abt/{id}
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/activities/abt/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -2906,7 +2879,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -2917,7 +2890,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/abt/{id}', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -2929,7 +2902,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}', params:
   {
     # TODO
   }
@@ -2940,7 +2913,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/activities/abt/{id}', params={
   # TODO
 })
 
@@ -2948,7 +2921,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/abt/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2999,12 +2972,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}
+curl -X put https://mc.adobe.io/{tenant}/target/activities/abt/{id}
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/activities/abt/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -3012,7 +2985,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3023,7 +2996,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/abt/{id}', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3035,7 +3008,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}', params:
   {
     # TODO
   }
@@ -3046,7 +3019,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/activities/abt/{id}', params={
   # TODO
 })
 
@@ -3054,7 +3027,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/abt/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -3109,12 +3082,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X delete ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}
+curl -X delete https://mc.adobe.io/{tenant}/target/activities/abt/{id}
 ````
 
 ````http
-DELETE ://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+DELETE https://mc.adobe.io/{tenant}/target/activities/abt/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -3122,7 +3095,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}',
     method: 'delete',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3133,7 +3106,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', { method: 'DELETE'})
+fetch('https://mc.adobe.io/{tenant}/target/activities/abt/{id}', { method: 'DELETE'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3145,7 +3118,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/ab
 require 'rest-client'
 require 'json'
 
-result = RestClient.delete '://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', params:
+result = RestClient.delete 'https://mc.adobe.io/{tenant}/target/activities/abt/{id}', params:
   {
     # TODO
   }
@@ -3156,7 +3129,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.delete('://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}', params={
+r = requests.delete('https://mc.adobe.io/{tenant}/target/activities/abt/{id}', params={
   # TODO
 })
 
@@ -3164,7 +3137,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/activities/abt/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/activities/abt/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -3214,26 +3187,26 @@ This operation does not require authentication
 
 Audience List Controller
 
-## audiences.getAudiencesUsingGET
+## audiences.getAudiencesUsingGET_1
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences
+curl -X get https://mc.adobe.io/{tenant}/target/audiences
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/audiences HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
-Accept: application/vnd.adobe.target.v1+json
+Accept: application/vnd.adobe.target.v2+json
 ````
 
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences',
+    url: 'https://mc.adobe.io/{tenant}/target/audiences',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3244,7 +3217,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/audiences', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3256,7 +3229,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', {
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/audiences', params:
   {
     # TODO
   }
@@ -3267,7 +3240,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/audiences', params={
   # TODO
 })
 
@@ -3275,7 +3248,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/audiences");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -3326,12 +3299,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X post ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences
+curl -X post https://mc.adobe.io/{tenant}/target/audiences
 ````
 
 ````http
-POST ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+POST https://mc.adobe.io/{tenant}/target/audiences HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v2+json
 Accept: application/vnd.adobe.target.v2+json
 ````
@@ -3339,7 +3312,7 @@ Accept: application/vnd.adobe.target.v2+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences',
+    url: 'https://mc.adobe.io/{tenant}/target/audiences',
     method: 'post',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3350,7 +3323,7 @@ Accept: application/vnd.adobe.target.v2+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', { method: 'POST'})
+fetch('https://mc.adobe.io/{tenant}/target/audiences', { method: 'POST'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3362,7 +3335,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', {
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', params:
+result = RestClient.post 'https://mc.adobe.io/{tenant}/target/audiences', params:
   {
     # TODO
   }
@@ -3373,7 +3346,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.post('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences', params={
+r = requests.post('https://mc.adobe.io/{tenant}/target/audiences', params={
   # TODO
 })
 
@@ -3381,7 +3354,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/audiences");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -3434,12 +3407,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}
+curl -X get https://mc.adobe.io/{tenant}/target/audiences/{id}
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/audiences/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v2+json
 ````
@@ -3447,7 +3420,7 @@ Accept: application/vnd.adobe.target.v2+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/audiences/{id}',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3458,7 +3431,7 @@ Accept: application/vnd.adobe.target.v2+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/audiences/{id}', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3470,7 +3443,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/audiences/{id}', params:
   {
     # TODO
   }
@@ -3481,7 +3454,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/audiences/{id}', params={
   # TODO
 })
 
@@ -3489,7 +3462,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/audiences/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -3540,12 +3513,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}
+curl -X put https://mc.adobe.io/{tenant}/target/audiences/{id}
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/audiences/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v2+json
 Accept: application/vnd.adobe.target.v2+json
 ````
@@ -3553,7 +3526,7 @@ Accept: application/vnd.adobe.target.v2+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/audiences/{id}',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3564,7 +3537,7 @@ Accept: application/vnd.adobe.target.v2+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/audiences/{id}', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3576,7 +3549,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/audiences/{id}', params:
   {
     # TODO
   }
@@ -3587,7 +3560,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/audiences/{id}', params={
   # TODO
 })
 
@@ -3595,7 +3568,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/audiences/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -3650,12 +3623,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X delete ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}
+curl -X delete https://mc.adobe.io/{tenant}/target/audiences/{id}
 ````
 
 ````http
-DELETE ://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+DELETE https://mc.adobe.io/{tenant}/target/audiences/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v2+json
 ````
@@ -3663,7 +3636,7 @@ Accept: application/vnd.adobe.target.v2+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/audiences/{id}',
     method: 'delete',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3674,7 +3647,7 @@ Accept: application/vnd.adobe.target.v2+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', { method: 'DELETE'})
+fetch('https://mc.adobe.io/{tenant}/target/audiences/{id}', { method: 'DELETE'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3686,7 +3659,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id
 require 'rest-client'
 require 'json'
 
-result = RestClient.delete '://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', params:
+result = RestClient.delete 'https://mc.adobe.io/{tenant}/target/audiences/{id}', params:
   {
     # TODO
   }
@@ -3697,7 +3670,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.delete('://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}', params={
+r = requests.delete('https://mc.adobe.io/{tenant}/target/audiences/{id}', params={
   # TODO
 })
 
@@ -3705,7 +3678,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/audiences/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/audiences/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -3761,12 +3734,12 @@ Batch Controller
 
 ````shell
 # You can also use wget
-curl -X post ://api1.staging.testandtarget.omniture.com//{tenant}/target/batch
+curl -X post https://mc.adobe.io/{tenant}/target/batch
 ````
 
 ````http
-POST ://api1.staging.testandtarget.omniture.com//{tenant}/target/batch HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+POST https://mc.adobe.io/{tenant}/target/batch HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: */*
 ````
@@ -3774,7 +3747,7 @@ Accept: */*
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/batch',
+    url: 'https://mc.adobe.io/{tenant}/target/batch',
     method: 'post',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3785,7 +3758,7 @@ Accept: */*
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/batch', { method: 'POST'})
+fetch('https://mc.adobe.io/{tenant}/target/batch', { method: 'POST'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3797,7 +3770,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/batch', { met
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '://api1.staging.testandtarget.omniture.com//{tenant}/target/batch', params:
+result = RestClient.post 'https://mc.adobe.io/{tenant}/target/batch', params:
   {
     # TODO
   }
@@ -3808,7 +3781,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.post('://api1.staging.testandtarget.omniture.com//{tenant}/target/batch', params={
+r = requests.post('https://mc.adobe.io/{tenant}/target/batch', params={
   # TODO
 })
 
@@ -3816,7 +3789,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/batch");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/batch");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -3877,12 +3850,12 @@ Environment List Controller
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/environments
+curl -X get https://mc.adobe.io/{tenant}/target/environments
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/environments HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/environments HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -3890,7 +3863,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/environments',
+    url: 'https://mc.adobe.io/{tenant}/target/environments',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -3901,7 +3874,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/environments', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/environments', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -3913,7 +3886,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/environments'
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/environments', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/environments', params:
   {
     # TODO
   }
@@ -3924,7 +3897,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/environments', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/environments', params={
   # TODO
 })
 
@@ -3932,7 +3905,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/environments");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/environments");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -3979,12 +3952,12 @@ Mbox Controller
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxName}
+curl -X get https://mc.adobe.io/{tenant}/target/mbox/{mboxName}
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxName} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/mbox/{mboxName} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -3992,7 +3965,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxName}',
+    url: 'https://mc.adobe.io/{tenant}/target/mbox/{mboxName}',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4003,7 +3976,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxName}', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/mbox/{mboxName}', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4015,7 +3988,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxNam
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxName}', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/mbox/{mboxName}', params:
   {
     # TODO
   }
@@ -4026,7 +3999,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxName}', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/mbox/{mboxName}', params={
   # TODO
 })
 
@@ -4034,7 +4007,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/mbox/{mboxName}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/mbox/{mboxName}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -4053,7 +4026,7 @@ System.out.println(response.toString());
 
 *Get mbox parameters*
 
-documentation.notes.mbox.getMbox
+Get the list of mbox parameters.
 
 ### Parameters
 
@@ -4089,12 +4062,12 @@ Mbox List Controller
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes
+curl -X get https://mc.adobe.io/{tenant}/target/mboxes
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/mboxes HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4102,7 +4075,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes',
+    url: 'https://mc.adobe.io/{tenant}/target/mboxes',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4113,7 +4086,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/mboxes', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4125,7 +4098,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes', { me
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/mboxes', params:
   {
     # TODO
   }
@@ -4136,7 +4109,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/mboxes', params={
   # TODO
 })
 
@@ -4144,7 +4117,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/mboxes");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/mboxes");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -4199,12 +4172,12 @@ Offer List Controller
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers
+curl -X get https://mc.adobe.io/{tenant}/target/offers
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/offers HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4212,7 +4185,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers',
+    url: 'https://mc.adobe.io/{tenant}/target/offers',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4223,7 +4196,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/offers', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4235,7 +4208,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers', { me
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/offers', params:
   {
     # TODO
   }
@@ -4246,7 +4219,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/offers', params={
   # TODO
 })
 
@@ -4254,7 +4227,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/offers");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/offers");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -4305,12 +4278,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X post ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content
+curl -X post https://mc.adobe.io/{tenant}/target/offers/content
 ````
 
 ````http
-POST ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+POST https://mc.adobe.io/{tenant}/target/offers/content HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4318,7 +4291,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content',
+    url: 'https://mc.adobe.io/{tenant}/target/offers/content',
     method: 'post',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4329,7 +4302,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content', { method: 'POST'})
+fetch('https://mc.adobe.io/{tenant}/target/offers/content', { method: 'POST'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4341,7 +4314,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/conten
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content', params:
+result = RestClient.post 'https://mc.adobe.io/{tenant}/target/offers/content', params:
   {
     # TODO
   }
@@ -4352,7 +4325,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.post('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content', params={
+r = requests.post('https://mc.adobe.io/{tenant}/target/offers/content', params={
   # TODO
 })
 
@@ -4360,7 +4333,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/offers/content");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -4413,12 +4386,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}
+curl -X get https://mc.adobe.io/{tenant}/target/offers/content/{id}
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/offers/content/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4426,7 +4399,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/offers/content/{id}',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4437,7 +4410,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/offers/content/{id}', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4449,7 +4422,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/conten
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/offers/content/{id}', params:
   {
     # TODO
   }
@@ -4460,7 +4433,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/offers/content/{id}', params={
   # TODO
 })
 
@@ -4468,7 +4441,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/offers/content/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -4519,12 +4492,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X put ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}
+curl -X put https://mc.adobe.io/{tenant}/target/offers/content/{id}
 ````
 
 ````http
-PUT ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+PUT https://mc.adobe.io/{tenant}/target/offers/content/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4532,7 +4505,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/offers/content/{id}',
     method: 'put',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4543,7 +4516,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', { method: 'PUT'})
+fetch('https://mc.adobe.io/{tenant}/target/offers/content/{id}', { method: 'PUT'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4555,7 +4528,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/conten
 require 'rest-client'
 require 'json'
 
-result = RestClient.put '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', params:
+result = RestClient.put 'https://mc.adobe.io/{tenant}/target/offers/content/{id}', params:
   {
     # TODO
   }
@@ -4566,7 +4539,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.put('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', params={
+r = requests.put('https://mc.adobe.io/{tenant}/target/offers/content/{id}', params={
   # TODO
 })
 
@@ -4574,7 +4547,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/offers/content/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("PUT");
 int responseCode = con.getResponseCode();
@@ -4629,12 +4602,12 @@ This operation does not require authentication
 
 ````shell
 # You can also use wget
-curl -X delete ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}
+curl -X delete https://mc.adobe.io/{tenant}/target/offers/content/{id}
 ````
 
 ````http
-DELETE ://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id} HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+DELETE https://mc.adobe.io/{tenant}/target/offers/content/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4642,7 +4615,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}',
+    url: 'https://mc.adobe.io/{tenant}/target/offers/content/{id}',
     method: 'delete',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4653,7 +4626,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', { method: 'DELETE'})
+fetch('https://mc.adobe.io/{tenant}/target/offers/content/{id}', { method: 'DELETE'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4665,7 +4638,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/conten
 require 'rest-client'
 require 'json'
 
-result = RestClient.delete '://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', params:
+result = RestClient.delete 'https://mc.adobe.io/{tenant}/target/offers/content/{id}', params:
   {
     # TODO
   }
@@ -4676,7 +4649,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.delete('://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}', params={
+r = requests.delete('https://mc.adobe.io/{tenant}/target/offers/content/{id}', params={
   # TODO
 })
 
@@ -4684,7 +4657,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/offers/content/{id}");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/offers/content/{id}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -4730,22 +4703,22 @@ Status|Meaning|Description
 This operation does not require authentication
 </aside>
 
-# /profileattributes/mbox
+# /offers/templates
 
-Mbox Profile Attribute Controller
+Offer Template Controller
 
-## profileattributes.mbox.getMboxProfileAttributesUsingGET
+## offers.templates.getOfferTemplatesUsingGET
 
 > Code samples
 
 ````shell
 # You can also use wget
-curl -X get ://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattributes/mbox
+curl -X get https://mc.adobe.io/{tenant}/target/offers/templates
 ````
 
 ````http
-GET ://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattributes/mbox HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+GET https://mc.adobe.io/{tenant}/target/offers/templates HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4753,7 +4726,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattributes/mbox',
+    url: 'https://mc.adobe.io/{tenant}/target/offers/templates',
     method: 'get',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4764,7 +4737,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattributes/mbox', { method: 'GET'})
+fetch('https://mc.adobe.io/{tenant}/target/offers/templates', { method: 'GET'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4776,7 +4749,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattrib
 require 'rest-client'
 require 'json'
 
-result = RestClient.get '://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattributes/mbox', params:
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/offers/templates', params:
   {
     # TODO
   }
@@ -4787,7 +4760,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.get('://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattributes/mbox', params={
+r = requests.get('https://mc.adobe.io/{tenant}/target/offers/templates', params={
   # TODO
 })
 
@@ -4795,7 +4768,223 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/profileattributes/mbox");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/offers/templates");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+````
+
+`GET /{tenant}/target/offers/templates`
+
+*List offer templates*
+
+Retrieve the list of previously-created offer templates.
+
+### Parameters
+
+Parameter|In|Type|Required|Description
+---|---|---|---|---|
+parametersMap|query|ref|true|parametersMap
+
+
+
+### Responses
+
+Status|Meaning|Description
+---|---|---|
+200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK
+400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Bad Request. Most probably the data provided in the request is invalid.
+401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The user is not allowed to perform this operation.
+403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|Access to this resource is forbidden.
+404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The referenced resource was not found.
+
+> Example responses
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## offers.templates.getOfferTemplateUsingGET
+
+> Code samples
+
+````shell
+# You can also use wget
+curl -X get https://mc.adobe.io/{tenant}/target/offers/templates/{id}
+````
+
+````http
+GET https://mc.adobe.io/{tenant}/target/offers/templates/{id} HTTP/1.1
+Host: api9.testandtarget.omniture.com
+Content-Type: application/json
+Accept: application/vnd.adobe.target.v1+json
+````
+
+````html
+<script>
+  $.ajax({
+    url: 'https://mc.adobe.io/{tenant}/target/offers/templates/{id}',
+    method: 'get',
+    success: function(data) {
+      console.log(JSON.stringify(data));
+    }
+  })
+</script>
+````
+
+````javascript
+const request = require('node-fetch');
+fetch('https://mc.adobe.io/{tenant}/target/offers/templates/{id}', { method: 'GET'})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+````
+
+````ruby
+require 'rest-client'
+require 'json'
+
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/offers/templates/{id}', params:
+  {
+    # TODO
+  }
+
+p JSON.parse(result)
+````
+
+````python
+import requests
+
+r = requests.get('https://mc.adobe.io/{tenant}/target/offers/templates/{id}', params={
+  # TODO
+})
+
+print r.json()
+````
+
+````java
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/offers/templates/{id}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+````
+
+`GET /{tenant}/target/offers/templates/{id}`
+
+*Get offer template by id*
+
+Retrieves the contents of an offer template by providing it's id.
+
+### Parameters
+
+Parameter|In|Type|Required|Description
+---|---|---|---|---|
+id|path|integer|true|id
+
+
+
+### Responses
+
+Status|Meaning|Description
+---|---|---|
+200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|OK
+400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|Bad Request. Most probably the data provided in the request is invalid.
+401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|The user is not allowed to perform this operation.
+403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|Access to this resource is forbidden.
+404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|The referenced resource was not found.
+
+> Example responses
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+# /profileattributes/mbox
+
+Mbox Profile Attribute Controller
+
+## profileattributes.mbox.getMboxProfileAttributesUsingGET
+
+> Code samples
+
+````shell
+# You can also use wget
+curl -X get https://mc.adobe.io/{tenant}/target/profileattributes/mbox
+````
+
+````http
+GET https://mc.adobe.io/{tenant}/target/profileattributes/mbox HTTP/1.1
+Host: api9.testandtarget.omniture.com
+Content-Type: application/json
+Accept: application/vnd.adobe.target.v1+json
+````
+
+````html
+<script>
+  $.ajax({
+    url: 'https://mc.adobe.io/{tenant}/target/profileattributes/mbox',
+    method: 'get',
+    success: function(data) {
+      console.log(JSON.stringify(data));
+    }
+  })
+</script>
+````
+
+````javascript
+const request = require('node-fetch');
+fetch('https://mc.adobe.io/{tenant}/target/profileattributes/mbox', { method: 'GET'})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+````
+
+````ruby
+require 'rest-client'
+require 'json'
+
+result = RestClient.get 'https://mc.adobe.io/{tenant}/target/profileattributes/mbox', params:
+  {
+    # TODO
+  }
+
+p JSON.parse(result)
+````
+
+````python
+import requests
+
+r = requests.get('https://mc.adobe.io/{tenant}/target/profileattributes/mbox', params={
+  # TODO
+})
+
+print r.json()
+````
+
+````java
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/profileattributes/mbox");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -4850,12 +5039,12 @@ Ims User Controller
 
 ````shell
 # You can also use wget
-curl -X post ://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims
+curl -X post https://mc.adobe.io/{tenant}/target/users/ims
 ````
 
 ````http
-POST ://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims HTTP/1.1
-Host: api1.staging.testandtarget.omniture.com
+POST https://mc.adobe.io/{tenant}/target/users/ims HTTP/1.1
+Host: api9.testandtarget.omniture.com
 Content-Type: application/vnd.adobe.target.v1+json
 Accept: application/vnd.adobe.target.v1+json
 ````
@@ -4863,7 +5052,7 @@ Accept: application/vnd.adobe.target.v1+json
 ````html
 <script>
   $.ajax({
-    url: '://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims',
+    url: 'https://mc.adobe.io/{tenant}/target/users/ims',
     method: 'post',
     success: function(data) {
       console.log(JSON.stringify(data));
@@ -4874,7 +5063,7 @@ Accept: application/vnd.adobe.target.v1+json
 
 ````javascript
 const request = require('node-fetch');
-fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims', { method: 'POST'})
+fetch('https://mc.adobe.io/{tenant}/target/users/ims', { method: 'POST'})
 .then(function(res) {
     return res.json();
 }).then(function(body) {
@@ -4886,7 +5075,7 @@ fetch('://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims', {
 require 'rest-client'
 require 'json'
 
-result = RestClient.post '://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims', params:
+result = RestClient.post 'https://mc.adobe.io/{tenant}/target/users/ims', params:
   {
     # TODO
   }
@@ -4897,7 +5086,7 @@ p JSON.parse(result)
 ````python
 import requests
 
-r = requests.post('://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims', params={
+r = requests.post('https://mc.adobe.io/{tenant}/target/users/ims', params={
   # TODO
 })
 
@@ -4905,7 +5094,7 @@ print r.json()
 ````
 
 ````java
-URL obj = new URL("://api1.staging.testandtarget.omniture.com//{tenant}/target/users/ims");
+URL obj = new URL("https://mc.adobe.io/{tenant}/target/users/ims");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
