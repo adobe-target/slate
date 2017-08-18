@@ -6,29 +6,701 @@ search: true
 highlight_theme: Xcode
 ---
 
-# Introduction 
+# Introduction
 
 Welcome to the Adobe Target API. Adobe Target is a part of the Adobe Experience Cloud that helps you to optimize and personalize your customers' experience.
 
 You can use the Target REST APIs to list, create and modify Target Activities, Audiences and Offers, retreive reports, update profiles etc.
 
-# Before you begin
+
+# Server Side Delivery
+
+
+## Overview
+Adobe Target lets your application make mbox calls from any browser, mobile device, or even another server.  The Server Side delivery API is specifically designed to integrate Adobe Target with any server side platform that makes HTTP/s calls.  You can use the API to integrate your custom application with Target.  This is especially valuable for organizations that want to deliver targeting to a non-browser based, IoT device such as a connected TV, kiosk, or
+in-store digital screen.  This API implements existing mbox features in a RESTful manner.  This API does not process cookies or redirect calls.
+
+## Authentication
+
+There is no authentication for this API.
+
+There is no notion of a "user role" in the Server Side Delivery API because it represents a call to fetch content or report events to Target edge servers
+
+## Delivery Postman Collection
+
+Postman is a application that makes it easy to fire API calls. This Postman collection contains Server Side Delivery and Profile API calls. Just click on the 'Run in Postman' button to import the Target API collection.
+
+<aside class="notice">
+Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
+</aside>
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/94cb2f003ae62aef8136)
+
+
+## Input Parameters
+
+> Delivery API Sample Request #1. This is a request with just the mbox name in the POST body.
+
+````shell
+curl -X POST \
+  'https://adobetargetmobile.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=adobetargetmobile' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+  "mbox" : "l5-mobile-ab"
+}'
+
+````
+
+> Response for Sample Request #1
+
+````json
+{
+    "tntId": "111499796294071-449025.28_44",
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
+    "content": "Use 10OFF for $10 off for orders over $100",
+    "sessionId": "my-session-id"
+}
+````
+
+
+> Delivery API request # 2 with all possible inputs
+
+````shell
+curl -X POST \
+  'https://adobetargetmobile.tt.omtrdc.net/rest/v1/mbox/A210702C-402F-4458-9869-FCE64F318AE6?client=adobetargetmobile' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A' \
+  -d '{
+  "mbox" : "a1-mobile-ab",
+  "thirdPartyId" : "12345abcde",
+  "profileParameters" : {
+    "param1" : "value1",
+    "param2" : "value2",
+    "entity.id" : "entityId",
+    "entity.name" : "entityName"
+  },
+  "mboxParameters" : {
+    "screenHeight": 1057,
+    "screenWidth": 1920,
+    "browserWidth": 1040,
+    "browserHeight": 960,
+    "browserTimeOffset": 240,
+    "colorDepth": 24,
+    "mboxXDomain": "enabled",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
+    "mboxMCGVID": "91394045728588414913028121188926585416",
+    "mboxAAMB": "cIBAx_aQzFEHcPoEv0GwcQ",
+    "mboxMCGLH": 7,
+    "vst.alias.id" : "2342345364532",
+    "vst.alias.authState" : "1"
+ },
+  "requestLocation" : {
+    "pageURL" : "http://demo/demo/store/",
+    "referrerURL" : "http://demo/demo/store/",
+    "ipAddress" : "128.10.10.1",
+    "impressionId" : "15989",
+    "host" : "staging-1"
+  }
+}'
+
+````
+
+> Response for Delivery API request #2
+
+````json
+{
+    "thirdPartyId": "12345abcde",
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
+    "content": "Get 5% off using code 5OFF!",
+    "sessionId": "A210702C-402F-4458-9869-FCE64F318AE6"
+}
+
+````
+
+### POST Request
+
+The Server Side Delivery API only supports POST requests.  Here is a sample POST call performed using the API.
+
+`https://your-client-code.tt.omtrdc.net/rest/v1/mbox/my-session-123?client=your-client-code`
+
+In this request,
+
+<table>
+    <tbody>
+        <tr>
+            <td>my-session-123</td>
+            <td>
+                <p>This is the Session Id that should be generated and maintained by you. The Session Id can be any printable string except a space, ?, or /. It should be between 1 and 128 characters in length.</p>
+                <p>For a particular session, its value must stay the same across multiple requests.</p>
+                <p>Routing to a particular node in the edge cluster is done using Session Id.</p>
+                <p>The session is active for 30 minutes on the server side. Therefore, you should n't use a different Session Id for a particular tntId/thirdPartyId within 30 minutes of the last request made with the tntId/thirdPartyId. Otherwise, changes to the profile could be inconsistent and unpredictable.</p>
+                <p>Using the same Session ID with multiple tntIds/thirdPartyIds may cause unpredictable changes to the profiles identified by the tntId/thirdPartyIDs.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>your-client-code</td>
+            <td>Your account's client code. This parameter is mandatory for each request.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+
+
+The list of parameters that you can supply in the body of the request.
+
+### Request Parameters
+
+<table class="delivery-api">
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Description</th>
+            <th>Default Value</th>
+            <th>Validation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="odd">
+            <td class="first">mbox</td>
+            <td>The mbox name.</td>
+            <td>None, it cannot be empty.</td>
+            <td class="last">
+                <p>Same validation as for all mbox calls.</p>
+                <p>1 &lt; Length &lt; 250</p>
+                <p>Cannot contains any of the following characters: ', ", %22, %27, &lt;, &gt;, %3C, %3E</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="first">clicked</td>
+            <td>
+                <p>Equivalent of using the "-clicked" suffix in mbox names for mbox calls.</p>
+                <p><i>Click mboxes only work for campaigns with metrics that have a specific mbox selected, for example "click from homePageHer" and will not work if "click from display mboxes" is selected.</i>
+                </p>
+                <p>&nbsp;</p>
+            </td>
+            <td>False</td>
+            <td class="last">Can be empty or true/false</td>
+        </tr>
+        <tr class="odd">
+            <td class="first">tntId</td>
+            <td>New name for pcId/mboxPC.</td>
+            <td>
+                <p>Empty.</p>
+                <p>If no "thirdPartyId" was provided, a new tntId is generated and returned as part of the response. Otherwise remains empty.</p>
+            </td>
+            <td class="last">
+                <p>1 &lt; Length &lt; 128</p>
+                <p>Cannot contain more than a single "." (dot).</p>
+                <p>The only dot allowed is for profile location suffix.</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="first">thirdPartyId</td>
+            <td>Client-provided visitor ID.</td>
+            <td>Empty</td>
+            <td class="last">1 &lt; Length &lt; 128</td>
+        </tr>
+        <tr class="odd">
+            <td class="first">marketingCloudVisitorId</td>
+            <td>Marketing Cloud Visitor ID</td>
+            <td>Empty</td>
+            <td class="last">1 &lt; Length &lt; 128</td>
+        </tr>
+        <tr>
+            <td class="first">order > total</td>
+            <td>Order amount associated with the order</td>
+            <td>Empty</td>
+            <td class="last">If not empty, should be a valid decimal</td>
+        </tr>
+        <tr class="odd">
+            <td class="first">order.id</td>
+            <td>Order reference ID</td>
+            <td>Empty</td>
+            <td class="last">If not empty, Length &lt; 250</td>
+        </tr>
+        <tr>
+            <td class="first">order > purchasedProductIds</td>
+            <td>Order referenced product IDs</td>
+            <td>Empty</td>
+            <td class="last">
+                <p>Each ID cannot exceed 50 char length.</p>
+                <p>Total length of comma-delimited IDs as string cannot exceed 250 chars</p>
+            </td>
+        </tr>
+        <tr class="odd">
+            <td class="first">profileParameters</td>
+            <td>
+                <p>Parameters that should be set in the profile.</p>
+                <p>The end values in the profile are saved as profile.param=value.</p>
+            </td>
+            <td>Empty</td>
+            <td class="last">Cannot contain more than 50 parameters</td>
+        </tr>
+        <tr>
+            <td class="first">profileParameters.[name]</td>
+            <td>Profile parameter name</td>
+            <td>Empty</td>
+            <td class="last">
+                <p>Length &lt; 128</p>
+                <p>Should not start with "profile." prefix.</p>
+            </td>
+        </tr>
+        <tr class="odd">
+            <td class="first">profileParameters.[value]</td>
+            <td>Profile parameter value</td>
+            <td>Empty</td>
+            <td class="last">Length &lt; 256</td>
+        </tr>
+        <tr>
+            <td class="first">mboxParameters</td>
+            <td>Any mbox parameters that may need to be provided. eg. screenWidth.</td>
+            <td>Empty</td>
+            <td class="last">
+                <p>Cannot contain more than 50 parameters.</p>
+                <p>Cannot contain order-related parameters that should be set in "order".</p>
+                <p>Cannot contain parameters with "profile." prefix. Those should be set in "profileParameters".</p>
+            </td>
+        </tr>
+        <tr class="odd">
+            <td class="first">mboxParameters.[name]</td>
+            <td>Mbox parameter name</td>
+            <td>Empty</td>
+            <td class="last">Length &lt; 128</td>
+        </tr>
+        <tr>
+            <td class="first">mboxParameters.[value]</td>
+            <td>Mbox parameter value</td>
+            <td>Empty</td>
+            <td class="last">Length &lt; 256</td>
+        </tr>
+        <tr class="odd">
+            <td class="first">requestLocation > pageURL</td>
+            <td>Equivalent to mboxURL mbox parameter</td>
+            <td>Empty</td>
+            <td class="last">
+                <p>Valid URL.</p>
+                <p>Length &lt; 3072</p>
+            </td>
+        </tr>
+        <tr>
+            <td class="first">requestLocation > referrerURL</td>
+            <td>Equivalent to mboxReferrer mbox parameter</td>
+            <td>Empty</td>
+            <td class="last">
+                <p>Valid URL</p>
+                <p>Length &lt; 3072</p>
+            </td>
+        </tr>
+        <tr class="odd">
+            <td class="first">requestLocation > ipAddress</td>
+            <td>Override the IP address of the client server</td>
+            <td>IP address or the server making the call</td>
+            <td class="last">Valid IP address</td>
+        </tr>
+        <tr>
+            <td class="first">requestLocation > impressionId</td>
+            <td>
+                <p>Equivalent of pageId.</p>
+                <p>A unique one is generated with each request if no value was specified.</p>
+            </td>
+            <td>Empty</td>
+            <td class="last">Length &lt; 128</td>
+        </tr>
+        <tr class="odd">
+            <td class="first">requestLocation > host</td>
+            <td>Equivalent of mboxHost</td>
+            <td>"unknown"</td>
+            <td class="last">Length &lt; 250</td>
+        </tr>
+        <tr>
+            <td class="first">mboxTrace</td>
+            <td>Enabled detailed tracing of the call</td>
+            <td>False</td>
+            <td class="last">Empty/True/False
+                <a name="section_E846261F8F28465C91A7217AD11A2EB9"></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+### Response Parameteres
+
+<table>
+    <thead>
+        <tr class="odd">
+            <th>Field Path</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="first">sessionId</td>
+            <td class="last">Session ID that was provided for this call.</td>
+        </tr>
+        <tr class="odd">
+            <td class="first">tntId</td>
+            <td class="last">Provided or generated tntId.</td>
+        </tr>
+        <tr>
+            <td class="first">thirdPartyId</td>
+            <td class="last">thirdPartyId if one was provided.</td>
+        </tr>
+        <tr class="odd">
+            <td class="first">mboxTrace</td>
+            <td class="last">Serialized mbox trace details.
+                <a name="section_D56E60F7655246D295EFD0FBE1E9B490"></a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+## Identifying Visitors
+
+> Delivery Calls with differnt identifiers - Using a thirdPartyId
+
+````
+{
+   "mbox" : "homePageHero",
+   "thirdPartyId" : "customId-123"
+}
+````
+
+> Response when a thirdPartyId is provided
+
+````
+{
+   "content" : "content",
+   "sessionId" : "999888",
+   "thirdPartyId" : "customId-123"
+}
+
+````
+
+> Request using the Marketing Cloud Visitor ID
+
+````
+{
+   "mbox" : "homePageHero",
+   "marketingCloudVisitorId" : "23131312312312123123"
+}
+````
+
+> Request using all three identifiers
+
+````
+{
+   "mbox" : "homePageHero",
+   "tntId" : "1234343422.17_01",
+   "marketingCloudVisitorId" : "23131312312312123123"
+}
+````
+
+There are a multiple ways in which a Visitor can be identified in Target. Target uses three identifiers
+**tntId** – This is the primary identifier for an individual user. You can supply this id or Target will auto-generate it if the request doesn’t contain one. Also referred as PCID or mboxPCID.
+
+**thirdPartyId** – This is your company’s internal identifier that you can send with every call. This could be your frequent flier number, loyalty id, crm id, guid etc. Also referred as mbox3rdPartyID.
+
+**marketingCloudVisitorId** – This identifier is used to merge and share data between different Adobe solutions. The marketingCloudVisitorId  is required for features like Marketing cloud profiles and audiences, Analytics for Target, Device graph etc
+**
+
+Learn how [profiles are merged and synced](https://marketing.adobe.com/resources/help/en_US/target/target/c_3rd-party_id.html) in real time using the different identifiers.
+
+### Using the tntId
+
+A tntId is generated if it isn't provided in the request. See the Sample Request #1 on the right.
+
+Note that a new tntId is generated and provided in the response.  Subsequent requests need to include this TnT ID.
+Using Custom IDs
+If you want to use Custom IDs to identify visitors (profiles), use thirdpartyids only. You must provide these IDs with every call.
+https://mboxedge/rest/v1/mbox/999888?client=demo
+
+
+### Combining IDs
+
+You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in the same request. A typical scenario would be to provide tntId along with another ID.
+
+
+<aside class = "warning">
+<b>Returning Visitors</b> : Calls for returning visitors need to include the identifier that was used initially, tntId or thirdPartyId.
+</aside>
+
+<aside class = "notice">
+<b>SessionID</b> : The sessionId is another identifier that goes hand in hand with visitor identity. Refer to the <a href="#input-parameters">input parameters</a> section to learn more about the sessionId
+</aside>
+
+#Profiles
+
+Adobe Target creates and maintains a profile for every individual user. This profile is stored on the Target edge cluster and is updated in real time after every visit.
+
+## Structure of a Target Profile
+
+A Target Profile consists of these following objects
+
+* clientcode	- The Target client code to which the profile is associated
+* visitorId	- The identifier for the profile. This can be a tntid or thirdpartyid or marketingcloudvisitorid
+* modifiedAt	- The timestamp of when the profile was last updated.
+* profileAttributes	- List of all the profile attributes stored as key-value pairs on that the individual profile
+
+## Fetching a profile
+
+A Target Profile can be fetched in two ways
+
+### Using a tnt id
+
+Target automatically assigns a tntid for every request.
+
+The request format to fetch a profile using a tntid
+
+`https://yourclientcode.tt.omtrdrc.com/rest/v1/profiles/your-tnt-id?client=yourclientcode`
+
+Replace "yourclientcode" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
+
+`http://adobetargetmobile.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=adobetargetmobile`
+
+### Using a thirdPartyId
+
+Target profiles can be augmented with your own identifier (eg: CRM id, uuid, membership number etc). See the profile update section to learn how you can attach a thirdPartyId to your profile.
+
+The request format to fetch a profile using a thirdPartyId
+
+`https://yourclientcode.tt.omtrdrc.com/rest/v1/profiles/thirdPartyId/your-thirdpartyid?client=yourclientcode`
+
+Replace "yourclientcode" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
+
+`http://adobetargetmobile.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=adobetargetmobile`
+
+When this call is made, Target attempts to locate the profile first in the cluster noted in the edge request, or wherever the profile is located and return the content. The profile contents are returned in JSON format.
+
+### Authentication
+
+This API has no authentication.
+
+### Metering
+
+These calls do not count towards your mbox calls.
+
+### Error Handling
+
+In the case of a call to /thirdPartyId with an invalid or an expired thirdPartyId specified:
+
+`{"status" : 404, "message" : "No profile found for client <client_code> with third party id=<third_party_id>"}`
+
+If the profile can not be located or has expired:
+
+`{"status" : 404, "message" : "No profile found for client <client_code> with mboxPC=<mbox_pc>"}`
+
+## Updating Profiles
+
+A user profile contains demographic and behavioral information of a web page visitor, such as age, gender, products purchased, last time of visit, and so on that Target uses to personalize the content it serves to the visitor.
+
+The profile information for each visitor is either stored in cookies or in third-party apps.
+
+If your web page implements the Target code, the profile information from the cookies is passed to Target using profile parameters. Target identifies each visitor uniquely through a pcID that it generates the visitor’s cookies. However, you can pass profile parameters from an external app through mbox calls using mbox3rdPartyIds.
+
+Use the profile APIs when you have profile data about your visitors to send to Target that you either can't or don't want to send as part of your page-based integration with Target. This might be data from a CRM or POS that isn't available on the page, or data of a more sensitive nature that does not make sense to pass on the page.
+
+There are two ways to update profiles via API:
+
+* Single profile API
+* Bulk profile update via batch
+
+### Single Profile Update
+
+Specify the profile parameters in the format profile.paramName=value.
+There is a limit of one million profile updates in a 24-hour period.
+
+To update the profile for a pcId, use :
+
+`https://CLIENT.tt.omtrdc.net/m2/client/profile/update?mboxPC=1368007744041-575948.01_00&profile.attr=0&profile.attr2=1...`
+
+To update the profile for an mbox3rdPartyId, use:
+
+`shell
+http://CLIENT.tt.omtrdc.net/m2/client/profile/update?mbox3rdPartyId=123456&profile.attr=0&profile.attr2=1...`
+
+The Single Profile Update API is for updates only. If nothing is found, a profile is not created.
+
+**Notes**
+
+* Parameters and values must be URL-encoded using UTF-8.
+* Parameter format is profile.paramName.
+* Not all parameter values need to exist for all pcIds/mbox3rdPartyId.
+* Parameters and values are case sensitive.
+* Both GET and POST are supported.
+* The current size limitations for limit is 8KB for GET and 60KB for POST.
+* The calls to the profile update API do not count toward your mbox charges.
+
+**Response**
+
+A sample response for the above requests looks like this.
+`trueRequest successfully submitted`
+
+This response indicates the response has been submitted and will be processed soon. In general, lag time is less than a minute.
+
+### Bulk Profile Update
+
+The Bulk Profile Update API allows you to update user profiles for multiple visitors to a website in bulk using a batch file.
+
+Using Bulk Profile Update API, you can conveniently send detailed visitor profile data in the form of profile parameters for a bunch of users to Target from any external source, including CRM or POS, which isn't usually available on a web page.
+
+<table>
+    <tbody>
+        <tr>
+            <th>Version</th>
+            <th>URL Example</th>
+            <th>Features</th>
+        </tr>
+        <tr>
+            <td>V1</td>
+            <td><em>http://CLIENTCODE.tt.omtrdc.net/m2/ CLIENTCODE/profile/batchUpdate</em>
+            </td>
+            <td>Support for bulk profile update only</td>
+        </tr>
+        <tr>
+            <td>V2</td>
+            <td><em> http://CLIENTCODE.tt.omtrdc.net/m2/ CLIENTCODE/v2/profile/batchUpdate</em>
+            </td>
+            <td>
+                <ul>
+                    <li>Create profile if not found</li>
+                    <li>Per row status update</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+version 2 (v2) of the Bulk Profile Update API is the current version. However, Target still supports version 1 (v1).
+
+### Authentication
+
+The Bulk Update API call requires a valid access token to be passed in the header of the request.
+
+The access token can be obtained in the following way:
+
+* Using the Target Classic UI, go to Configuration > Edit.
+* Scroll to the bottom of the page.
+* Under Profile API Settings, switch to ‘Enable’ Require Authorization.
+* Click Generate Authentication Token.
+* Copy the token and include it in the request in the header of the
+* request in the format: “Authorization” : “Bearer ”
+
+Optionally, use the following API to generate the token:
+
+`https://admin10.testandtarget.omniture.com/admin/rest/v1/authentication/token?client=clientname&scope=profile_api&email=approver@client.com&password=*****`
+
+Alternatively, use the Basic Authorization API as shown in the following curl example below. Basic Authorization header is a base-64 encoded string with the following structure email:password 'https://admin10.testandtarget.omniture.com/admin/rest/v1/authentication/token?client=clientname&scope=profile_api' -H 'Authorization: Basic bmluYWlyK3N1bW1pdEBhZG9iZXRlc3QuY29tOnN1bW1pdDEyMw=='.
+Here is the sample response:
+
+`{ "access_token": "b106da37-301d-4cdd-b25f-59ab4c97b5a0", "scope": "profile_api", "expires_in": 21599, "token_type": "bearer” }`
+
+### Batch File
+
+
+To update profile data in bulk, create a batch file. The batch file is a text file with values separated by commas similar to the following sample file.
+
+batch=pcId, param1, param2, param3, param4
+123, value1
+124, value1,,, value4
+125,, value2
+126, value1, value2, value3, value4
+
+You reference this file in the POST call to Target servers to process the file. When creating the batch file, bear in mind the following:
+
+
+* The first row of the file must specify column headers.
+* The first header should either be a pcId or thirdPartyId. The Marketing Cloud visitor ID is not supported. pcId is a Target-generated visitorID. thirdPartyId is an ID specified by the client application, which is passed to Target through an mbox call as mbox3rdPartyId. It must be referred to here as thirdPartyId.
+* Parameters and values you specify in the batch file must be URL-encoded using UTF-8 for security reasons. They can be forwarded to other edge nodes for processing through HTTP requests.
+* The parameters must be in the format paramName only. They are displayed in Target as profile.paramName.
+* If you are using Bulk Profile Update API v2, you need not specify all parameter values for each pcId. Profiles are created for any pcId or mbox3rdPartyId that is not found in Target. If you are using v1, profiles are not created for missing pcIds or mbox3rdPartyIds.
+* The size of the batch file must be less than 50MB. In addition, the total number of rows should not exceed 500,000. This limit ensures that servers don't get flooded with too many requests.
+* You can send multiple files. However, the sum total of the rows of all the files that you send in a day should not exceed one million for each client.
+* There is no limit on number of attributes you upload. However, the overall size of a profile including system data should not exceed 2000KB. Adobe recommends you use less than 1000KB of storage for profile attributes.
+* Parameters and values are case sensitive.
+
+### HTTP Post Request
+
+Make an HTTP POST request to Target edge servers to process the file. Here is a sample HTTP POST request for the file batch.txt using the curl command:
+
+`curl -X POST --data-binary @BATCH.TXT http://CLIENTCODE.tt.omtrdc.net/m2/ CLIENTCODE/v2/profile/batchUpdate`
+
+Where:
+
+BATCH.TXT is the filename.
+CLIENTCODE is the Target client code.
+
+If you don't know your client code, in the Target UI click Setup > Implementation > Edit Mbox.js Settings. The client code is shown in the Client field.
+
+
+**Inspect the response.**
+
+v2 returns a profile-by-profile
+status and v1 returns only the overall status. The response includes a
+link to a different URL that has the profile-by-profile success message.
+
+**Example Response:**
+
+<response> <success>true</success> <batchStatus>http://mboxedge19.tt.omtrdc.net/m2/demo/v2/profile/batchStatus?batchId=demo-1845664501&m2Node=00</batchStatus> <message>Batch submitted for processing</message> </response>
+
+In case of an error, the response will contain success=false and a detailed message for the error.
+
+A successful response will look like the following:
+
+<response>  <batchId>demo-1845664501</batchId>  <profile>   <id>1436187396849-250353.03_03</id>   <status>success</status>  </profile>  <profile>   <id>2403081156529-351655.03_03</id>   <status>success</status>  </profile>  <profile>   <id>2403081156529-351656.03_03</id>   <status>success</status>  </profile>  <profile>   <id>1436187396849-250351.01_00</id>   <status>success</status>  </profile> </response>
+Expected values for the status fields are:
+
+* **success**: The profile was updated. If the profile was not found, one was created with the values from the batch.
+* **error**: The profile was not updated or created due to a failure, exception, or message loss.
+* **pending**: The profile has not been updated or created yet.
+
+
+# Admin APIs
+
+The Admin APIs will allow you to CRUD (Create, Read, Update and Delete) [Activities](#activities), [Audiences](#audiences) and [Offers](#offers).
+
+
+## Before you begin
 
 In all the code examples, you must replace the {tenant} variable with your tenant value. You must replace <ACCESS_TOKEN> with your personal API key.
- 
-You will need an account on Adobe I/O to get the access token and the API key. See the Authentication section for more information.
- 
-# Postman Collection
 
-Postman is a application that makes it easy to fire API calls. We have created a Postman collection with all the common API calls. Just click on the 'Run in Postman' button to import the Target API collection.
+
+## Adobe I/O Console
+
+The Adobe I/O console (https://console.adobe.io) is where you can configure your API integration and obtain your API keys and access token.
+
+Please refer to the [authentication section](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration) from the Adobe campaign API to learn how to configure Adobe I/O
+
+<aside class="notice">
+All enterprise APIs that can be setup in the Adobe I/O console use the same configuration.
+</aside>
+
+<aside class="notice">
+You have to be a marketing cloud admin to get access to the Adobe I/O console.
+</aside>
+
+
+## Admin Postman Collection
+
+Postman is a application that makes it easy to fire API calls. This Postman collection contains all the Admin API calls in the same order as the docs. Just click on the 'Run in Postman' button to import the Target API collection.
+
+This collection contains all APIs that require authentication using Adobe I/O
+- Activities
+- Audiences
+- Offers
+- Reports
+- Mboxes and Environments
 
 <aside class="notice">
 Don't forget to replace the {{tenant}}, {{access_token}} and {{api_key}} values with your own in the API calls.
 </aside>
 
+
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/8df29390f5e380f44a7c)
 
-# Response Codes
+## Response Codes
 
 Here are the common response codes for the Target Admin APIs
 
@@ -43,7 +715,7 @@ Status|Meaning|Description
 
 # Activities
 
-An activity enables you to test, target or personalize content for your users. An activity can be one of the following types 
+An activity enables you to test, target or personalize content for your users. An activity can be one of the following types
 
 * AB Test
 * Experience Targeting
@@ -57,7 +729,7 @@ An activity enables you to test, target or personalize content for your users. A
 
 ````shell
 
-curl -X GET 
+curl -X GET
 https://mc.adobe.io/adobetargetmobile/target/activities/ \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
@@ -129,25 +801,25 @@ sortBy | False | Defines the sorting criteria on the returned items. You can sor
 
 ### Some common Examples
 
-GET list of all activities  
+GET list of all activities
 `https://mc.adobe.io/{tenant}/target/activities/`
 
-GET activity list with limit  
+GET activity list with limit
 `https://mc.adobe.io/{tenant}/target/activities/?limit=1`
 
-GET activity list with limit and offset  
+GET activity list with limit and offset
 `https://mc.adobe.io/{tenant}/target/activities/?limit=2&offset=2`
 
-GET activity list filtered by multiple values  
+GET activity list filtered by multiple values
 `https://mc.adobe.io/{tenant}/target/activities/?id=3&id=4&name=ab`
- 
-GET activity list filtered by negative values  
+
+GET activity list filtered by negative values
 `https://mc.adobe.io/{tenant}/target/activities/?priority=!4`
 
-GET activity list sorted by multiple criteria  
+GET activity list sorted by multiple criteria
 `https://mc.adobe.io/{tenant}/target/activities/?sortBy=name&sortBy=id`
 
-GET activity list filtered by a date range  
+GET activity list filtered by a date range
 `https://mc.adobe.io/{tenant}/target/activities/?startsAt=1800-09-01T02:04:00.000-07:00/2114-11-30T14:10:00.000-07:00`
 
 ## Get AB Activity by ID
@@ -155,7 +827,7 @@ GET activity list filtered by a date range
 > Sample Request for Get AB Activity by ID
 
 ````shell
-curl -X GET 
+curl -X GET
 https://mc.adobe.io/adobetargetmobile/target/activities/ab/168824 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
@@ -423,7 +1095,7 @@ curl -X POST \
 
 ````
 
-> Sample Response for Create AB Activity 
+> Sample Response for Create AB Activity
 
 
 ````
@@ -509,7 +1181,7 @@ curl -X POST \
 Creates a new AB activity with the specified contents and returns the created activity.
 
 <aside class="warning">
-Activities created using the API can only be edited using the API. You can't edit it in the UI. 
+Activities created using the API can only be edited using the API. You can't edit it in the UI.
 </aside>
 
 ### Parameters
@@ -1030,7 +1702,7 @@ Refer "Create AB Activity" for the available inputs, limitations and the descrip
 > Sample Request for Get XT Activity by ID
 
 ````shell
-curl -X GET 
+curl -X GET
 https://mc.adobe.io/adobetargetmobile/target/activities/xt/168824 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
@@ -1444,7 +2116,7 @@ Refer "Create AB Activity" for the available inputs, limitations and the descrip
 </aside>
 
 <aside class="warning">
-Activities created using the API can only be edited using the API. You can't edit it in the UI. 
+Activities created using the API can only be edited using the API. You can't edit it in the UI.
 </aside>
 
 ## Update XT Activity
@@ -1460,7 +2132,7 @@ To Update an XT Activity use the same input as described in "Create XT Activity"
 
 ## Update Activity Name
 
-> Sample Request for Update Activity Name (Rename Activity) 
+> Sample Request for Update Activity Name (Rename Activity)
 
 ````shell
 
@@ -1499,7 +2171,7 @@ You can also use the specific endpoints <b>/activities/ab/{id}/name</b> and /<b>
 ## Update Activity State
 
 
-> Sample Request for Update Activity State 
+> Sample Request for Update Activity State
 
 ````shell
 
@@ -1527,8 +2199,8 @@ curl -X PUT \
 ````
 
 
-Update state for an activity that is referenced by the provided id. Valid values are: 
-* approved 
+Update state for an activity that is referenced by the provided id. Valid values are:
+* approved
 * deactivated
 * saved
 
@@ -1541,13 +2213,13 @@ You can also use the specific endpoints <b>/activities/ab/{id}/state</b> and <b>
 
 
 <aside class="warning">
-<b>Known Issue</b> : The Target UI has 5 states and the API only provides 3 out of the 5. Also, they use different terminologoes. Approved = Live, Deactivated = Inactive, Saved = Draft.  
+<b>Known Issue</b> : The Target UI has 5 states and the API only provides 3 out of the 5. Also, they use different terminologoes. Approved = Live, Deactivated = Inactive, Saved = Draft.
 </aside>
 
 
 ## Update Activity Priority
 
-> Sample Request for Update Activity Priotity 
+> Sample Request for Update Activity Priotity
 
 ````shell
 
@@ -1563,7 +2235,7 @@ curl -X PUT \
 
 ````
 
-> Sample Response for Update Activity Priotity 
+> Sample Response for Update Activity Priotity
 
 ````
 {
@@ -1574,7 +2246,7 @@ curl -X PUT \
 
 ````
 
-Change priority for the AB activity that is referenced by the supplied id. Allowed values for priority are 0-999. If you are using low, medium and high in the Target UI, those correspond to 0,5 and 10 respectively. You need to turn granular priority on in the settings page inorder to use the 0-999 scale. 
+Change priority for the AB activity that is referenced by the supplied id. Allowed values for priority are 0-999. If you are using low, medium and high in the Target UI, those correspond to 0,5 and 10 respectively. You need to turn granular priority on in the settings page inorder to use the 0-999 scale.
 
 `PUT: /{tenant}/target/activities/{id}/priority`
 
@@ -1587,7 +2259,7 @@ You can also use the specific endpoints <b>/activities/ab/{id}/priority</b> and 
 
 ## Update Activity Schedule
 
-> Sample Request for Update Activity Schedule 
+> Sample Request for Update Activity Schedule
 
 ````shell
 
@@ -1604,7 +2276,7 @@ curl -X PUT \
 
 ````
 
-> Sample Response for Update Activity Schedule 
+> Sample Response for Update Activity Schedule
 
 ````
 {
@@ -1650,7 +2322,7 @@ curl -X GET \
 ````
 
 > Sample Response for Get Activity Changelog
- 
+
 ````
 
 {
@@ -1735,14 +2407,13 @@ curl -X GET \
 
 `GET /{tenant}/target/activities/{id}/changelog`
 
-Returns the changelog for a given activity id. 
-
+Returns the changelog for a given activity id.
 
 
 
 # Offers
 
-API methods to Create, Read, Update and Delete Offers. Offers are also referred to as Content. 
+API methods to Create, Read, Update and Delete Offers. Offers are also referred to as Content.
 
 
 ## List Offers
@@ -1854,7 +2525,7 @@ Retrieve the list of previously-created content offers. The parameters passed th
 
             </td>
             <td>
-                <p><span class="text-code"> Returns the first ten offers 
+                <p><span class="text-code"> Returns the first ten offers
             <code>/target/offers/?limit=10</code></span>
                 </p>
             </td>
@@ -1866,9 +2537,9 @@ Retrieve the list of previously-created content offers. The parameters passed th
                 <p>Defines the first offer to return from the list of total offers. Used in conjunction with limit, you can provide pagination in your application for users to browse through a large set of offers.</p>
             </td>
             <td>
-                <p><span>Returns the first ten offers<br> 
-            <code>/target/offers/?limit=10&amp;offset=0 </code><br><br> 
-            Returns offers between 11-20<br> 
+                <p><span>Returns the first ten offers<br>
+            <code>/target/offers/?limit=10&amp;offset=0 </code><br><br>
+            Returns offers between 11-20<br>
 			  <code>/target/offers/?limit=10&amp;offset=10</code> </span>
                 </p>
             </td>
@@ -1930,7 +2601,7 @@ curl -X GET \
 ### `GET /{tenant}/target/offers/content/{id}`
 
 
-Retrieves the contents of an offer given an offer id. 
+Retrieves the contents of an offer given an offer id.
 
 ## Create Offer
 
@@ -1952,7 +2623,7 @@ curl -X POST \
 ````
 
 > Sample Response for Create Offer
- 
+
 ````
 
 {
@@ -2063,7 +2734,7 @@ curl -X GET \
 ````
 
 > Sample Response for List Audiences
- 
+
 ````
 
 {
@@ -2170,7 +2841,7 @@ You can use the URL parameters to define pagination properties and sorting order
 
             </td>
             <td>
-                <p><span> Returns the first ten audiences 
+                <p><span> Returns the first ten audiences
             <code>/target/audiences/?limit=10</code></span>
                 </p>
             </td>
@@ -2182,9 +2853,9 @@ You can use the URL parameters to define pagination properties and sorting order
                 <p>Defines the first audience to return from the list of total offers. Used in conjunction with limit, you can provide pagination in your application for users to browse through a large set of offers.</p>
             </td>
             <td>
-                <p><span>Returns the first ten audiences<br> 
-            <code>/target/audiences/?limit=10&amp;offset=0 </code><br><br> 
-            Returns audiences between 11-20<br> 
+                <p><span>Returns the first ten audiences<br>
+            <code>/target/audiences/?limit=10&amp;offset=0 </code><br><br>
+            Returns audiences between 11-20<br>
 			  <code>/target/audiences/?limit=10&amp;offset=10</code> </span>
                 </p>
             </td>
@@ -2217,25 +2888,25 @@ You can use the URL parameters to define pagination properties and sorting order
 
 ### Some Additonal Examples
 
-GET list of all audiences  
+GET list of all audiences
 `https://mc.adobe.io/{tenant}/target/audiences/`
 
-GET audiences list with limit  
+GET audiences list with limit
 `https://mc.adobe.io/{tenant}/target/audiences/?limit=1`
 
-GET audiences list with limit and offset  
+GET audiences list with limit and offset
 `https://mc.adobe.io/{tenant}/target/audiences/?limit=2&offset=2`
 
-GET audiences list filtered by multiple values  
+GET audiences list filtered by multiple values
 `https://mc.adobe.io/{tenant}/target/audiences/?id=3&id=4&name=ab`
- 
-GET audiences list filtered by negative values  
+
+GET audiences list filtered by negative values
 `https://mc.adobe.io/{tenant}/target/audiences/?priority=!4`
 
-GET audiences list sorted by multiple criteria  
+GET audiences list sorted by multiple criteria
 `https://mc.adobe.io/{tenant}/target/audiences/?sortBy=name&sortBy=id`
 
-GET audiences list filtered by a date range  
+GET audiences list filtered by a date range
 `https://mc.adobe.io/{tenant}/target/audiences/?startsAt=1800-09-01T02:04:00.000-07:00/2114-11-30T14:10:00.000-07:00`
 
 ## Get Audience by ID
@@ -2280,7 +2951,7 @@ curl -X GET \
     "modifiedAt": "2017-05-18T19:44:34Z"
 }
 
-```` 
+````
 
 `GET: /{tenant}/target/audiences/{id}`
 
@@ -2349,13 +3020,13 @@ curl -X POST \
     "modifiedAt": "2017-07-10T22:24:04Z"
 }
 
-```` 
+````
 
 
 `POST /{tenant}/target/audiences`
 
 <aside class="warning">
-Audiences created using the API can only be edited using the API. You can't edit it in the UI. You can use it in your activities though. 
+Audiences created using the API can only be edited using the API. You can't edit it in the UI. You can use it in your activities though.
 </aside>
 
 
@@ -2470,7 +3141,7 @@ curl -X PUT \
 }
 
 
-```` 
+````
 
 
 
@@ -2483,7 +3154,7 @@ Update an audience with the new rules specified by the request data.
 ## Delete Audience by ID
 
 > Sample Request for Delete Audience by ID
- 
+
 ````shell
 curl -X DELETE \
   https://mc.adobe.io/adobetargetmobile/target/audiences/1537214 \
@@ -2969,7 +3640,7 @@ The request format is similar to AB and XT performance report. Change /ab or /xt
 
 # Mboxes and Environments
 
-APIs to retrive mboxes, mbox paramaters, profile parmeters and environments. 
+APIs to retrive mboxes, mbox paramaters, profile parmeters and environments.
 
 ## List Mboxes
 
@@ -3026,7 +3697,7 @@ curl -X GET \
 ````
 
 <aside class="notice">
-The limit, offset and Sortby paramaters described in List Offers and List Audiences can be used for this API as well. 
+The limit, offset and Sortby paramaters described in List Offers and List Audiences can be used for this API as well.
 </aside>
 
 
@@ -3301,7 +3972,7 @@ curl -X GET \
 Retrieve the list of available profile attributes and mbox parameters of type profile
 
 <aside class="notice">
-Profile attributes and Profile Parameters mean the same thing. Both versions are used in the UI and the documentation. 
+Profile attributes and Profile Parameters mean the same thing. Both versions are used in the UI and the documentation.
 </aside>
 
 
@@ -3342,7 +4013,7 @@ curl -X GET \
     ]
 }
 
-```` 
+````
 
 
 ### `GET : /{tenant}/target/environments`
@@ -3359,7 +4030,7 @@ If you are looking to retrieve "Host Groups", use this API.
 
 # Batch Updates
 
-Execute multiple API calls as a single batch request. 
+Execute multiple API calls as a single batch request.
 
 
 ## Execute Calls in Batch
@@ -3412,7 +4083,7 @@ Execute multiple API calls as a single batch request.
 }
 
 
-```` 
+````
 
 
 

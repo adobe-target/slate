@@ -403,6 +403,26 @@ html, body {
     border-bottom: 2px solid $main-bg;
   }
 
+  table.delivery-api {
+    td:nth-child(1) {
+      width: 100px;
+    }
+    
+    td:nth-child(2) {
+      width: 10%;
+    }
+
+    td:nth-child(3) {
+      width: 40%;
+    }
+
+    td:nth-child(4) {
+      width: 40%;
+    }
+
+
+  }
+
   table {
     margin-bottom: 1em;
     overflow: auto;
@@ -420,10 +440,6 @@ html, body {
 
     td {
       padding: 10px;
-    }
-
-    td:nth-child(1) {
-      width: 15%;
     }
 
     td:nth-child(3) {
