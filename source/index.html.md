@@ -403,7 +403,7 @@ There are a multiple ways in which a Visitor can be identified in Target. Target
 * **tntId** – This is the primary identifier for an individual user. You can supply this id or Target will auto-generate it if the request doesn’t contain one. Also referred to as PCID or mboxPCID.
 
 * **thirdPartyId** – This is your company’s internal identifier that you can send with every call. This could be your frequent flier number, loyalty id, crm id, guid etc,. Also referred as mbox3rdPartyID.
- 
+
 * **marketingCloudVisitorId** – This identifier is used to merge and share data between different Adobe solutions. The marketingCloudVisitorId  is required for features like Marketing Cloud Profiles and Audiences, Analytics for Target, Device graph etc.
 
 Learn how [profiles are merged and synced](https://marketing.adobe.com/resources/help/en_US/target/target/c_3rd-party_id.html) in real time using the different identifiers.
