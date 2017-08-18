@@ -17,7 +17,7 @@ You can use the Target REST APIs to list, create and modify Target Activities, A
 
 
 ## Overview
-Adobe Target lets your application make mbox calls from any browser, mobile device, or even another server.  The Server Side delivery API is specifically designed to integrate Adobe Target with any server side platform that makes HTTP/s calls.  You can use the API to integrate your custom application with Target.  This is especially valuable for organizations that want to deliver targeting to a non-browser based, IoT device such as a connected TV, kiosk, or
+Adobe Target lets your application make mbox calls from any browser, mobile device, or even another server.  The Server Side delivery API is specifically designed to integrate Adobe Target with any server side platform that makes HTTP/s calls.  You can use the API to integrate your custom application with Target.  This is especially valuable for organizations that want to deliver targeting to a non-browser based IoT device, such as a connected TV, kiosk, or
 in-store digital screen.  This API implements existing mbox features in a RESTful manner.  This API does not process cookies or redirect calls.
 
 ## Authentication
@@ -399,12 +399,12 @@ The list of parameters that you can supply in the body of the request.
 ````
 
 There are a multiple ways in which a Visitor can be identified in Target. Target uses three identifiers
-**tntId** – This is the primary identifier for an individual user. You can supply this id or Target will auto-generate it if the request doesn’t contain one. Also referred as PCID or mboxPCID.
 
-**thirdPartyId** – This is your company’s internal identifier that you can send with every call. This could be your frequent flier number, loyalty id, crm id, guid etc. Also referred as mbox3rdPartyID.
+* **tntId** – This is the primary identifier for an individual user. You can supply this id or Target will auto-generate it if the request doesn’t contain one. Also referred to as PCID or mboxPCID.
 
-**marketingCloudVisitorId** – This identifier is used to merge and share data between different Adobe solutions. The marketingCloudVisitorId  is required for features like Marketing cloud profiles and audiences, Analytics for Target, Device graph etc
-**
+* **thirdPartyId** – This is your company’s internal identifier that you can send with every call. This could be your frequent flier number, loyalty id, crm id, guid etc,. Also referred as mbox3rdPartyID.
+ 
+* **marketingCloudVisitorId** – This identifier is used to merge and share data between different Adobe solutions. The marketingCloudVisitorId  is required for features like Marketing Cloud Profiles and Audiences, Analytics for Target, Device graph etc.
 
 Learn how [profiles are merged and synced](https://marketing.adobe.com/resources/help/en_US/target/target/c_3rd-party_id.html) in real time using the different identifiers.
 
@@ -413,9 +413,9 @@ Learn how [profiles are merged and synced](https://marketing.adobe.com/resources
 A tntId is generated if it isn't provided in the request. See the Sample Request #1 on the right.
 
 Note that a new tntId is generated and provided in the response.  Subsequent requests need to include this TnT ID.
-Using Custom IDs
-If you want to use Custom IDs to identify visitors (profiles), use thirdpartyids only. You must provide these IDs with every call.
-https://mboxedge/rest/v1/mbox/999888?client=demo
+
+### Using Custom IDs
+If you want to use Custom IDs to identify visitors (profiles), use the thirdPartyId. You must provide these IDs with every call.
 
 
 ### Combining IDs
@@ -424,11 +424,11 @@ You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in t
 
 
 <aside class = "warning">
-<b>Returning Visitors</b> : Calls for returning visitors need to include the identifier that was used initially, tntId or thirdPartyId.
+<b>Returning Visitors</b>: Calls for returning visitors need to include the identifier that was used initially, tntId or thirdPartyId.
 </aside>
 
 <aside class = "notice">
-<b>SessionID</b> : The sessionId is another identifier that goes hand in hand with visitor identity. Refer to the <a href="#input-parameters">input parameters</a> section to learn more about the sessionId
+<b>SessionID</b>: The sessionId is another identifier that goes hand in hand with visitor identity. Refer to the <a href="#input-parameters">input parameters</a> section to learn more about the sessionId
 </aside>
 
 #Profiles
@@ -662,23 +662,23 @@ Expected values for the status fields are:
 The Admin APIs will allow you to CRUD (Create, Read, Update and Delete) [Activities](#activities), [Audiences](#audiences) and [Offers](#offers).
 
 
-## Before you begin
+## Before you Begin
 
-In all the code examples, you must replace the {tenant} variable with your tenant value. You must replace <ACCESS_TOKEN> with your personal API key.
+In all the code examples, you must replace the `{tenant}` variable with your tenant value, `your-bearer-token` with the access token that you generate with your JWT and `your-api-key` with your API key from the Adobe I/O console.
 
 
 ## Adobe I/O Console
 
 The Adobe I/O console (https://console.adobe.io) is where you can configure your API integration and obtain your API keys and access token.
 
-Please refer to the [authentication section](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration) from the Adobe campaign API to learn how to configure Adobe I/O
+Please refer to the [authentication section](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration) from the Adobe campaign API to learn how to configure Adobe I/O.
 
 <aside class="notice">
 All enterprise APIs that can be setup in the Adobe I/O console use the same configuration.
 </aside>
 
 <aside class="notice">
-You have to be a marketing cloud admin to get access to the Adobe I/O console.
+You have to be a Experience Cloud Admin to get access to the Adobe I/O console.
 </aside>
 
 
@@ -687,11 +687,11 @@ You have to be a marketing cloud admin to get access to the Adobe I/O console.
 Postman is a application that makes it easy to fire API calls. This Postman collection contains all the Admin API calls in the same order as the docs. Just click on the 'Run in Postman' button to import the Target API collection.
 
 This collection contains all APIs that require authentication using Adobe I/O
-- Activities
-- Audiences
-- Offers
-- Reports
-- Mboxes and Environments
+* Activities
+* Audiences
+* Offers
+* Reports
+* Mboxes and Environments
 
 <aside class="notice">
 Don't forget to replace the {{tenant}}, {{access_token}} and {{api_key}} values with your own in the API calls.
