@@ -1,6 +1,9 @@
 ---
 title: Target API v1.0
-toc_footers: []
+toc_footers:
+    - <a href='https://console.adobe.io'>Adobe I/O Console</a>
+    - <a href='https://marketing.adobe.com/resources/help/en_US/target/'>Target Product Docs</a>
+    - <a href='http://developers.adobetarget.com'>Developer Portal Homepage</a>
 includes: []
 search: true
 highlight_theme: Xcode
@@ -3772,14 +3775,14 @@ curl -X GET \
             "id": "order REF ID#123",
             "total": 23.01
           },
- 
+
           ...
   ]
 }
 
 ````
 
-> Sample Response for AP Audit Reports. 
+> Sample Response for AP Audit Reports.
 
 ````json
 
