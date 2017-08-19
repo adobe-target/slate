@@ -39,7 +39,7 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 
 ## Input Parameters
 
-> Delivery API Sample Request #1. This is a request with just the mbox name in the POST body.
+> Delivery API Sample Request. This is a request with just the mbox name in the POST body.
 
 ````shell
 curl -X POST \
@@ -52,7 +52,7 @@ curl -X POST \
 
 ````
 
-> Response for Sample Request #1
+> Response for Sample Request
 
 ````json
 {
@@ -64,7 +64,7 @@ curl -X POST \
 ````
 
 
-> Delivery API request # 2 with all possible inputs
+> Delivery API request with all possible inputs
 
 ````shell
 curl -X POST \
@@ -107,7 +107,7 @@ curl -X POST \
 
 ````
 
-> Response for Delivery API request #2
+> Response for Delivery API request with all inputs
 
 ````json
 {
