@@ -437,6 +437,72 @@ Adobe Target creates and maintains a profile for every individual user. This pro
 
 ## Structure of a Target Profile
 
+> Sample Profile Structure
+
+````json
+{
+    "client": "adobetargetmobile",
+    "visitorId": "a1-mbox3rdPartyId",
+    "modifiedAt": "2017-08-18T17:53:39.003-04:00",
+    "profileAttributes": {
+        "insurance": {
+            "value": "false",
+            "modifiedAt": "2017-07-31T20:34:55.625-04:00"
+        },
+        "country": {
+            "value": "france",
+            "modifiedAt": "2017-07-31T14:26:30.879-04:00"
+        },
+        "checking": {
+            "value": "true",
+            "modifiedAt": "2017-07-31T20:34:55.625-04:00"
+        },
+        "playerName": {
+            "value": "bryant",
+            "modifiedAt": "2017-08-04T05:48:32.660-04:00"
+        },
+        "user.memberlevel": {
+            "value": "0.0",
+            "modifiedAt": "2017-08-09T18:18:04.661-04:00"
+        },
+        "mycategory": {
+            "value": "iphone1",
+            "modifiedAt": "2017-08-18T17:53:39.002-04:00"
+        },
+        "mbox3rdPartyId": {
+            "value": "a1-mbox3rdPartyId",
+            "modifiedAt": "2017-08-18T17:53:39.002-04:00"
+        },
+        "house": {
+            "value": "baratheon",
+            "modifiedAt": "2017-08-04T05:48:32.660-04:00"
+        },
+        "param1": {
+            "value": "value1",
+            "modifiedAt": "2017-08-09T18:18:04.659-04:00"
+        },
+        "param2": {
+            "value": "value2",
+            "modifiedAt": "2017-08-09T18:18:04.659-04:00"
+        },
+        "firstSessionStart": {
+            "value": "1500648715286",
+            "modifiedAt": "2017-07-21T10:51:55.286-04:00"
+        },
+        "entity.name": {
+            "value": "entityName",
+            "modifiedAt": "2017-08-09T18:18:04.659-04:00"
+        },
+        "entity.id": {
+            "value": "entityId",
+            "modifiedAt": "2017-08-09T18:18:04.659-04:00"
+        }
+    }
+}
+
+````
+
+
 A Target Profile consists of these following objects
 
 * clientcode	- The Target client code to which the profile is associated
