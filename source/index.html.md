@@ -457,25 +457,9 @@ Adobe Target creates and maintains a profile for every individual user. This pro
             "value": "true",
             "modifiedAt": "2017-07-31T20:34:55.625-04:00"
         },
-        "playerName": {
-            "value": "bryant",
-            "modifiedAt": "2017-08-04T05:48:32.660-04:00"
-        },
         "user.memberlevel": {
             "value": "0.0",
             "modifiedAt": "2017-08-09T18:18:04.661-04:00"
-        },
-        "mycategory": {
-            "value": "iphone1",
-            "modifiedAt": "2017-08-18T17:53:39.002-04:00"
-        },
-        "mbox3rdPartyId": {
-            "value": "a1-mbox3rdPartyId",
-            "modifiedAt": "2017-08-18T17:53:39.002-04:00"
-        },
-        "house": {
-            "value": "baratheon",
-            "modifiedAt": "2017-08-04T05:48:32.660-04:00"
         },
         "param1": {
             "value": "value1",
@@ -490,11 +474,11 @@ Adobe Target creates and maintains a profile for every individual user. This pro
             "modifiedAt": "2017-07-21T10:51:55.286-04:00"
         },
         "entity.name": {
-            "value": "entityName",
+            "value": "my-entityName",
             "modifiedAt": "2017-08-09T18:18:04.659-04:00"
         },
         "entity.id": {
-            "value": "entityId",
+            "value": "my-entityId",
             "modifiedAt": "2017-08-09T18:18:04.659-04:00"
         }
     }
