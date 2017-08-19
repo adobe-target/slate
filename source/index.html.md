@@ -3638,6 +3638,143 @@ Retrieve the performance report data for the Automated Personalization activity 
 The request format is similar to AB and XT performance report. Change /ab or /xt to <b>/abt</b> in the request url. <b>abt</b> is the request paramater for Automated Personalization activities.
 </aside>
 
+## Get Audit Report
+
+> Sample Request for AB Audit Report
+
+````shell
+
+curl -X GET \
+  https://mc.adobe.io/adobetargetmobile/target/activities/ab/167169/orders/performance \
+  -H 'authorization: Bearer <your-bearer-token>' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'x-api-key: <your-api-token>'
+
+````
+
+> Sample Response for AB and XT Audit Reports
+
+````json
+{
+    "reportParameters": {
+        "activityId": 167169,
+        "environmentId": 8818,
+        "reportInterval": "2017-03-20T16:00Z/2017-08-19T00:01:01.721Z",
+        "conversionMetricLocalIds": [
+            32767
+        ]
+    },
+"activity": {
+        "id": 167169,
+        "thirdPartyId": "6116ec53-5a2b-4f5d-9268-41e4c153e494",
+        "type": "xt",
+        "state": "approved",
+        "name": "Master - Serverside - XT",
+        "priority": 0,
+        "modifiedAt": "2017-07-31T18:23:44Z",
+        "metrics": [
+            {
+                "name": "Entry",
+                "metricLocalId": 0
+            },
+            {
+                "name": "Display mboxes",
+                "metricLocalId": 2
+            },
+            {
+                "name": "metric_placeholder",
+                "metricLocalId": 32767
+            }
+        ],
+        "experiences": [
+            {
+                "name": "USA Experience",
+                "experienceLocalId": 0
+            },
+            {
+                "name": "UK Experience",
+                "experienceLocalId": 1
+            },
+            {
+                "name": "France Experience",
+                "experienceLocalId": 2
+            },
+            {
+                "name": "Australia Experience",
+                "experienceLocalId": 3
+            }
+        ]
+    },
+    "orders": [
+          {
+            "time": "2015-12-04T00:00:00.000-05:00",
+            "experienceLocalId": 0,
+            "id": "order ID 4444",
+            "total": 7.4,
+            "duplicate": true,
+            "outlier": true,
+            "productPurchasedIds": ["laptop3", "book3"]
+          },
+          {
+            "time": "2015-12-02T10:03:00.000-05:00",
+            "experienceLocalId": 1,
+            "id": "order REF ID#123",
+            "total": 23.01
+          },
+ 
+          ...
+  ]
+}
+
+````
+
+> Sample Response for AP Audit Reports. 
+
+````json
+
+  "orders": [
+    {
+      "time": "2017-01-11T00:00:00.000-05:00",
+      "decisionStackId": 0,
+      "id": "1452535235728",
+      "total": 325,
+      "productIds": [
+        "5"
+      ]
+    },
+    {
+      "time": "2017-01-11T00:00:00.000-05:00",
+      "decisionStackId": 1,
+      "id": "1452535342214",
+      "total": 325,
+      "productIds": [
+        "5"
+      ]
+    },
+    {
+      "time": "2017-01-11T00:00:00.000-05:00",
+      "decisionStackId": 2,
+      "id": "1452535371489",
+      "total": 429,
+      "productIds": [
+        "9"
+      ]
+    }
+  ]
+}
+
+````
+
+
+`GET /{tenant}/target/activities/ab/{id}/report/orders`
+
+Retrieve the orders/audit report data for an AB, XT or Autotmated Personalization Activity
+
+<aside class="notice">
+Change /ab to /xt or /abt in the request url for XT and AP activities. <b>abt</b> is the request paramater for Automated Personalization activities.
+</aside>
+
 # Mboxes and Environments
 
 APIs to retrive mboxes, mbox paramaters, profile parmeters and environments.
@@ -3976,9 +4113,9 @@ Profile attributes and Profile Parameters mean the same thing. Both versions are
 </aside>
 
 
-## Get Environments
+## List Environments
 
-> Sample Request for Get Environments
+> Sample Request for List Environments
 
 ````shell
 
@@ -3990,7 +4127,7 @@ curl -X GET \
   -H 'x-api-key: <your-api-token>'
 
 ````
-> Sample Response for Get Environments
+> Sample Response for List Environments
 
 ````
 {
@@ -4024,8 +4161,6 @@ List all available environments with the options to filter and sort. Use the Env
 <aside class="notice">
 If you are looking to retrieve "Host Groups", use this API.
 </aside>
-
-
 
 
 # Batch Updates
