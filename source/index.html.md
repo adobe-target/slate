@@ -436,6 +436,8 @@ You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in t
 
 # Server Side Batch Delivery
 
+## Batch Overview
+
 > Example 1 : Batch Delivery Request with multiple mboxes
 
 ````shell
@@ -462,6 +464,7 @@ curl -X POST \
 ```` 
 
 > Example 1 : Batch Delivery Response for multiple mboxes 
+
 ````shell
 {
     "requestId": "1e20ec58-48c9-46a7-a43c-b34aafb1a18b",
@@ -484,7 +487,31 @@ curl -X POST \
 }
 ````
 
+The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes. 
+
+<aside class = "warning">
+<b>Beta API</b>: This API documenation section is a work in progress and the API is currently in beta. We will be adding more details and examples shortly. If you have any questions, please reach out to Adobe Client Care or your Customer Success Manager.
+</aside>
+
+## Batch Postman Collection
+
+<aside class="notice">
+Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
+</aside>
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/4db4eefc81c7b5a4d5d4)
+
+
+## Batch Limitations
+
+<aside class = "warning">
+<b>Support for AP and Recs Activities</b>: This API should only be used for AB and XT activities. Support for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types will be added in Q1 2018. The API request and response structure won't change when the support is added. 
+</aside>
+
+## Batch Terminology
+
 >Example 2 : Batch Delivery Request with one regular mbox and one prefetched mbox
+
 ````shell
 curl -X POST \
   https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
@@ -511,6 +538,7 @@ curl -X POST \
 ````
 
 >Example 2: Batch Delivery Response for one regular mbox and one prefetched mbox
+
 ````shell
 {
     "requestId": "77a45e19-732f-42ea-98de-e4a36ceecd55",
@@ -538,7 +566,23 @@ curl -X POST \
 }
 ````
 
+
+There are a multiple ways in which a Visitor can be identified in Target. Target uses three identifiers
+
+* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this. 
+ 
+* **prefetch** – List of mboxes that should be fetched but shouldn't be marked as visited. The Target edge returns an eventToken for each mbox that is present in the the prefetch array
+
+* **notifications** – List of mboxes that were previously prefetched and should be marked as visited. 
+
+* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.  
+
+
+## Batch Input Parameters
+
+
 > Example 3: Batch Delivery with all possible inputs
+
 ````shell
 curl -X POST \
   https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
@@ -634,103 +678,7 @@ curl -X POST \
 }'
 ````
 
-> Example 3: Batch Delivery Response when all inputs are provided
-````shell
-{
-    "requestId": "390f4c33-514d-42fb-8324-e9467dda4774",
-    "client": "adobetargetmobile",
-    "id": {
-        "tntId": "123456789.28_21",
-        "thirdPartyId": "32jh4jk23h4kj2",
-        "marketingCloudVisitorId": "92387492387543875638",
-        "customerIds": [
-            {
-                "id": "32jh4jk23h4kj2",
-                "integrationCode": "userid",
-                "authenticatedState": "authenticated"
-            }
-        ]
-    },
-    "edgeHost": "mboxedge28.tt.omtrdc.net",
-    "contentAsJson": true,
-    "mboxResponses": [
-        {
-            "mbox": "batch-req-2",
-            "parameters": {
-                "T_GHY": "7563333"
-            },
-            "order": {
-                "id": "34366",
-                "total": 1425.34,
-                "purchasedProductIds": [
-                    "7632",
-                    "12253",
-                    "4949"
-                ]
-            },
-            "product": {
-                "id": "5431153",
-                "categoryId": "9328114230"
-            },
-            "errorType": "invalid_json"
-        }
-    ],
-    "prefetchResponses": [
-        {
-            "mbox": "batch-req-1",
-            "parameters": {
-                "T_GHY": "7563"
-            },
-            "order": {
-                "id": "343",
-                "total": 125.34,
-                "purchasedProductIds": [
-                    "762",
-                    "1253",
-                    "499"
-                ]
-            },
-            "product": {
-                "id": "54353",
-                "categoryId": "93284230"
-            },
-            "errorType": "invalid_json"
-        }
-    ]
-}
-````
-
-## Batch Delivery Overview
-
-The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes. 
-
-<aside class = "warning">
-<b>Beta API</b>: This API documenation section is a work in progress and the API is currently in beta. We will be adding more details and examples shortly. If you have any questions, please reach out to Adobe Client Care or your Customer Success Manager.
-</aside>
-
-## Batch Delivery Limitations
-
-<aside class = "warning">
-<b>Support for AP and Recs Activities</b>: This API should only be used for AB and XT activities. Support for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types will be added in Q1 2018. The API request and response structure won't change when the support is added. 
-</aside>
-
-## Batch Delivery Terminology
-
-
-There are a multiple ways in which a Visitor can be identified in Target. Target uses three identifiers
-
-* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this. 
- 
-* **prefetch** – List of mboxes that should be fetched but shouldn't be marked as visited. The Target edge returns an eventToken for each mbox that is present in the the prefetch array
-
-* **notifications** – List of mboxes that were previously prefetched and should be marked as visited. 
-
-* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.  
-
-
-## Batch Delivery Input Parameters
-
- <table>
+<table>
     <tbody>
         <tr>
             <th>Field Name</th>
@@ -909,17 +857,6 @@ There are a multiple ways in which a Visitor can be identified in Target. Target
         </tr>
     </tbody>
 </table>
-
-
-##Batch Delivery Postman Collection
-
-<aside class="notice">
-Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
-</aside>
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/4db4eefc81c7b5a4d5d4)
-
-
 
 
 #Profiles
