@@ -434,6 +434,494 @@ You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in t
 <b>SessionID</b>: The sessionId is another identifier that goes hand in hand with visitor identity. Refer to the <a href="#input-parameters">input parameters</a> section to learn more about the sessionId
 </aside>
 
+# Server Side Batch Delivery
+
+> Example 1 : Batch Delivery Request with multiple mboxes
+
+````shell
+curl -X POST \
+  https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+   "client": "adobetargetmobile",
+   "id": {
+		"tntId": "123456789"
+   },
+   "mboxes": [
+   		{
+   			"indexId": 0,
+   			"mbox": "batch-req-1"
+   		},
+   		{
+   			"indexId": 1,
+   			"mbox": "batch-req-2"
+   		}
+   	]
+}'
+```` 
+
+> Example 1 : Batch Delivery Response for multiple mboxes 
+````shell
+{
+    "requestId": "1e20ec58-48c9-46a7-a43c-b34aafb1a18b",
+    "client": "adobetargetmobile",
+    "id": {
+        "tntId": "123456789.28_51"
+    },
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
+    "contentAsJson": false,
+    "mboxResponses": [
+        {
+            "mbox": "batch-req-1",
+            "content": "batch-response-1a"
+        },
+        {
+            "mbox": "batch-req-2",
+            "content": "batch-response-2a"
+        }
+    ]
+}
+````
+
+>Example 2 : Batch Delivery Request with one regular mbox and one prefetched mbox
+````shell
+curl -X POST \
+  https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+   "client": "adobetargetmobile",
+   "id": {
+		"tntId": "123456789"
+   },
+   "mboxes": [
+   		{
+   			"indexId": 0,
+   			"mbox": "batch-req-1"
+   		}
+   	],
+   	"prefetch": [
+   		{
+   			"indexId": 0,
+   			"mbox": "batch-req-2"
+   		}
+   	]
+}'
+````
+
+>Example 2: Batch Delivery Response for one regular mbox and one prefetched mbox
+````shell
+{
+    "requestId": "77a45e19-732f-42ea-98de-e4a36ceecd55",
+    "client": "adobetargetmobile",
+    "id": {
+        "tntId": "123456789.28_3"
+    },
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
+    "contentAsJson": false,
+    "mboxResponses": [
+        {
+            "mbox": "batch-req-1",
+            "content": "batch-response-1a"
+        }
+    ],
+    "prefetchResponses": [
+        {
+            "mbox": "batch-req-2",
+            "content": "batch-response-2a",
+            "eventTokens": [
+              "OXszbV+Odw+fblLkzmgrW2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5wM++BveH6AIK0pfQ2QUzsg=="
+            ]
+        }
+    ]
+}
+````
+
+> Example 3: Batch Delivery with all possible inputs
+````shell
+curl -X POST \
+  https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+   "client": "adobetargetmobile",
+   "id": {
+		"tntId": "123456789",
+		"thirdPartyId": "32jh4jk23h4kj2",
+		"marketingCloudVisitorId": "92387492387543875638",
+		"customerIds": [
+			{
+				"id": "32jh4jk23h4kj2",
+				"integrationCode": "userid",
+				"authenticatedState": "authenticated"
+			}	
+		]
+   },
+   "aamParameters": {
+   		"blob": "32fdghkjh34kj5h43",
+   		"uuid": "82394234238798437",
+   		"dcsLocationHint": 9,
+   		"dataPartnerId": 86567576,
+   		"dataPartnerUserId": 348382232423424
+   },
+   "contentAsJson": true,
+   "profileParameters": {
+   		"age": "18"
+   },
+   "prefetch": [
+   		{
+   			"indexId": 0,
+   			"mbox": "batch-req-1",
+   			"parameters": {
+   				"T_GHY": "7563"
+   			},
+   			"product": {
+   				"id": "54353",
+   				"categoryId": "93284230"
+   			},
+   			"order": {
+            	"id": "343",
+            	"total": 125.34,
+        		"purchasedProductIds": ["762", "1253", "499"]
+        	}
+   		}
+   ],
+   "mboxes": [
+   		{
+   			"indexId": 0,
+   			"mbox": "batch-req-2",
+   			"parameters": {
+   				"T_GHY": "7563333"
+   			},
+   			"product": {
+   				"id": "5431153",
+   				"categoryId": "9328114230"
+   			},
+   			"order": {
+            	"id": "34366",
+            	"total": 1425.34,
+        		"purchasedProductIds": ["7632", "12253", "4949"]
+        	}
+   		}
+   ],
+   "notifications": [
+   		{
+   			"timestamp": 1485216216,
+   			"mbox": "batch-req-3",
+   			"parameters": {
+            	"ad": "1"
+        	},
+        	"eventTokens": ["OXszbV+Odw+fblLkzmgrWwreqXMfVUcUx0s/BHR5kCKCnQ9Y9OaLL2gsdrWQTvE5wM++BveH6AIK0pfQ2QUzsg=="],
+        	"order": {
+            	"id": "34",
+            	"total": 125.34,
+        		"purchasedProductIds": ["76", "125", "99"]
+            },
+            "product": {
+   				"id": "54353",
+   				"categoryId": "93284230"
+   			}
+   		}
+   	],
+   	"mboxOverride": {
+   		"ip": "184.58.98.74",
+   		"time": 123654735,
+   		"visitorPercentage": 78.54,
+   		"aamResponse": "982374982738",
+   		"aamSegments": "34,1243,56443"
+   	}
+}'
+````
+
+> Example 3: Batch Delivery Response when all inputs are provided
+````shell
+{
+    "requestId": "390f4c33-514d-42fb-8324-e9467dda4774",
+    "client": "adobetargetmobile",
+    "id": {
+        "tntId": "123456789.28_21",
+        "thirdPartyId": "32jh4jk23h4kj2",
+        "marketingCloudVisitorId": "92387492387543875638",
+        "customerIds": [
+            {
+                "id": "32jh4jk23h4kj2",
+                "integrationCode": "userid",
+                "authenticatedState": "authenticated"
+            }
+        ]
+    },
+    "edgeHost": "mboxedge28.tt.omtrdc.net",
+    "contentAsJson": true,
+    "mboxResponses": [
+        {
+            "mbox": "batch-req-2",
+            "parameters": {
+                "T_GHY": "7563333"
+            },
+            "order": {
+                "id": "34366",
+                "total": 1425.34,
+                "purchasedProductIds": [
+                    "7632",
+                    "12253",
+                    "4949"
+                ]
+            },
+            "product": {
+                "id": "5431153",
+                "categoryId": "9328114230"
+            },
+            "errorType": "invalid_json"
+        }
+    ],
+    "prefetchResponses": [
+        {
+            "mbox": "batch-req-1",
+            "parameters": {
+                "T_GHY": "7563"
+            },
+            "order": {
+                "id": "343",
+                "total": 125.34,
+                "purchasedProductIds": [
+                    "762",
+                    "1253",
+                    "499"
+                ]
+            },
+            "product": {
+                "id": "54353",
+                "categoryId": "93284230"
+            },
+            "errorType": "invalid_json"
+        }
+    ]
+}
+````
+
+## Batch Delivery Overview
+
+The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes. 
+
+<aside class = "warning">
+<b>Beta API</b>: This API documenation section is a work in progress and the API is currently in beta. We will be adding more details and examples shortly. If you have any questions, please reach out to Adobe Client Care or your Customer Success Manager.
+</aside>
+
+## Batch Delivery Limitations
+
+<aside class = "warning">
+<b>Support for AP and Recs Activities</b>: This API should only be used for AB and XT activities. Support for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types will be added in Q1 2018. The API request and response structure won't change when the support is added. 
+</aside>
+
+## Batch Delivery Terminology
+
+
+There are a multiple ways in which a Visitor can be identified in Target. Target uses three identifiers
+
+* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this. 
+ 
+* **prefetch** – List of mboxes that should be fetched but shouldn't be marked as visited. The Target edge returns an eventToken for each mbox that is present in the the prefetch array
+
+* **notifications** – List of mboxes that were previously prefetched and should be marked as visited. 
+
+* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.  
+
+
+## Batch Delivery Input Parameters
+
+ <table>
+    <tbody>
+        <tr>
+            <th>Field Name</th>
+            <th>Required</th>
+            <th>Validation</th>
+        </tr>
+        <tr>
+            <td>client</td>
+            <td>Y</td>
+            <td>Valid client code</td>
+        </tr>
+        <tr>
+            <td>id &rarr; tntId</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Max size 128</li>
+                    <li>Should not contain a dot, unless the dot delimits the location hint</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>id &rarr; thirdPartyId</td>
+            <td>N</td>
+            <td>Max size 128</td>
+        </tr>
+        <tr>
+            <td>id &rarr; marketingCloudVisitorId</td>
+            <td>N</td>
+            <td>Max size 128</td>
+        </tr>
+        <tr>
+            <td>id &rarr; customerIds</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>No null elements</li>
+                    <li>Max size 50</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>id &rarr; customerIds &rarr; id</td>
+            <td>Y</td>
+            <td>Max size 128</td>
+        </tr>
+        <tr>
+            <td>id &rarr; customerIds &rarr; integrationCode</td>
+            <td>Y</td>
+            <td>Max size 50</td>
+        </tr>
+        <tr>
+            <td>id &rarr; customerIds &rarr; authenticatedState</td>
+            <td>Y</td>
+            <td>unknown (default) | authenticated | logged_out</td>
+        </tr>
+        <tr>
+            <td>profileParameters</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Max count 50</li>
+                    <li>no blank names</li>
+                    <li>name size &lt;= 128</li>
+                    <li>value size &lt;= 256</li>
+                    <li>name should not start with &quot;profile.&quot;</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>environmentId</td>
+            <td>N</td>
+            <td>Valid client environment id</td>
+        </tr>
+        <tr>
+            <td>contentAsJson</td>
+            <td>N</td>
+            <td>true | false</td>
+        </tr>
+        <tr>
+            <td>prefetch</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Max count 50</li>
+                    <li>No null elements</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; indexId</td>
+            <td>Y</td>
+            <td>
+                <ul>
+                    <li>Not null</li>
+                    <li>&gt;= 0</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; mbox</td>
+            <td>Y</td>
+            <td>
+                <ul>
+                    <li>not blank</li>
+                    <li>no '-clicked' suffix</li>
+                    <li>max size 250</li>
+                    <li>values not allowed: '** display mboxes /**', '** any mbox **', '** click from display mbox **'</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; parameters</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>max count 50</li>
+                    <li>name not blank</li>
+                    <li>name length &lt;= 128</li>
+                    <li>value length &lt;= 5000</li>
+                    <li>name should not start with &quot;profile.&quot;</li>
+                    <li>not allowed names: &quot;orderId&quot;, &quot;orderTotal&quot;, &quot;productPurchasedId&quot;</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; product</td>
+            <td>N</td>
+            <td>-</td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; product&nbsp;-&gt; id</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Not blank</li>
+                    <li>max size = 128</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; product &rarr; categoryId</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Not blank</li>
+                    <li>max size = 128</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; order</td>
+            <td>N</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; order &rarr; id</td>
+            <td>N</td>
+            <td>max length = 250</td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; order &rarr; total</td>
+            <td>N</td>
+            <td>&gt;= 0</td>
+        </tr>
+        <tr>
+            <td>prefetch &rarr; order &rarr; purchasedProductIds</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>no blank values</li>
+                    <li>each value's max length 50</li>
+                    <li>total ids length &lt;= 250</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+##Batch Delivery Postman Collection
+
+<aside class="notice">
+Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
+</aside>
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/4db4eefc81c7b5a4d5d4)
+
+
+
+
 #Profiles
 
 Adobe Target creates and maintains a profile for every individual user. This profile is stored on the Target edge cluster and is updated in real time after every visit.
@@ -507,7 +995,7 @@ Target automatically assigns a tntid for every request.
 
 The request format to fetch a profile using a tntid
 
-`https://yourclientcode.tt.omtrdrc.com/rest/v1/profiles/your-tnt-id?client=yourclientcode`
+`https://yourclientcode.tt.omtrdc.net/rest/v1/profiles/your-tnt-id?client=yourclientcode`
 
 Replace "yourclientcode" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
 
@@ -519,7 +1007,7 @@ Target profiles can be augmented with your own identifier (eg: CRM id, uuid, mem
 
 The request format to fetch a profile using a thirdPartyId
 
-`https://yourclientcode.tt.omtrdrc.com/rest/v1/profiles/thirdPartyId/your-thirdpartyid?client=yourclientcode`
+`https://yourclientcode.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/your-thirdpartyid?client=yourclientcode`
 
 Replace "yourclientcode" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
 
