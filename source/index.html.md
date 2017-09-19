@@ -567,7 +567,7 @@ curl -X POST \
 ````
 
 
-There are a multiple ways in which a Visitor can be identified in Target. Target uses three identifiers
+Here are some common terms that you need to be familiar with. 
 
 * **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this. 
  
