@@ -461,9 +461,9 @@ curl -X POST \
    		}
    	]
 }'
-```` 
+````
 
-> Example 1 : Batch Delivery Response for multiple mboxes 
+> Example 1 : Batch Delivery Response for multiple mboxes
 
 ````shell
 {
@@ -487,7 +487,7 @@ curl -X POST \
 }
 ````
 
-The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes. 
+The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes.
 
 <aside class = "warning">
 <b>Beta API</b>: This API documenation section is a work in progress and the API is currently in beta. We will be adding more details and examples shortly. If you have any questions, please reach out to Adobe Client Care or your Customer Success Manager.
@@ -505,7 +505,7 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 ## Batch Limitations
 
 <aside class = "warning">
-<b>Support for AP and Recs Activities</b>: This API should only be used for AB and XT activities. Support for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types will be added in Q1 2018. The API request and response structure won't change when the support is added. 
+<b>Support for AP and Recs Activities</b>: This API should only be used for AB and XT activities. Support for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types will be added in Q1 2018. The API request and response structure won't change when the support is added.
 </aside>
 
 ## Batch Terminology
@@ -567,15 +567,15 @@ curl -X POST \
 ````
 
 
-Here are some common terms that you need to be familiar with. 
+Here are some common terms that you need to be familiar with.
 
-* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this. 
- 
+* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this.
+
 * **prefetch** – List of mboxes that should be fetched but shouldn't be marked as visited. The Target edge returns an eventToken for each mbox that is present in the the prefetch array
 
-* **notifications** – List of mboxes that were previously prefetched and should be marked as visited. 
+* **notifications** – List of mboxes that were previously prefetched and should be marked as visited.
 
-* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.  
+* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.
 
 
 ## Batch Input Parameters
@@ -599,7 +599,7 @@ curl -X POST \
 				"id": "32jh4jk23h4kj2",
 				"integrationCode": "userid",
 				"authenticatedState": "authenticated"
-			}	
+			}
 		]
    },
    "aamParameters": {
@@ -4909,6 +4909,239 @@ Batch processing finishes when all operations have been completed, an operation 
         </tr>
     </tbody>
 </table>
+
+
+
+# Recommendations
+
+Recommendations activities automatically display products or content that might interest your customers based on previous user activity or other algorithms. Recommendations help direct customers to relevant items they might otherwise not know about.
+
+Note: Recommendations activities are available as part of the Target Premium solution. They are not available in Target Standard without a Target Premium license.
+
+## Collections
+
+A collection is a set of products or items that are eligible for a recommendation.
+
+Commonly, a collection is a set of similar or related items, such as a single product collection.
+
+### List Collections
+
+> Sample Request for List Collections
+
+````shell
+
+curl -X GET
+https://mc.adobe.io/recspm1/target/recs/collections \
+  -H 'authorization: Bearer <your-bearer-token>' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'x-api-key: <your-api-token>'
+
+````
+
+> Sample Response for List Collections
+
+````
+{
+    "offset": 0,
+    "limit": 2147483647,
+    "total": 21,
+    "list": [
+        {
+            "id": 7257,
+            "name": "All Articles"
+        },
+        {
+            "id": 4418,
+            "name": "Catalog Y"
+        },
+        {
+            "id": 4044,
+            "name": "Empty Collection"
+        },
+        {
+            "id": 5128,
+            "name": "Female Products"
+        },
+        {
+            "id": 7491,
+            "name": "Generic"
+        },
+        {
+            "id": 7029,
+            "name": "Hotels"
+        },
+        {
+            "id": 6765,
+            "name": "Macbook"
+        },
+        {
+            "id": 6591,
+            "name": "Mens Nike Hats"
+        },
+        {
+            "id": 6605,
+            "name": "Mens Nike Hats, Shirts, Shorts"
+        },
+        {
+            "id": 6589,
+            "name": "Mens Nike Shirts"
+        },
+        {
+            "id": 6590,
+            "name": "Mens Nike Shorts"
+        },
+        {
+            "id": 4316,
+            "name": "Product Collection"
+        },
+        {
+            "id": 6892,
+            "name": "Retail 4000-4010"
+        },
+        {
+            "id": 5213,
+            "name": "Running Shoes"
+        },
+        {
+            "id": 5447,
+            "name": "Sample collection name"
+        }
+    ]
+}
+````
+
+Get the list of collections available in your account. 
+
+#### GET: /{tenant}/target/recs/collections
+
+
+
+### Get Collection by ID
+
+> Sample Request for Get Collection by ID
+
+````shell
+
+curl -X GET
+https://mc.adobe.io/recspm1/target/recs/collections/5213 \
+  -H 'authorization: Bearer <your-bearer-token>' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'x-api-key: <your-api-token>'
+
+````
+
+> Sample Response for Get Collection by ID
+
+````
+{
+    "id": 5213,
+    "name": "Running Shoes",
+    "rules": [
+        {
+            "category": {
+                "contains": [
+                    "Running Shoes"
+                ]
+            }
+        }
+    ]
+}
+````
+
+
+Get the collection for a given ID. 
+
+#### GET: /{tenant}/target/recs/collections/{id}
+
+
+### Create Collection
+
+> Sample Request for Create Collection
+
+````shell
+curl -X POST \
+  https://mc.adobe.io/recspm1/target/recs/collections/ \
+  -H 'authorization: Bearer <your-bearer-token>' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'x-api-key: <your-api-token>'
+  -d '{
+ "name":"Smartphones",
+ "rules":[
+   {"category": {"equals":["smartphone"]}}, 
+   {"name": {"contains": ["android", "Android"]}},
+   {"value": {"greaterOrEquals": ["600"] }},
+   {"message": {"doesNotContain": ["ios"]}}
+  ]
+}'
+````
+
+> Sample Response for Create Collection
+
+````
+{
+    "id": 8886,
+    "name": "Smartphones",
+    "rules": [
+        {
+            "category": {
+                "equals": [
+                    "smartphone"
+                ]
+            }
+        },
+        {
+            "name": {
+                "contains": [
+                    "android",
+                    "Android"
+                ]
+            }
+        },
+        {
+            "value": {
+                "greaterOrEquals": [
+                    "600"
+                ]
+            }
+        },
+        {
+            "message": {
+                "doesNotContain": [
+                    "ios"
+                ]
+            }
+        }
+    ]
+}
+````
+
+
+
+### Update Collection
+
+### Delete Collection
+
+## Feeds
+
+### List Feeds
+
+### Get Feed by ID
+
+### Create Feed (HTTP)
+
+### Create Feed (FTP)
+
+### Update Feed (HTTP)
+
+### Update Feed (FTP)
+
+### Delete Feed
+
+
+
 
 
 
