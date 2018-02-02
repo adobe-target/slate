@@ -1152,7 +1152,7 @@ In all the code examples, you must replace the `{tenant}` variable with your ten
 {
     "httpStatus": 406,
     "requestId": "8752b736-cf71-4d81-86c3-94be2b5ae648",
-<your-tenant-name>    "requestTime": "2018-02-02T21:39:06.405Z",
+    "requestTime": "2018-02-02T21:39:06.405Z",
     "errors": [
         {
             "errorCode": "Unsupported.Feature",
