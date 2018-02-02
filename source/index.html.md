@@ -46,7 +46,7 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 
 ````shell
 curl -X POST \
-  'https://adobetargetmobile.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=adobetargetmobile' \
+  'https://<your-tenant-name>.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=<your-tenant-name>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
@@ -71,7 +71,7 @@ curl -X POST \
 
 ````shell
 curl -X POST \
-  'https://adobetargetmobile.tt.omtrdc.net/rest/v1/mbox/A210702C-402F-4458-9869-FCE64F318AE6?client=adobetargetmobile' \
+  'https://<your-tenant-name>.tt.omtrdc.net/rest/v1/mbox/A210702C-402F-4458-9869-FCE64F318AE6?client=<your-tenant-name>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A' \
@@ -442,11 +442,11 @@ You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in t
 
 ````shell
 curl -X POST \
-  https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
+  https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
-   "client": "adobetargetmobile",
+   "client": "<your-tenant-name>",
    "id": {
 		"tntId": "123456789"
    },
@@ -468,7 +468,7 @@ curl -X POST \
 ````shell
 {
     "requestId": "1e20ec58-48c9-46a7-a43c-b34aafb1a18b",
-    "client": "adobetargetmobile",
+    "client": "<your-tenant-name>",
     "id": {
         "tntId": "123456789.28_51"
     },
@@ -514,11 +514,11 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 
 ````shell
 curl -X POST \
-  https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
+  https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
-   "client": "adobetargetmobile",
+   "client": "<your-tenant-name>",
    "id": {
 		"tntId": "123456789"
    },
@@ -542,7 +542,7 @@ curl -X POST \
 ````shell
 {
     "requestId": "77a45e19-732f-42ea-98de-e4a36ceecd55",
-    "client": "adobetargetmobile",
+    "client": "<your-tenant-name>",
     "id": {
         "tntId": "123456789.28_3"
     },
@@ -585,11 +585,11 @@ Here are some common terms that you need to be familiar with.
 
 ````shell
 curl -X POST \
-  https://adobetargetmobile.tt.omtrdc.net/rest/v2/batchmbox/ \
+  https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
-   "client": "adobetargetmobile",
+   "client": "<your-tenant-name>",
    "id": {
 		"tntId": "123456789",
 		"thirdPartyId": "32jh4jk23h4kj2",
@@ -869,7 +869,7 @@ Adobe Target creates and maintains a profile for every individual user. This pro
 
 ````json
 {
-    "client": "adobetargetmobile",
+    "client": "<your-tenant-name>",
     "visitorId": "a1-mbox3rdPartyId",
     "modifiedAt": "2017-08-18T17:53:39.003-04:00",
     "profileAttributes": {
@@ -936,7 +936,7 @@ The request format to fetch a profile using a tntid
 
 Replace "yourclientcode" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
 
-`http://adobetargetmobile.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=adobetargetmobile`
+`http://<your-tenant-name>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-tenant-name>`
 
 ### Using a thirdPartyId
 
@@ -948,7 +948,7 @@ The request format to fetch a profile using a thirdPartyId
 
 Replace "yourclientcode" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
 
-`http://adobetargetmobile.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=adobetargetmobile`
+`http://<your-tenant-name>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-tenant-name>`
 
 When this call is made, Target attempts to locate the profile first in the cluster noted in the edge request, or wherever the profile is located and return the content. The profile contents are returned in JSON format.
 
@@ -1144,6 +1144,38 @@ The Admin APIs will allow you to CRUD (Create, Read, Update and Delete) [Activit
 
 In all the code examples, you must replace the `{tenant}` variable with your tenant value, `your-bearer-token` with the access token that you generate with your JWT and `your-api-key` with your API key from the Adobe I/O console.
 
+## Versioning
+
+> Error Message for unsupported features
+
+````
+{
+    "httpStatus": 406,
+    "requestId": "8752b736-cf71-4d81-86c3-94be2b5ae648",
+<your-tenant-name>    "requestTime": "2018-02-02T21:39:06.405Z",
+    "errors": [
+        {
+            "errorCode": "Unsupported.Feature",
+            "message": "Unsupported features detected"
+        }
+    ]
+}
+
+````
+
+All APIs have a version associated with it. It is important to provide the right version of the API that you want to use. 
+
+* If the request contains a payload (POST or PUT), the **Content-Type** header of the request is used to specify the version. 
+ 
+* If the request doesn't contain a payload (GET, DELETE or OPTIONS), the **Accept** header is used to specify the version. 
+
+* If a version isn't provided, the call will default to V1 (application/vnd.adobe.target.v1+json) . 
+
+<aside class="notice">
+If the correct version isn't specified (eg: If you use a V2 payload but don't specify the Content-Type header), then the API will respond with an unsupported error if the API is not backwards compatiable. 
+</aside>
+
+
 
 ## Adobe I/O Console
 
@@ -1208,7 +1240,7 @@ An activity enables you to test, target or personalize content for your users. A
 ````shell
 
 curl -X GET
-https://mc.adobe.io/adobetargetmobile/target/activities/ \
+https://mc.adobe.io/<your-tenant-name>/target/activities/ \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -1306,7 +1338,7 @@ GET activity list filtered by a date range
 
 ````shell
 curl -X GET
-https://mc.adobe.io/adobetargetmobile/target/activities/ab/168824 \
+https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168824 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -1404,7 +1436,7 @@ Fetch the current definition of an AB activity if it is found as referenced by t
 ````shell
 
 curl -X DELETE \
-  https://mc.adobe.io/adobetargetmobile/target/activities/ab/168805 \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168805 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -1495,7 +1527,7 @@ Deletes the AB activity that is referenced by the id, if it is found.
 ````shell
 
 curl -X POST \
-  https://mc.adobe.io/adobetargetmobile/target/activities/ab/ \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/ \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -1951,7 +1983,7 @@ Activities created using the API can only be edited using the API. You can't edi
 
 ````shell
 curl -X PUT \
-  https://mc.adobe.io/adobetargetmobile/target/activities/ab/183916 \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/183916 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2181,7 +2213,7 @@ Refer "Create AB Activity" for the available inputs, limitations and the descrip
 
 ````shell
 curl -X GET
-https://mc.adobe.io/adobetargetmobile/target/activities/xt/168824 \
+https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168824 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2267,8 +2299,8 @@ https://mc.adobe.io/adobetargetmobile/target/activities/xt/168824 \
         }
     ],
     "analytics": {
-        "reportSuite": "adobetargetmobileiosdemo",
-        "dataCollectionHost": "adobetargetmobile.sc.omtrdc.net"
+        "reportSuite": "<your-tenant-name>iosdemo",
+        "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
     },
     "modifiedAt": "2017-06-12T14:27:44Z"
 }
@@ -2286,7 +2318,7 @@ Gets a Experience Targeted activity that is referenced by the id.
 ````shell
 
 curl -X DELETE \
-  https://mc.adobe.io/adobetargetmobile/target/activities/xt/168333 \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168333 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2388,7 +2420,7 @@ Deletes the XT activity that is referenced by the id, if it is found.
 ````shell
 
 curl -X POST \
-  https://mc.adobe.io/adobetargetmobile/target/activities/xt/ \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/xt/ \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2480,8 +2512,8 @@ curl -X POST \
         }
     ],
     "analytics": {
-        "reportSuite": "adobetargetmobilewesteros",
-        "dataCollectionHost": "adobetargetmobile.sc.omtrdc.net"
+        "reportSuite": "<your-tenant-name>westeros",
+        "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
     }
 }'
 
@@ -2579,8 +2611,8 @@ curl -X POST \
         }
     ],
     "analytics": {
-        "reportSuite": "adobetargetmobilewesteros",
-        "dataCollectionHost": "adobetargetmobile.sc.omtrdc.net"
+        "reportSuite": "<your-tenant-name>westeros",
+        "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
     },
     "modifiedAt": "2017-07-10T06:01:27Z"
 }
@@ -2615,7 +2647,7 @@ To Update an XT Activity use the same input as described in "Create XT Activity"
 ````shell
 
 curl -X PUT \
-  https://mc.adobe.io/adobetargetmobile/target/activities/168816/name \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/168816/name \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2654,7 +2686,7 @@ You can also use the specific endpoints <b>/activities/ab/{id}/name</b> and /<b>
 ````shell
 
 curl -X PUT \
-  https://mc.adobe.io/adobetargetmobile/target/activities/168816/state \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/168816/state \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2702,7 +2734,7 @@ You can also use the specific endpoints <b>/activities/ab/{id}/state</b> and <b>
 ````shell
 
 curl -X PUT \
-  https://mc.adobe.io/adobetargetmobile/target/activities/168816/priority \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/168816/priority \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2742,7 +2774,7 @@ You can also use the specific endpoints <b>/activities/ab/{id}/priority</b> and 
 ````shell
 
 curl -X PUT \
-  https://mc.adobe.io/adobetargetmobile/target/activities/168816/schedule \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/168816/schedule \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2791,7 +2823,7 @@ You can also use the specific endpoints <b>/activities/ab/{id}/schedule </b> and
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/activities/173980/changelog \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/173980/changelog \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -2901,7 +2933,7 @@ API methods to Create, Read, Update and Delete Offers. Offers are also referred 
 ````shell
 
 curl -X GET \
-  'https://mc.adobe.io/adobetargetmobile/target/offers?limit=10' \
+  'https://mc.adobe.io/<your-tenant-name>/target/offers?limit=10' \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3055,7 +3087,7 @@ Retrieve the list of previously-created content offers. The parameters passed th
 
 ````shell
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/offers/content/391902 \
+  https://mc.adobe.io/<your-tenant-name>/target/offers/content/391902 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3087,7 +3119,7 @@ Retrieves the contents of an offer given an offer id.
 
 ````shell
 curl -X POST \
-  https://mc.adobe.io/adobetargetmobile/target/offers/content \
+  https://mc.adobe.io/<your-tenant-name>/target/offers/content \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3125,7 +3157,7 @@ Creates a new content offer as defined by the request data.
 
 ````shell
 curl -X PUT \
-  https://mc.adobe.io/adobetargetmobile/target/offers/content/438180 \
+  https://mc.adobe.io/<your-tenant-name>/target/offers/content/438180 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3165,7 +3197,7 @@ Updates the content offer referenced by the id specified in the URL.
 ````shell
 
 curl -X DELETE \
-  https://mc.adobe.io/adobetargetmobile/target/offers/content/438180 \
+  https://mc.adobe.io/<your-tenant-name>/target/offers/content/438180 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3203,7 +3235,7 @@ API methods to Create, Read, Update and Delete Audiences.
 
 ````shell
 curl -X GET \
-  'https://mc.adobe.io/adobetargetmobile/target/audiences/' \
+  'https://mc.adobe.io/<your-tenant-name>/target/audiences/' \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3393,7 +3425,7 @@ GET audiences list filtered by a date range
 
 ````shell
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/audiences/1397972 \
+  https://mc.adobe.io/<your-tenant-name>/target/audiences/1397972 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3442,7 +3474,7 @@ Get the audience definition specified by the provided id.
 ````shell
 
 curl -X POST \
-  https://mc.adobe.io/adobetargetmobile/target/audiences \
+  https://mc.adobe.io/<your-tenant-name>/target/audiences \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3563,7 +3595,7 @@ Each audience definition is made up of either target or audience rules.
 
 ````shell
 curl -X PUT \
-  https://mc.adobe.io/adobetargetmobile/target/audiences/1537195 \
+  https://mc.adobe.io/<your-tenant-name>/target/audiences/1537195 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3635,7 +3667,7 @@ Update an audience with the new rules specified by the request data.
 
 ````shell
 curl -X DELETE \
-  https://mc.adobe.io/adobetargetmobile/target/audiences/1537214 \
+  https://mc.adobe.io/<your-tenant-name>/target/audiences/1537214 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3690,7 +3722,7 @@ Delete the audience referenced by the specified id.
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/activities/ab/166423/report/performance \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/166423/report/performance \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -3884,7 +3916,7 @@ Retrieve the performance report data for the AB activity referenced by the provi
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/activities/xt/167169/report/performance \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/xt/167169/report/performance \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -4123,7 +4155,7 @@ The request format is similar to AB and XT performance report. Change /ab or /xt
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/activities/ab/167169/orders/performance \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/167169/orders/performance \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -4264,7 +4296,7 @@ APIs to retrive mboxes, mbox paramaters, profile parmeters and environments.
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/mboxes \
+  https://mc.adobe.io/<your-tenant-name>/target/mboxes \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -4326,7 +4358,7 @@ List all available mboxes for a specific client with the options to filter and s
 
 ````shell
 curl -X GET \
-  'https://mc.adobe.io/adobetargetmobile/target/mbox/a1-mobile-mboxparams?limit=5' \
+  'https://mc.adobe.io/<your-tenant-name>/target/mbox/a1-mobile-mboxparams?limit=5' \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -4545,7 +4577,7 @@ Get the list of mbox parameters.
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/profileattributes/mbox \
+  https://mc.adobe.io/<your-tenant-name>/target/profileattributes/mbox \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
@@ -4598,7 +4630,7 @@ Profile attributes and Profile Parameters mean the same thing. Both versions are
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/adobetargetmobile/target/environments \
+  https://mc.adobe.io/<your-tenant-name>/target/environments \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
