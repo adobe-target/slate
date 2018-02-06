@@ -1172,7 +1172,7 @@ All APIs have a version associated with it. It is important to provide the right
 * If a version isn't provided, the call will default to V1 (application/vnd.adobe.target.v1+json) . 
 
 <aside class="notice">
-If the correct version isn't specified (eg: If you use a V2 payload but don't specify the Content-Type header), then the API will respond with an unsupported error if the API is not backwards compatiable. 
+If the correct version isn't specified (eg: If you use a V2 payload but don't specify the Content-Type header), then the API will respond with an unsupported error if the API is not backwards compatible.
 </aside>
 
 
