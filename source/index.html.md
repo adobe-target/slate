@@ -138,7 +138,7 @@ In this request,
                 <p>This is the Session Id that should be generated and maintained by you. The Session Id can be any printable string except a space, ?, or /. It should be between 1 and 128 characters in length.</p>
                 <p>For a particular session, its value must stay the same across multiple requests.</p>
                 <p>Routing to a particular node in the edge cluster is done using Session Id.</p>
-                <p>The session is active for 30 minutes on the server side. Therefore, you should n't use a different Session Id for a particular tntId/thirdPartyId within 30 minutes of the last request made with the tntId/thirdPartyId. Otherwise, changes to the profile could be inconsistent and unpredictable.</p>
+                <p>The session is active for 30 minutes on the server side. Therefore, you shouldn't use a different SessionId for a particular tntId/thirdPartyId within 30 minutes of the last request made with the tntId/thirdPartyId. Otherwise, changes to the profile could be inconsistent and unpredictable.</p>
                 <p>Using the same Session ID with multiple tntIds/thirdPartyIds may cause unpredictable changes to the profiles identified by the tntId/thirdPartyIDs.</p>
             </td>
         </tr>
@@ -445,6 +445,7 @@ curl -X POST \
   https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
+  -H 'session-id: your-unique-session-id'\
   -d '{
    "client": "<your-tenant-name>",
    "id": {
@@ -499,8 +500,7 @@ The Batch Delivery API allows requesting content for multiple mboxes in a single
 Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
 </aside>
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/4db4eefc81c7b5a4d5d4)
-
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/86e5c5003452af10b371)
 
 ## Batch Limitations
 
@@ -517,6 +517,7 @@ curl -X POST \
   https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
+  -H 'session-id: your-unique-session-id'\
   -d '{
    "client": "<your-tenant-name>",
    "id": {
@@ -588,6 +589,7 @@ curl -X POST \
   https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
+  -H 'session-id: your-unique-session-id'\
   -d '{
    "client": "<your-tenant-name>",
    "id": {
