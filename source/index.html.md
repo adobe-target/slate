@@ -46,7 +46,7 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 
 ````shell
 curl -X POST \
-  'https://<your-tenant-name>.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=<your-tenant-name>' \
+  'https://<your-client-code>.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=<your-tenant-name>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
@@ -71,7 +71,7 @@ curl -X POST \
 
 ````shell
 curl -X POST \
-  'https://<your-tenant-name>.tt.omtrdc.net/rest/v1/mbox/A210702C-402F-4458-9869-FCE64F318AE6?client=<your-tenant-name>' \
+  'https://<your-client-code>.tt.omtrdc.net/rest/v1/mbox/A210702C-402F-4458-9869-FCE64F318AE6?client=<your-tenant-name>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A' \
@@ -442,7 +442,7 @@ You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in t
 
 ````shell
 curl -X POST \
-  https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
+  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'session-id: your-unique-session-id'\
@@ -462,9 +462,9 @@ curl -X POST \
    		}
    	]
 }'
-```` 
+````
 
-> Example 1 : Batch Delivery Response for multiple mboxes 
+> Example 1 : Batch Delivery Response for multiple mboxes
 
 ````shell
 {
@@ -488,11 +488,8 @@ curl -X POST \
 }
 ````
 
-The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes. 
+The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes.
 
-<aside class = "warning">
-<b>Beta API</b>: This API documenation section is a work in progress and the API is currently in beta. We will be adding more details and examples shortly. If you have any questions, please reach out to Adobe Client Care or your Customer Success Manager.
-</aside>
 
 ## Batch Postman Collection
 
@@ -505,7 +502,9 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 ## Batch Limitations
 
 <aside class = "warning">
-<b>Support for AP and Recs Activities</b>: This API should only be used for AB and XT activities. Support for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types will be added in Q1 2018. The API request and response structure won't change when the support is added. 
+<b>Support for AP and Recs Activities</b>: This API has two modes for fetching content - regular mbox batch mode and prefetch mode. The prefetch mode can only be used for AB and XT activities. Don't use the prefetch mode for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types. Prefetch support for these activity types will be added in the future. The API request and response structure won't change when the support is added.
+<br>
+<b> The batch mode or the "mboxes" object in the API can be used for all activity types</b>. If you are looking to fetch the content for multiple mboxes is a single call, this is a great option.
 </aside>
 
 ## Batch Terminology
@@ -514,7 +513,7 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 
 ````shell
 curl -X POST \
-  https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
+  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'session-id: your-unique-session-id'\
@@ -568,15 +567,15 @@ curl -X POST \
 ````
 
 
-Here are some common terms that you need to be familiar with. 
+Here are some common terms that you need to be familiar with.
 
-* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this. 
- 
+* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this.
+
 * **prefetch** – List of mboxes that should be fetched but shouldn't be marked as visited. The Target edge returns an eventToken for each mbox that is present in the the prefetch array
 
-* **notifications** – List of mboxes that were previously prefetched and should be marked as visited. 
+* **notifications** – List of mboxes that were previously prefetched and should be marked as visited.
 
-* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.  
+* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.
 
 
 ## Batch Input Parameters
@@ -586,7 +585,7 @@ Here are some common terms that you need to be familiar with.
 
 ````shell
 curl -X POST \
-  https://<your-tenant-name>.tt.omtrdc.net/rest/v2/batchmbox/ \
+  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'session-id: your-unique-session-id'\
@@ -601,7 +600,7 @@ curl -X POST \
 				"id": "32jh4jk23h4kj2",
 				"integrationCode": "userid",
 				"authenticatedState": "authenticated"
-			}	
+			}
 		]
    },
    "aamParameters": {
@@ -934,11 +933,11 @@ Target automatically assigns a tntid for every request.
 
 The request format to fetch a profile using a tntid
 
-`https://yourclientcode.tt.omtrdc.net/rest/v1/profiles/your-tnt-id?client=yourclientcode`
+`https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/your-tnt-id?client=yourclientcode`
 
-Replace "yourclientcode" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
+Replace "<your-client-code>" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
 
-`http://<your-tenant-name>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-tenant-name>`
+`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-tenant-name>`
 
 ### Using a thirdPartyId
 
@@ -946,11 +945,11 @@ Target profiles can be augmented with your own identifier (eg: CRM id, uuid, mem
 
 The request format to fetch a profile using a thirdPartyId
 
-`https://yourclientcode.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/your-thirdpartyid?client=yourclientcode`
+`https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/your-thirdpartyid?client=yourclientcode`
 
-Replace "yourclientcode" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
+Replace "<your-client-code>" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
 
-`http://<your-tenant-name>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-tenant-name>`
+`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-tenant-name>`
 
 When this call is made, Target attempts to locate the profile first in the cluster noted in the edge request, or wherever the profile is located and return the content. The profile contents are returned in JSON format.
 
@@ -994,12 +993,12 @@ There is a limit of one million profile updates in a 24-hour period.
 
 To update the profile for a pcId, use :
 
-`https://CLIENT.tt.omtrdc.net/m2/client/profile/update?mboxPC=1368007744041-575948.01_00&profile.attr=0&profile.attr2=1...`
+`https://<your-client-code>.tt.omtrdc.net/m2/client/profile/update?mboxPC=1368007744041-575948.01_00&profile.attr=0&profile.attr2=1...`
 
 To update the profile for an mbox3rdPartyId, use:
 
 `shell
-http://CLIENT.tt.omtrdc.net/m2/client/profile/update?mbox3rdPartyId=123456&profile.attr=0&profile.attr2=1...`
+http://<your-client-code>.tt.omtrdc.net/m2/client/profile/update?mbox3rdPartyId=123456&profile.attr=0&profile.attr2=1...`
 
 The Single Profile Update API is for updates only. If nothing is found, a profile is not created.
 
@@ -1165,13 +1164,13 @@ In all the code examples, you must replace the `{tenant}` variable with your ten
 
 ````
 
-All APIs have a version associated with it. It is important to provide the right version of the API that you want to use. 
+All APIs have a version associated with it. It is important to provide the right version of the API that you want to use.
 
-* If the request contains a payload (POST or PUT), the **Content-Type** header of the request is used to specify the version. 
- 
-* If the request doesn't contain a payload (GET, DELETE or OPTIONS), the **Accept** header is used to specify the version. 
+* If the request contains a payload (POST or PUT), the **Content-Type** header of the request is used to specify the version.
 
-* If a version isn't provided, the call will default to V1 (application/vnd.adobe.target.v1+json) . 
+* If the request doesn't contain a payload (GET, DELETE or OPTIONS), the **Accept** header is used to specify the version.
+
+* If a version isn't provided, the call will default to V1 (application/vnd.adobe.target.v1+json) .
 
 <aside class="notice">
 If the correct version isn't specified (eg: If you use a V2 payload but don't specify the Content-Type header), then the API will respond with an unsupported error if the API is not backwards compatible.
