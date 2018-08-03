@@ -503,7 +503,9 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 
 <aside class = "warning">
 <b>Support for AP and Recs Activities</b>: This API has two modes for fetching content - regular mbox batch mode and prefetch mode. The prefetch mode can only be used for AB and XT activities. Don't use the prefetch mode for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types. Prefetch support for these activity types will be added in the future. The API request and response structure won't change when the support is added.
-<br>
+</aside>
+
+<aside class = "warning">
 <b> The batch mode or the "mboxes" object in the API can be used for all activity types</b>. If you are looking to fetch the content for multiple mboxes is a single call, this is a great option.
 </aside>
 
