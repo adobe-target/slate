@@ -1056,6 +1056,11 @@ Using Bulk Profile Update API, you can conveniently send detailed visitor profil
 
 version 2 (v2) of the Bulk Profile Update API is the current version. However, Target still supports version 1 (v1).
 
+### Caveats
+* The size of the batch file must be less than 50 MB. In addition, the total number of rows should not exceed 500,000 rows per upload.
+* There is no limit on the number or rows you can upload over a period of 24 hours in subsequent batches. However, the ingestion process might be throttled during business hours to ensure that other processes run efficiently.
+* Consecutive V2 batch update calls without mbox calls in between for the same thirdPartyIds override the properties updated in the first batch update call.
+
 ### Authentication
 
 The Bulk Update API call requires a valid access token to be passed in the header of the request.
