@@ -1485,29 +1485,7 @@ version 2 (v2) of the Bulk Profile Update API is the current version. However, T
 * There is no limit on the number or rows you can upload over a period of 24 hours in subsequent batches. However, the ingestion process might be throttled during business hours to ensure that other processes run efficiently.
 * Consecutive V2 batch update calls without mbox calls in between for the same thirdPartyIds override the properties updated in the first batch update call.
 
-### Authentication
 
-The Bulk Update API call requires a valid access token to be passed in the header of the request.
-
-The access token can be obtained in the following way:
-
-* Using the Target Classic UI, go to Configuration > Edit.
-* Scroll to the bottom of the page.
-* Under Profile API Settings, switch to ‘Enable’ Require Authorization.
-* Click Generate Authentication Token.
-* Copy the token and include it in the request in the header of the
-* request in the format: “Authorization” : “Bearer ”
-
-Optionally, use the following API to generate the token:
-
-`https://admin10.testandtarget.omniture.com/admin/rest/v1/authentication/token?client=clientname&scope=profile_api&email=approver@client.com&password=*****`
-
-Alternatively, use the Basic Authorization API as shown in the following curl example below. Basic Authorization header is a base-64 encoded string with the following structure email:password 'https://admin10.testandtarget.omniture.com/admin/rest/v1/authentication/token?client=clientname&scope=profile_api' -H 'Authorization: Basic bmluYWlyK3N1bW1pdEBhZG9iZXRlc3QuY29tOnN1bW1pdDEyMw=='.
-Here is the sample response:
-
-`{ "access_token": "b106da37-301d-4cdd-b25f-59ab4c97b5a0", "scope": "profile_api", "expires_in": 21599, "token_type": "bearer” }`
-
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 ### Batch File
 
 
