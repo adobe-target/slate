@@ -11,34 +11,38 @@ highlight_theme: Xcode
 
 # Introduction
 
-Welcome to the Adobe Target API. Adobe Target is a part of the Adobe Experience Cloud that helps you to optimize and personalize your customers' experience.
-
-You can use the Target REST APIs to list, create and modify Target Activities, Audiences and Offers, retreive reports, update profiles etc.
-
-
-# Server Side Delivery
-
-
-## Overview
-Adobe Target lets your application make mbox calls from any browser, mobile device, or even another server.  The Server Side delivery API is specifically designed to integrate Adobe Target with any server side platform that makes HTTP/s calls.  You can use the API to integrate your custom application with Target.  This is especially valuable for organizations that want to deliver targeting to a non-browser based IoT device, such as a connected TV, kiosk, or
-in-store digital screen.  This API implements existing mbox features in a RESTful manner.  This API does not process cookies or redirect calls.
-
-## Authentication
-
-There is no authentication for this API.
-
-There is no notion of a "user role" in the Server Side Delivery API because it represents a call to fetch content or report events to Target edge servers
-
-## Delivery Postman Collection
-
-Postman is a application that makes it easy to fire API calls. This Postman collection contains Server Side Delivery and Profile API calls. Just click on the 'Run in Postman' button to import the Target API collection.
-
-<aside class="notice">
-Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
-</aside>
+Target's RESTful APIs enable you to manage and deliver personalized experiences across channels. You can use the Target REST APIs to manage Target Activities, Audiences and Offers, retrieve reports, deliver experiences and manage visitor profiles.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/94cb2f003ae62aef8136)
 
+# Server Side Delivery
+
+The Server Side Delivery API is designed to deliver experiences with any server side platform or an application that can make HTTP/s calls. This is valuable for organizations that want to deliver targeting to a non-browser based IoT device, such as a connected TV, kiosk, or in-store digital screen.
+
+## Getting Started
+
+Deliver your Target experiments & personalizations using the Delivery API with three simple steps:
+
+1. Identify your Experience Cloud tenant name and Target client code. Note that the tenant name and client code may be different for your organization.
+   1. Tenant Name: Your tenant name is the subdomain part of your Experience Cloud URL. For example, if your Experience Cloud URL is *mytenant.marketing.adobe.com*, your tenant name is *mytenant*.
+   2. Client Code: Your Target Client Code can be retrieved from the Target UI as described [here](https://marketing.adobe.com/resources/help/en_US/target/ov2/c_target-atjs-advanced-settings.html).
+2. Create a Target Activity (A/B, XT, AP or Recommendations) using the [Form-Based Composer](https://marketing.adobe.com/resources/help/en_US/target/target/t_form_experience_composer.html)
+3. Use the Server Side (or Batch) Delivery API to get response for the mboxes used in the Target Activity created in step 1.
+4. Present the experience to the visitor!
+
+Note the following characteristics of the Delivery API:
+
+1. The delivery API enables you to get experiences/offers for an mbox and an audience segment in a RESTful manner.
+2. There is **no authentication** for Target Delivery APIs.
+3. This API does not process cookies or redirect calls.
+4. There is no notion of a "user role" in the Server Side Delivery API because it represents a call to fetch content or report events to Target edge servers.
+
+## Best Practices
+
+1. The response of the Delivery API includes the *edgeHost* parameter. This is the URL of the Target edge that served this request. All subsequent requests for this visitor/session should be sent to this edge.
+2. The session-id in the REST API must be unique for every visitor in your application.
+3. Use mboxTrace with a Debug Authentication Token to debug your API integrations. The Debug Authentication Token is valid for six hours and needs to be refreshed accordingly.
+4. You can pass user-agent in the request header in order to leverage browser and device based audience segmentations.
 
 ## Input Parameters
 
@@ -46,11 +50,15 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 
 ````shell
 curl -X POST \
+<<<<<<< HEAD
+  'https://<your-client-code>.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=<your-client-code>' \
+=======
   'https://<your-client-code>.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=<your-tenant-name>' \
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
-  "mbox" : "l5-mobile-ab"
+  "mbox" : "my-mbox-name"
 }'
 
 ````
@@ -92,7 +100,6 @@ curl -X POST \
     "browserTimeOffset": 240,
     "colorDepth": 24,
     "mboxXDomain": "enabled",
-    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36",
     "mboxMCGVID": "91394045728588414913028121188926585416",
     "mboxAAMB": "cIBAx_aQzFEHcPoEv0GwcQ",
     "mboxMCGLH": 7,
@@ -138,8 +145,8 @@ In this request,
                 <p>This is the Session Id that should be generated and maintained by you. The Session Id can be any printable string except a space, ?, or /. It should be between 1 and 128 characters in length.</p>
                 <p>For a particular session, its value must stay the same across multiple requests.</p>
                 <p>Routing to a particular node in the edge cluster is done using Session Id.</p>
-                <p>The session is active for 30 minutes on the server side. Therefore, you shouldn't use a different SessionId for a particular tntId/thirdPartyId within 30 minutes of the last request made with the tntId/thirdPartyId. Otherwise, changes to the profile could be inconsistent and unpredictable.</p>
-                <p>Using the same Session ID with multiple tntIds/thirdPartyIds may cause unpredictable changes to the profiles identified by the tntId/thirdPartyIDs.</p>
+                <p>**The session is active for 30 minutes on the server side. Therefore, you shouldn't use a different SessionId for a particular tntId/thirdPartyId within 30 minutes of the last request made with the tntId/thirdPartyId. Otherwise, changes to the profile could be inconsistent and unpredictable.**</p>
+                <p>**Using the same Session ID with multiple tntIds/thirdPartyIds may cause unpredictable changes to the profiles identified by the tntId/thirdPartyIDs.**</p>
             </td>
         </tr>
         <tr>
@@ -148,8 +155,6 @@ In this request,
         </tr>
     </tbody>
 </table>
-
-
 
 
 The list of parameters that you can supply in the body of the request.
@@ -320,7 +325,7 @@ The list of parameters that you can supply in the body of the request.
         </tr>
         <tr>
             <td class="first">mboxTrace</td>
-            <td>Enabled detailed tracing of the call</td>
+            <td>Enabled detailed tracing of the call for debugging</td>
             <td>False</td>
             <td class="last">Empty/True/False
                 <a name="section_E846261F8F28465C91A7217AD11A2EB9"></a>
@@ -353,12 +358,20 @@ The list of parameters that you can supply in the body of the request.
         </tr>
         <tr class="odd">
             <td class="first">mboxTrace</td>
-            <td class="last">Serialized mbox trace details.
-                <a name="section_D56E60F7655246D295EFD0FBE1E9B490"></a>
+            <td class="last">Serialized mbox trace details.<a name="section_D56E60F7655246D295EFD0FBE1E9B490"></a>
             </td>
         </tr>
     </tbody>
 </table>
+
+## Debugging the API
+
+You can enable debugging in your API using mboxTrace by following these steps:
+
+1. Generate a Debug Authentication Token by following one of the following methods:
+   1. Retrieve the Authroization Token using the Target UI as explained [here](https://marketing.adobe.com/resources/help/en_US/target/target/c_content_trouble.html).
+   2. Use the Authentication Token API as described below.
+2. Set mboxTrace parameter as True in the API request
 
 ## Identifying Visitors
 
@@ -403,10 +416,8 @@ The list of parameters that you can supply in the body of the request.
 
 There are a multiple ways in which a Visitor can be identified in Target. Target uses three identifiers
 
-* **tntId** – This is the primary identifier for an individual user. You can supply this id or Target will auto-generate it if the request doesn’t contain one. Also referred to as PCID or mboxPCID.
-
+* **tntId** – This is the primary identifier in Target for an individual user. You can supply this id or Target will auto-generate it if the request doesn’t contain one. Also referred to as PCID or mboxPCID.
 * **thirdPartyId** – This is your company’s internal identifier that you can send with every call. This could be your frequent flier number, loyalty id, crm id, guid etc,. Also referred as mbox3rdPartyID.
-
 * **marketingCloudVisitorId** – This identifier is used to merge and share data between different Adobe solutions. The marketingCloudVisitorId  is required for features like Marketing Cloud Profiles and Audiences, Analytics for Target, Device graph etc.
 
 Learn how [profiles are merged and synced](https://marketing.adobe.com/resources/help/en_US/target/target/c_3rd-party_id.html) in real time using the different identifiers.
@@ -416,6 +427,8 @@ Learn how [profiles are merged and synced](https://marketing.adobe.com/resources
 A tntId is generated if it isn't provided in the request. See the Sample Request #1 on the right.
 
 Note that a new tntId is generated and provided in the response.  Subsequent requests need to include this TnT ID.
+
+*The tntId is not returned in the API response if a thirdPartyId or marketingCloudVisitorId is provided in the request.*
 
 ### Using Custom IDs
 If you want to use Custom IDs to identify visitors (profiles), use the thirdPartyId. You must provide these IDs with every call.
@@ -438,16 +451,20 @@ You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in t
 
 ## Batch Overview
 
-> Example 1 : Batch Delivery Request with multiple mboxes
+>Batch Delivery Request with two mboxes and one prefetched mbox
 
 ````shell
 curl -X POST \
+<<<<<<< HEAD
+  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox?client=<your-client-code>&sessionId=<sessionId> \
+=======
   https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'session-id: your-unique-session-id'\
   -d '{
-   "client": "<your-tenant-name>",
+   "client": "<your-client-code>",
    "id": {
 		"tntId": "123456789"
    },
@@ -460,6 +477,8 @@ curl -X POST \
    			"indexId": 1,
    			"mbox": "batch-req-2"
    		}
+<<<<<<< HEAD
+=======
    	]
 }'
 ````
@@ -529,22 +548,23 @@ curl -X POST \
    			"indexId": 0,
    			"mbox": "batch-req-1"
    		}
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
    	],
    	"prefetch": [
    		{
    			"indexId": 0,
-   			"mbox": "batch-req-2"
+   			"mbox": "batch-req-3"
    		}
    	]
 }'
 ````
 
->Example 2: Batch Delivery Response for one regular mbox and one prefetched mbox
+>Batch Delivery Response for two mboxes and one prefetched mbox
 
 ````shell
 {
     "requestId": "77a45e19-732f-42ea-98de-e4a36ceecd55",
-    "client": "<your-tenant-name>",
+    "client": "<your-client-code>",
     "id": {
         "tntId": "123456789.28_3"
     },
@@ -554,12 +574,16 @@ curl -X POST \
         {
             "mbox": "batch-req-1",
             "content": "batch-response-1a"
+        },
+        {
+            "mbox": "batch-req-2",
+            "content": "batch-response-2a"
         }
     ],
     "prefetchResponses": [
         {
-            "mbox": "batch-req-2",
-            "content": "batch-response-2a",
+            "mbox": "batch-req-3",
+            "content": "batch-response-3a",
             "eventTokens": [
               "OXszbV+Odw+fblLkzmgrW2qipfsIHvVzTQxHolz2IpSCnQ9Y9OaLL2gsdrWQTvE5wM++BveH6AIK0pfQ2QUzsg=="
             ]
@@ -568,7 +592,33 @@ curl -X POST \
 }
 ````
 
+The Batch Delivery API allows requesting content for multiple mboxes in a single call, therefore improving performance and flexibility in delivery. The Batch Delivery API has two capabilities, both of which can be used together:
 
+<<<<<<< HEAD
+1. Batch Mbox: You can request the offers for multiple mboxes with a single API request. The behavior of this capability is same as the Delivery API for a single mbox.
+2. Prefetch: A prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes.
+
+Here are some common terms that you need to be familiar with when using the Batch Delivery API. 
+
+- **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this. 
+- **prefetch** – List of mboxes that should be fetched but shouldn't be marked as visited. The Target edge returns an eventToken for each mbox that is present in the the prefetch array
+- **notifications** – List of mboxes that were previously prefetched and should be marked as visited. 
+- **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array. 
+
+<aside class="notice">
+Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
+</aside>
+
+### Known Limitations
+
+<aside class = "warning">
+<b>Support for AP and Recs Activities</b>: This API has two modes for fetching content - regular mbox batch mode and prefetch mode. The prefetch mode can only be used for AB and XT activities. Don’t use the prefetch mode for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types. Prefetch support for these activity types will be added in the future. The API request and response structure won’t change when the support is added. 
+</aside>
+
+<aside class = "notice">
+<b>The batch mode or the “mboxes” object in the API can be used for all activity types</b>: If you are looking to fetch the content for multiple mboxes is a single call, this is a great option. 
+</aside>
+=======
 Here are some common terms that you need to be familiar with.
 
 * **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this.
@@ -578,21 +628,33 @@ Here are some common terms that you need to be familiar with.
 * **notifications** – List of mboxes that were previously prefetched and should be marked as visited.
 
 * **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 
 ## Batch Input Parameters
 
 
-> Example 3: Batch Delivery with all possible inputs
+> Batch Delivery with all possible inputs
 
 ````shell
 curl -X POST \
+<<<<<<< HEAD
+  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox?client=<your-client-code>&sessionId=<sessionId> \
+=======
   https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'session-id: your-unique-session-id'\
+  -H 'session-id: your-unique-session-id' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A' \
   -d '{
-   "client": "<your-tenant-name>",
+   "client": "<your-client-code>",
+   "host": "www.foo.com",
+   "ipAddress": "1.2.3.4",
+   "trace" : { 
+        "enabled": true,
+        "includeMetrics": true
+   },
    "id": {
 		"tntId": "123456789",
 		"thirdPartyId": "32jh4jk23h4kj2",
@@ -649,6 +711,10 @@ curl -X POST \
             	"id": "34366",
             	"total": 1425.34,
         		"purchasedProductIds": ["7632", "12253", "4949"]
+        	},
+        	"requestLocation": {
+                "pageURL": "http://foo.com/welcome-bing",
+            	"referrerURL": "https://bing.com"
         	}
    		}
    ],
@@ -692,6 +758,11 @@ curl -X POST \
             <td>client</td>
             <td>Y</td>
             <td>Valid client code</td>
+        </tr>
+        <tr>
+            <td>trace</td>
+            <td>N</td>
+            <td>Enable mboxTrace for debugging by setting *enabled* as *true*</td>
         </tr>
         <tr>
             <td>id &rarr; tntId</td>
@@ -757,9 +828,149 @@ curl -X POST \
             <td>Valid client environment id</td>
         </tr>
         <tr>
+            <td>host</td>
+            <td>N</td>
+            <td>Equivalent to mboxHost mbox parameter. (Length &lt; 128)</td>
+        </tr>
+        <tr>
+            <td>ipAddress</td>
+            <td>N</td>
+            <td>Request IP address, defaults to origin IP address.</td>
+        </tr>
+        <tr>
             <td>contentAsJson</td>
             <td>N</td>
             <td>true | false</td>
+        </tr>
+        <tr>
+            <td>mboxes</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Max count 50</li>
+                    <li>No null elements</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; indexId</td>
+            <td>Y</td>
+            <td>
+                <ul>
+                    <li>Not null</li>
+                    <li>&gt;= 0</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; mbox</td>
+            <td>Y</td>
+            <td>
+                <ul>
+                    <li>not blank</li>
+                    <li>no '-clicked' suffix</li>
+                    <li>max size 250</li>
+                    <li>values not allowed: '** display mboxes /**', '** any mbox **', '** click from display mbox **'</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; clicked</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Not null</li>
+                    <li>true or false</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; parameters</td>
+            <td>N</td>
+            <td> Mbox parameters associated with this mbox.
+                <ul>
+                    <li>max count 50</li>
+                    <li>name not blank</li>
+                    <li>name length <= 128</li>
+                    <li>value length <= 5000</li>
+                    <li>name should not start with "profile."</li>
+                    <li>not allowed names: "orderId", "orderTotal", "productPurchasedId"</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; requestLocation &rarr; pageURL</td>
+            <td>N</td>
+            <td>Equivalent to mboxURL mbox parameter.</td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; requestLocation &rarr; referrerURL</td>
+            <td>N</td>
+            <td>Equivalent to mboxReferrer mbox parameter</td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; requestLocation &rarr; impressionId</td>
+            <td>N</td>
+            <td>Equivalent of pageId. A unique string (length &lt; 128) is generated with each request if no value was specified.</td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; product</td>
+            <td>N</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; product &rarr; id</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Not null</li>
+                    <li>max size = 128</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; product &rarr; categoryid</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>Not null</li>
+                    <li>max size = 128</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; order</td>
+            <td>N</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; order &rarr; id</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>max length = 250</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; order &rarr; total</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>&gt;= 0</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>mboxes &rarr; order &rarr; purchasedProducts</td>
+            <td>N</td>
+            <td>
+                <ul>
+                    <li>No blank values</li>
+                    <li>each value's max length 50</li>
+                    <li>total ids length &lt;= 250</li>
+                </ul>
+            </td>
         </tr>
         <tr>
             <td>prefetch</td>
@@ -858,9 +1069,324 @@ curl -X POST \
                 </ul>
             </td>
         </tr>
+        <tr>
+            <td>notifications</td>
+            <td>N</td>
+            <td>Send notification requests for prefetched mboxes</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; type</td>
+            <td>N</td>
+            <td>hit | click; Default is "hit"</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; timestamp</td>
+            <td>Y</td>
+            <td>Indicates when the visitor visited the mbox. This should be a 10 digit UNIX timestamp in milliseconds.</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; mbox</td>
+            <td>Y</td>
+            <td>mbox name</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; parameters</td>
+            <td>N</td>
+            <td>Additional parameters with which the mbox was prefetched.</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; eventTokens</td>
+            <td>N</td>
+            <td>encrypted representation of the event to be taken from the response of the prefetch call.</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; clickToken</td>
+            <td>N</td>
+            <td>Encrypted representation of the click event to be taken from the response of the prefetch call.</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; profileScriptToken</td>
+            <td>N</td>
+            <td>Encrypted representation of the executed profile scripts map.</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; order</td>
+            <td>N</td>
+            <td>Accepts order details (id, total, purchasedProductIds) associated with this mbox notification.</td>
+        </tr>
+        <tr>
+            <td>notifications &rarr; product</td>
+            <td>N</td>
+            <td>Accepts product details (id, categoryId) associated with this mbox notification.</td>
+        </tr>
     </tbody>
 </table>
 
+## Integration with Adobe Audience Manager
+
+>Example: A sample request with AAM parameters.
+
+````json
+{
+    "aamParameters" : {
+   		"blob": "32fdghkjh34kj5h43",
+   		"uuid": "82394234238798437",
+   		"dcsLocationHint": 9,
+   		"dataPartnerId": 86567576,
+   		"dataPartnerUserId": 348382232423424
+    }
+}
+````
+
+You can send AAM parameters with the Batch Mbox API to leverage AAM Audience Segments.
+
+<table>
+    <tbody>
+    	<tr>
+            <th>Field Name</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>dcsLocationHint</td>
+            <td>Y</td>
+            <td>DCS Location Hint is used to determine which AAM DCS Endpoint to hit in order to retrieve the profile. Must be &gt;= 1.</td>
+        </tr>
+        <tr>
+            <td>uuid</td>
+            <td>N</td>
+            <td>AAM Unique user identifier is the internal AAM ID used to uniquely identify a user id. Must not be blank.</td>
+        </tr>
+        <tr>
+            <td>dataPartnerId</td>
+            <td>N</td>
+            <td>AAM Data Partner ID is the ID for a Data Partner. Must be &gt;=1.</td>
+        </tr>
+        <tr>
+            <td>dataPartnerUserId</td>
+            <td>N</td>
+            <td>AAM Data Partner Unique User Identifier is the user ID provided by a Data Partner. It must be a string.</td>
+        </tr>
+        <tr>
+            <td>blob</td>
+            <td>N</td>
+            <td>AAM Blob is used to send additional data to AAM. Must not be blank and the size &lt;= 1024.</td>
+        </tr>
+    </tbody>
+</table>
+
+
+## A4T for Batch Delivery API
+
+> Example 1:  Response when a A4T-enabled campaign qualifies for the mbox/prefetch request.
+
+````
+{
+   ...
+   "mboxResponses":[ 
+      { 
+         "mbox":"homePageHero1",
+         "content": "some content",
+         "clientSideAnalyticsLoggingPayload": {
+            "pe": "tnt",
+            "tnta": "86492:0:0|0,86492:0:0|2,86492:0:0|1"
+         }
+      }
+   ],
+   "prefetchResponses":[ 
+      { 
+         "mbox":"homePageHero2",
+         "content": "some content",
+         "eventTokens": [...],
+         "clientSideAnalyticsLoggingPayload": {
+            "pe": "tnt",
+            "tnta": "86494:0:0|0,86494:0:0|2,86494:0:0|1"
+         }
+      }
+   ]
+}
+````
+
+> Example 1: Sample request to the Analytics Tracking Server with the Target A4T Payload
+
+````shell
+curl -X GET \
+'https://<Analytics_Tracking_Server>/b/ss/<Report_Suite_IDs>/0/<Code_Version>?pe=tnt&tnta=86492:0:0|0,86492:0:0|2,86492:0:0|1,86494:0:0|0,86494:0:0|2,86494:0:0|1&mcid=<Marketing_Cloud_ID>&vid=<Custom_Visitor_ID>&aid=<Analytics_ID>'
+````
+
+In case any qualifying campaign is A4T enabled - target will send offer content containing also a payload (under a variable *clientSideAnalyticsLoggingPayload*) that should be logged by the client in Analytics using the Data Insertion API. A sample Target response and corresponding Analytics request is shown in the example alongside.
+
+<table>
+    <tbody>
+    	<tr>
+            <th>Field Name</th>
+            <th>Required</th>
+            <th>Description</th>
+        </tr>
+        <tr>
+            <td>Analytics_Tracking_Server</td>
+            <td>Y</td>
+            <td>The Analytics Tracking Server used in Target Reporting Destination.</td>
+        </tr>
+        <tr>
+            <td>Report_Suite_IDs</td>
+            <td>Y</td>
+            <td>The Report Suite ID for the Report Suite used for the Target Activity. Multiple report suite IDs can be provided in a comma separated format.</td>
+        </tr>
+        <tr>
+            <td>tnta</td>
+            <td>Y</td>
+            <td>Analytics payload (under the tnta variable) returned by Target server in clientSideAnalyticsLoggingPayload. Multiple payloads can be provided in a comma separated format.</td>
+        </tr>
+        <tr>
+            <td>mcid</td>
+            <td>N</td>
+            <td>Marketing Cloud Visitor ID. This is optional, but recommended.</td>
+        </tr>
+        <tr>
+            <td>vid</td>
+            <td>N</td>
+            <td>Custom Visitor ID</td>
+        </tr>
+        <tr>
+            <td>aid</td>
+            <td>N</td>
+            <td>Analytics ID</td>
+        </tr>
+    </tbody>
+</table>
+
+Note that the API used above is the Adobe Analytics Data Insertion API that can also be used as a POST request outlined [here](https://helpx.adobe.com/analytics/kb/data-insertion-api-post-method-adobe-analytics.html).
+
+## Best Practices for Batch Delivery
+
+> Mbox response for a qualifying campaign with a click metric
+
+````json
+{
+    "mboxResponses": [
+        {
+            "mbox": "homePageHero1",
+            "content": "123",
+            "clickToken": "1d2r"
+        }
+    ]
+}
+````
+
+> Sample notification request for a mbox click event
+
+````json
+{
+   "notifications": [
+      {
+         "type": "click",
+         "timestamp": 1505944567000,
+         "mbox": "homePageHero1",
+         "clickToken": "1d2r"
+      }
+   ]
+}
+````
+
+
+
+1. It is not necessary to have all three kind of mboxes in a request. You can make a request for just a single mbox using this API.
+2. Note that the profileParameters are set at the top level of a Batch request and all mboxes, prefetch or regular, will be associated with the same visitor profile.
+3. When working with multiple mboxes in the batch mbox request, the Target edge will process the mboxes in the sequence specified by the IndexId parameter value.
+4. **Overriding Parameters**: You can override mbox parameters, such as IP, time.
+5. **Prefetch:** Fetch offers associated with an mbox in advance without incrementing the impression or visit/visitor count.
+   1. Make sure you manage the eventTokens associated with an mbox for use at the notifications stage.
+   2. When the qualifying campaign has a click metric defined for an mbox, then the **clickToken** will be *returned* in the response. When the visitor clicks the mbox and a notification request is sent, the notification *type* should be set to *click* and the corresponding *clickToken* should be included.
+6. **Notifications:** There are two kinds of notifications - *hit* and *click*.
+7. **Profile Scripts** are executed per each mbox inside mboxes, prefetch and notifications, as per the following logic:
+   1. **Regular mbox** (part of the mboxes array): Profile Scripts are executed and results persisted in the profile immediately. Note that the sequence of execution will be as per the IndexId of the mboxes.
+   2. **Prefetch mbox** (part of the prefetch array): Target will execute the profile scripts and cache it without persisting it to the profile. A profileScriptToken will be returned in the response and should be included in the notification request for this mbox. The results will be persisted into the profile at this time.
+   3. **Notification mbox** (part of the notification array): If the notification has the profileScriptToken, then the profile script values will be written to the profile without re-executing them. If the profileScriptToken is missing then the profile scripts will be executed and again and persisted to the profile.
+8. If **Response Tokens** are enabled, they will be returned for each mbox response in the mboxes and prefetch sections.
+
+# Creating a Adobe.io Integration
+
+> Sample request to exchange a JWT token with a Bearer Access Token
+
+````shell
+curl -X POST \
+  'https://ims-na1.adobelogin.com/ims/exchange/jwt/?client_id=<Adobe.IO API KEY>&client_secret=<Adobe.IO Client Secret>&jwt_token=JWT_TOKEN'
+````
+
+> Sample response with the Bearer Access Token
+
+````json
+{
+    "token_type": "bearer",
+    "access_token": "eyJ4NXUiOiJpbXNfbmExLWtleS0xLmNlciIsImFsZyI6IlJTMjU2In0.eyJpZCI6IjE1MzM2NjIxNDAzNTNfOWFiYWRlNTYtZWY5YS00ZmM0LTg2MjYtZTMyYjk2Y2JjMTM0X3VlMSIsImNsaWVudF9pZCI6ImE5YjQ0YWQzZjgxMzQyNTg5NDRkNmVkYmE1MGZjNTFkIiwidXNlcl9pZCI6IjY2OUM3RkQ3NUFDM0UxNTgwQTQ5NUU3MEB0ZWNoYWNjdC5hZG9iZS5jb20iLCJ0eXBlIjoiYWNjZXNzX3Rva2VuIiwiYXMiOiJpbXMtbmExIiwiZmciOiJTVkRLWDZSNEZMTjdDSERPQUVBQUFBQUFWQT09PT09PSIsInNpZCI6IjE1MzM2NjIxNDAzNTVfOTE0NWIyMDItZjg3OC00ZjBiLWFhYjMtNmVkZTUzZWRkOTgyX3VlMSIsIm1vaSI6IjI1MGQ4MzFmIiwiYyI6ImJEMFJlQUQ0bU5sRzV4Z0psTmFJQmc9PSIsImV4cGlyZXNfaW4iOiI4NjQwMDAwMCIsInNjb3BlIjoib3BlbmlkLEFkb2JlSUQsdGFyZ2V0X3NkayxyZWFkX29yZ2FuaXphdGlvbnMsYWRkaXRpb25hbF9pbmZvLnByb2plY3RlZFByb2R1Y3RDb250ZXh0IiwiY3JlYXRlZF9hdCI6IjE1MzM2NjIxNDAzNTMifQ.AXpmjYPFUxvSkKjkO9DryCbqeGQDlrR07HIHjY-9alQIxe0JNIRfOjRjginvOO6ihWA71lfvtJ5iD6Yc7L9EDCCnztjSYYKfvK8NlDyN7uTOT7-Ky7OFQPnFX7m57d3vblj0Daq9Xbo0MbDfUtBl-0RpsfMz3tBN5OP1tOkgweuGHmnmeg-mUhbZf0SVrvlfM1aXQMx2gAL4c12f1YfviSUPQUPzB3ZozNHxKf321HiG-bUW06tRdZRdH-KhupdsJUlAHXSBZNDp0Gn93uGoDxNO7xuOqcFhRAJuqJQ96njPKLzmD_6V0SDDGHYb1IEcx7n0OYIf4BMK46W9tYXbdQ",
+    "expires_in": 86399990
+}
+````
+
+All Admin APIs and the Authenticated Profile APIs must use the Adobe.IO integration. You can create an Adobe.io integration by following these steps:
+
+1. Login to https://console.adobe.io and create a Target Integration by following the instructions [here](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md).
+   1. Note that you must be a product admin to create an integration.
+2. Generate a JSON Web Token (JWT) as described in the Adobe.io documentation.
+3. Exchange the JWT for a Bearer Access Token by using the request shown in the example alongside. The Access Token has an expiry value set and must be re-created on expiry.
+4. All Adobe.IO APIs must include the Access Token in the request header.
+
+# Generating Authentication Tokens
+
+>Generate a Debug Authentication Token for use with mboxTrace
+
+````shell
+curl -X POST \
+  'https://mc.adobe.io/<your-tenant-name>/target/authentication/token?scope=debug_tools' \
+  -H 'Authorization: Bearer BEARER_TOKEN_FROM_JWT_EXCHANGE' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/vnd.adobe.target.v1+json' \
+  -H 'X-Api-Key: a9b44ad3f8134258944d6edba50fc51d'
+````
+
+>Response to the Debug Authentication Token request
+
+````shell
+{
+    "accessToken": "c62922d4-2cc1-4074-9407-c91f697d5796",
+    "tokenType": "bearer",
+    "scope": "debug_tools",
+    "expiresIn": 21599
+}
+````
+
+>Generate a Profile Authentication Token for use with Profile APIs
+
+````shell
+curl -X POST \
+  'https://mc.adobe.io/<your-tenant-name>/target/authentication/token?scope=profile_api' \
+  -H 'Authorization: Bearer BEARER_TOKEN_FROM_JWT_EXCHAGE' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/vnd.adobe.target.v1+json' \
+  -H 'X-Api-Key: a9b44ad3f8134258944d6edba50fc51d'
+````
+
+>Response to the Profile Authentication Token request
+
+````shell
+{
+    "accessToken": "bbf8ae69-6e29-4b8e-b3d6-f7567723f5b0",
+    "tokenType": "bearer",
+    "scope": "profile_api",
+    "expiresIn": 7775999
+}
+````
+
+For using mboxTrace (debugging) in the Delivery APIs or accessing authenticated Profile APIs, you can generate the Authentication Tokens using the Adobe.IO Authentication Token API.
+`https://mc.adobe.io/<your-tenant-name>/target/authentication/token?scope=<AUTHENTICATION_SCOPE>`
+### Debug Authentication Token
+The debug authentication token helps debug the delivery API using mboxTrace. This can be generated by setting `scope=debug_tools` in the API request as shown in Example 1. The response returns the `accessToken` which should be passed in the Delivery API request headers  as
+`-H 'authorization: VALUE_OF_ACCESS_TOKEN'`.
+
+### Profile Authentication Token
+The profile authentication token helps work with the Profile API that has Authenticated switched ON. This can be generated by setting `scope=profile_api` in the API request as shown in Example 2. The response returns the `accessToken` which should be passed in the Delivery API request headers  as
+`-H 'access_token: VALUE_OF_ACCESS_TOKEN'`.
 
 #Profiles
 
@@ -921,9 +1447,9 @@ Adobe Target creates and maintains a profile for every individual user. This pro
 A Target Profile consists of these following objects
 
 * clientcode	- The Target client code to which the profile is associated
-* visitorId	- The identifier for the profile. This can be a tntid or thirdpartyid or marketingcloudvisitorid
-* modifiedAt	- The timestamp of when the profile was last updated.
-* profileAttributes	- List of all the profile attributes stored as key-value pairs on that the individual profile
+	 visitorId	- The identifier for the profile. This can be a tntid or thirdpartyid or marketingcloudvisitorid
+	 modifiedAt	- The timestamp of when the profile was last updated.
+	 profileAttributes	- List of all the profile attributes stored as key-value pairs on that the individual profile
 
 ## Fetching a profile
 
@@ -935,11 +1461,19 @@ Target automatically assigns a tntid for every request.
 
 The request format to fetch a profile using a tntid
 
+<<<<<<< HEAD
+`https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/your-tnt-id?client=<your-client-code>`
+=======
 `https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/your-tnt-id?client=yourclientcode`
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 Replace "<your-client-code>" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
 
+<<<<<<< HEAD
+`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-client-code>`
+=======
 `http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-tenant-name>`
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 ### Using a thirdPartyId
 
@@ -947,17 +1481,25 @@ Target profiles can be augmented with your own identifier (eg: CRM id, uuid, mem
 
 The request format to fetch a profile using a thirdPartyId
 
+<<<<<<< HEAD
+`https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/your-thirdpartyid?<your-client-code>`
+=======
 `https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/your-thirdpartyid?client=yourclientcode`
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 Replace "<your-client-code>" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
 
+<<<<<<< HEAD
+`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-client-code>`
+=======
 `http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-tenant-name>`
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 When this call is made, Target attempts to locate the profile first in the cluster noted in the edge request, or wherever the profile is located and return the content. The profile contents are returned in JSON format.
 
 ### Authentication
 
-This API has no authentication.
+The Profile API can be secured by turning authentication on from the Target UI as [described here](https://marketing.adobe.com/resources/help/en_US/target/ov2/c_profile-api-settings.html). Once authentication is switched ON, all profile API requests must have the profile authentication token set in the request headers. The token itself can be generated using the Target UI or using the steps explained above.
 
 ### Metering
 
@@ -1056,6 +1598,8 @@ Using Bulk Profile Update API, you can conveniently send detailed visitor profil
 
 version 2 (v2) of the Bulk Profile Update API is the current version. However, Target still supports version 1 (v1).
 
+<<<<<<< HEAD
+=======
 ### Caveats
 * The size of the batch file must be less than 50 MB. In addition, the total number of rows should not exceed 500,000 rows per upload.
 * There is no limit on the number or rows you can upload over a period of 24 hours in subsequent batches. However, the ingestion process might be throttled during business hours to ensure that other processes run efficiently.
@@ -1083,6 +1627,7 @@ Here is the sample response:
 
 `{ "access_token": "b106da37-301d-4cdd-b25f-59ab4c97b5a0", "scope": "profile_api", "expires_in": 21599, "token_type": "bearer” }`
 
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 ### Batch File
 
 
@@ -1175,28 +1720,18 @@ All APIs have a version associated with it. It is important to provide the right
 
 * If the request contains a payload (POST or PUT), the **Content-Type** header of the request is used to specify the version.
 
+<<<<<<< HEAD
+* If the request contains a payload (POST or PUT), the **Content-Type** header of the request is used to specify the version. 
+
+* If the request doesn't contain a payload (GET, DELETE or OPTIONS), the **Accept** header is used to specify the version. 
+=======
 * If the request doesn't contain a payload (GET, DELETE or OPTIONS), the **Accept** header is used to specify the version.
+>>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 * If a version isn't provided, the call will default to V1 (application/vnd.adobe.target.v1+json) .
 
 <aside class="notice">
 If the correct version isn't specified (eg: If you use a V2 payload but don't specify the Content-Type header), then the API will respond with an unsupported error if the API is not backwards compatible.
-</aside>
-
-
-
-## Adobe I/O Console
-
-The Adobe I/O console (https://console.adobe.io) is where you can configure your API integration and obtain your API keys and access token.
-
-Please refer to the [authentication section](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration) from the Adobe campaign API to learn how to configure Adobe I/O.
-
-<aside class="notice">
-All enterprise APIs that can be setup in the Adobe I/O console use the same configuration.
-</aside>
-
-<aside class="notice">
-You have to be a Experience Cloud Admin to get access to the Adobe I/O console.
 </aside>
 
 
@@ -3058,7 +3593,7 @@ Retrieve the list of previously-created content offers. The parameters passed th
                 <p><span>Returns the first ten offers<br>
             <code>/target/offers/?limit=10&amp;offset=0 </code><br><br>
             Returns offers between 11-20<br>
-			  <code>/target/offers/?limit=10&amp;offset=10</code> </span>
+    		  <code>/target/offers/?limit=10&amp;offset=10</code> </span>
                 </p>
             </td>
         </tr>
@@ -3070,14 +3605,14 @@ Retrieve the list of previously-created content offers. The parameters passed th
             </td>
             <td>
                 <p><span>
-
+    
              <p>Returns the first ten offers sorted by ID<br>
             <code>/target/offers/?sortBy=id&amp;limit=10</code><br></p>
 
 
 			<p>Returns the first ten offers sorted in descending order by ID<br>
 			<code>/target/offers/?sortBy=-id&amp;limit=10</code><br></p>
-
+	
 		 <p>Returns the first ten offers sorted by ascending IDs and descending names
 		<code>/target/offers/?sortBy=id,-name&amp;limit=10</code><br></p>
 
@@ -3374,7 +3909,7 @@ You can use the URL parameters to define pagination properties and sorting order
                 <p><span>Returns the first ten audiences<br>
             <code>/target/audiences/?limit=10&amp;offset=0 </code><br><br>
             Returns audiences between 11-20<br>
-			  <code>/target/audiences/?limit=10&amp;offset=10</code> </span>
+    		  <code>/target/audiences/?limit=10&amp;offset=10</code> </span>
                 </p>
             </td>
         </tr>
@@ -3386,14 +3921,14 @@ You can use the URL parameters to define pagination properties and sorting order
             </td>
             <td>
                 <p><span>
-
+    
              <p>Returns the first ten audiences sorted by ID<br>
             <code>/target/audiences/?sortBy=id&amp;limit=10</code><br></p>
 
 
 			<p>Returns the first ten audiences sorted in descending order by ID<br>
 			<code>/target/audiences/?sortBy=-id&amp;limit=10</code><br></p>
-
+	
 		 <p>Returns the first ten audiences sorted by ascending IDs and descending names
 		<code>/target/audiences/?sortBy=id,-name&amp;limit=10</code><br></p>
 
@@ -4683,7 +5218,7 @@ If you are looking to retrieve "Host Groups", use this API.
 
 # Batch Updates
 
-Execute multiple API calls as a single batch request.
+Multiple Admin APIs can be executed as a single batch request.
 
 
 ## Execute Calls in Batch
