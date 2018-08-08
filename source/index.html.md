@@ -50,11 +50,7 @@ Note the following characteristics of the Delivery API:
 
 ````shell
 curl -X POST \
-<<<<<<< HEAD
   'https://<your-client-code>.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=<your-client-code>' \
-=======
-  'https://<your-client-code>.tt.omtrdc.net/rest/v1/mbox/my-session-id?client=<your-tenant-name>' \
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -d '{
@@ -455,11 +451,7 @@ You can combine tntId/thirdPartyId/marketingCloudVisitorId and provide them in t
 
 ````shell
 curl -X POST \
-<<<<<<< HEAD
   https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox?client=<your-client-code>&sessionId=<sessionId> \
-=======
-  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'session-id: your-unique-session-id'\
@@ -476,84 +468,6 @@ curl -X POST \
    		{
    			"indexId": 1,
    			"mbox": "batch-req-2"
-   		}
-<<<<<<< HEAD
-=======
-   	]
-}'
-````
-
-> Example 1 : Batch Delivery Response for multiple mboxes
-
-````shell
-{
-    "requestId": "1e20ec58-48c9-46a7-a43c-b34aafb1a18b",
-    "client": "<your-tenant-name>",
-    "id": {
-        "tntId": "123456789.28_51"
-    },
-    "edgeHost": "mboxedge28.tt.omtrdc.net",
-    "contentAsJson": false,
-    "mboxResponses": [
-        {
-            "mbox": "batch-req-1",
-            "content": "batch-response-1a"
-        },
-        {
-            "mbox": "batch-req-2",
-            "content": "batch-response-2a"
-        }
-    ]
-}
-````
-
-The Batch Delivery API allows requesting content for multiple mboxes in a single call. It also has a prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes.
-
-
-## Batch Postman Collection
-
-<aside class="notice">
-Don't forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
-</aside>
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/86e5c5003452af10b371)
-
-## Batch Limitations
-
-<aside class = "warning">
-<b>Support for AP and Recs Activities</b>: This API has two modes for fetching content - regular mbox batch mode and prefetch mode. The prefetch mode can only be used for AB and XT activities. Don't use the prefetch mode for Automated Personalization, Auto-Allocate, Auto-Target and Recommendations activty types. Prefetch support for these activity types will be added in the future. The API request and response structure won't change when the support is added.
-</aside>
-
-<aside class = "warning">
-<b> The batch mode or the "mboxes" object in the API can be used for all activity types</b>. If you are looking to fetch the content for multiple mboxes is a single call, this is a great option.
-</aside>
-
-## Batch Terminology
-
->Example 2 : Batch Delivery Request with one regular mbox and one prefetched mbox
-
-````shell
-curl -X POST \
-  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
-  -H 'cache-control: no-cache' \
-  -H 'content-type: application/json' \
-  -H 'session-id: your-unique-session-id'\
-  -d '{
-   "client": "<your-tenant-name>",
-   "id": {
-		"tntId": "123456789"
-   },
-   "mboxes": [
-   		{
-   			"indexId": 0,
-   			"mbox": "batch-req-1"
-   		}
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
-   	],
-   	"prefetch": [
-   		{
-   			"indexId": 0,
-   			"mbox": "batch-req-3"
    		}
    	]
 }'
@@ -594,7 +508,6 @@ curl -X POST \
 
 The Batch Delivery API allows requesting content for multiple mboxes in a single call, therefore improving performance and flexibility in delivery. The Batch Delivery API has two capabilities, both of which can be used together:
 
-<<<<<<< HEAD
 1. Batch Mbox: You can request the offers for multiple mboxes with a single API request. The behavior of this capability is same as the Delivery API for a single mbox.
 2. Prefetch: A prefetch mode that enables clients like mobile apps, servers etc to fetch content for multiple mboxes in one request, cache it locally and later notify Target when the user visits those mboxes.
 
@@ -618,17 +531,6 @@ Don't forget to replace the clientcode and the mbox name with your own in the AP
 <aside class = "notice">
 <b>The batch mode or the “mboxes” object in the API can be used for all activity types</b>: If you are looking to fetch the content for multiple mboxes is a single call, this is a great option. 
 </aside>
-=======
-Here are some common terms that you need to be familiar with.
-
-* **mboxes** – List of mboxes that should be fetched and marked as visited immediately on content delivery. If you just want to get the content for multiple mboxes but don't have a necessary to prefetch and cache them, use this.
-
-* **prefetch** – List of mboxes that should be fetched but shouldn't be marked as visited. The Target edge returns an eventToken for each mbox that is present in the the prefetch array
-
-* **notifications** – List of mboxes that were previously prefetched and should be marked as visited.
-
-* **eventTokens** – A hashed encrypted token that is returned when content is prefetched. This eventToken should be sent back to Target in the notifications array.
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 
 ## Batch Input Parameters
@@ -638,11 +540,7 @@ Here are some common terms that you need to be familiar with.
 
 ````shell
 curl -X POST \
-<<<<<<< HEAD
   https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox?client=<your-client-code>&sessionId=<sessionId> \
-=======
-  https://<your-client-code>.tt.omtrdc.net/rest/v2/batchmbox/ \
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
   -H 'session-id: your-unique-session-id' \
@@ -1461,19 +1359,11 @@ Target automatically assigns a tntid for every request.
 
 The request format to fetch a profile using a tntid
 
-<<<<<<< HEAD
 `https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/your-tnt-id?client=<your-client-code>`
-=======
-`https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/your-tnt-id?client=yourclientcode`
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 Replace "<your-client-code>" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
 
-<<<<<<< HEAD
-`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-client-code>`
-=======
 `http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-tenant-name>`
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 ### Using a thirdPartyId
 
@@ -1481,19 +1371,11 @@ Target profiles can be augmented with your own identifier (eg: CRM id, uuid, mem
 
 The request format to fetch a profile using a thirdPartyId
 
-<<<<<<< HEAD
 `https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/your-thirdpartyid?<your-client-code>`
-=======
-`https://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/your-thirdpartyid?client=yourclientcode`
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 Replace "<your-client-code>" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
 
-<<<<<<< HEAD
-`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-client-code>`
-=======
 `http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-tenant-name>`
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 When this call is made, Target attempts to locate the profile first in the cluster noted in the edge request, or wherever the profile is located and return the content. The profile contents are returned in JSON format.
 
@@ -1598,8 +1480,6 @@ Using Bulk Profile Update API, you can conveniently send detailed visitor profil
 
 version 2 (v2) of the Bulk Profile Update API is the current version. However, Target still supports version 1 (v1).
 
-<<<<<<< HEAD
-=======
 ### Caveats
 * The size of the batch file must be less than 50 MB. In addition, the total number of rows should not exceed 500,000 rows per upload.
 * There is no limit on the number or rows you can upload over a period of 24 hours in subsequent batches. However, the ingestion process might be throttled during business hours to ensure that other processes run efficiently.
@@ -1720,13 +1600,7 @@ All APIs have a version associated with it. It is important to provide the right
 
 * If the request contains a payload (POST or PUT), the **Content-Type** header of the request is used to specify the version.
 
-<<<<<<< HEAD
-* If the request contains a payload (POST or PUT), the **Content-Type** header of the request is used to specify the version. 
-
-* If the request doesn't contain a payload (GET, DELETE or OPTIONS), the **Accept** header is used to specify the version. 
-=======
 * If the request doesn't contain a payload (GET, DELETE or OPTIONS), the **Accept** header is used to specify the version.
->>>>>>> 63d66ab7ad40f6be5f3f4d48700feca6d66a736c
 
 * If a version isn't provided, the call will default to V1 (application/vnd.adobe.target.v1+json) .
 
