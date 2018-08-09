@@ -1203,7 +1203,7 @@ Note that the API used above is the Adobe Analytics Data Insertion API that can 
    3. **Notification mbox** (part of the notification array): If the notification has the profileScriptToken, then the profile script values will be written to the profile without re-executing them. If the profileScriptToken is missing then the profile scripts will be executed and again and persisted to the profile.
 8. If **Response Tokens** are enabled, they will be returned for each mbox response in the mboxes and prefetch sections.
 
-# Creating a Adobe.io Integration
+# Adobe.IO Integration
 
 > Sample request to exchange a JWT token with a Bearer Access Token
 
@@ -1230,7 +1230,7 @@ All Admin APIs and the Authenticated Profile APIs must use the Adobe.IO integrat
 3. Exchange the JWT for a Bearer Access Token by using the request shown in the example alongside. The Access Token has an expiry value set and must be re-created on expiry.
 4. All Adobe.IO APIs must include the Access Token in the request header.
 
-# Generating Authentication Tokens
+# Authentication Tokens
 
 >Generate a Debug Authentication Token for use with mboxTrace
 
