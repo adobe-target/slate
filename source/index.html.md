@@ -13,8 +13,6 @@ highlight_theme: Xcode
 
 Target's RESTful APIs enable you to manage and deliver personalized experiences across channels. You can use the Target REST APIs to manage Target Activities, Audiences and Offers, retrieve reports, deliver experiences and manage visitor profiles.
 
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/94cb2f003ae62aef8136)
-
 # Server Side Delivery
 
 The Server Side Delivery API is designed to deliver experiences with any server side platform or an application that can make HTTP/s calls. This is valuable for organizations that want to deliver targeting to a non-browser based IoT device, such as a connected TV, kiosk, or in-store digital screen.
@@ -43,6 +41,14 @@ Note the following characteristics of the Delivery API:
 2. The session-id in the REST API must be unique for every visitor in your application.
 3. Use mboxTrace with a Debug Authentication Token to debug your API integrations. The Debug Authentication Token is valid for six hours and needs to be refreshed accordingly.
 4. You can pass user-agent in the request header in order to leverage browser and device based audience segmentations.
+
+## Delivery Postman Collection
+
+Postman is a application that makes it easy to fire API calls. This Postman collection contains Server Side Delivery and Profile API calls. Just click on the ‘Run in Postman’ button to import the Target API collection.
+
+Don’t forget to replace the clientcode and the mbox name with your own in the API calls. The APIs in the collection use a demo account.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/94cb2f003ae62aef8136)
 
 ## Input Parameters
 
@@ -1222,7 +1228,7 @@ curl -X POST \
 }
 ````
 
-All Admin APIs and the Authenticated Profile APIs must use the Adobe.IO integration. You can create an Adobe.io integration by following these steps:
+All **Admin APIs** and the **Authenticated Profile APIs** must use the Adobe.IO integration. You can create an Adobe.io integration by following these steps:
 
 1. Login to https://console.adobe.io and create a Target Integration by following the instructions [here](https://www.adobe.io/authentication/auth-methods.html#!adobeio/adobeio-documentation/master/auth/JWTAuthenticationQuickStart.md).
    1. Note that you must be a product admin to create an integration.
@@ -1381,7 +1387,7 @@ When this call is made, Target attempts to locate the profile first in the clust
 
 ### Authentication
 
-The Profile API can be secured by turning authentication on from the Target UI as [described here](https://marketing.adobe.com/resources/help/en_US/target/ov2/c_profile-api-settings.html). Once authentication is switched ON, all profile API requests must have the profile authentication token set in the request headers. The token itself can be generated using the Target UI or using the steps explained above.
+The Profile API can be secured by turning authentication on from the Target UI as [described here](https://marketing.adobe.com/resources/help/en_US/target/ov2/c_profile-api-settings.html). Once authentication is switched ON, all profile API requests must have the profile authentication token set in the request headers. The token itself can be generated using the Target UI or using the steps explained above in the [Profile Authentication Token section](#authentication-tokens).
 
 ### Metering
 
@@ -1601,8 +1607,6 @@ This collection contains all APIs that require authentication using Adobe I/O
 <aside class="notice">
 Don't forget to replace the {{tenant}}, {{access_token}} and {{api_key}} values with your own in the API calls.
 </aside>
-
-
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/8df29390f5e380f44a7c)
 
 ## Response Codes
