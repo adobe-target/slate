@@ -1735,8 +1735,8 @@ GET activity list sorted by multiple criteria
 GET activity list filtered by a date range
 `https://mc.adobe.io/{tenant}/target/activities/?startsAt=1800-09-01T02:04:00.000-07:00/2114-11-30T14:10:00.000-07:00`
 
-GET activity list sorted by workspaces
-`https://mc.adobe.io/{tenant}/target/activities/?workspaces=1234567,12345678`
+GET activity list filtered by workspaces
+`https://mc.adobe.io/{tenant}/target/activities/?workspace=1234567,12345678`
 
 ## Get AB Activity by ID
 
@@ -4239,34 +4239,33 @@ curl -X GET \
 > Sample Response for Get property
 
 ````json
-[	"total": 2,
-	"offset": 0,
-	"limit": 2147483647
-	{
-
-		"id": 1,
-		"name": "Email property1",
-		"description": "This is a email type of property",
-		"channel": "email",
-		"segmentId": 5,
-		"workspaces": [
-			"1234567",
-			"12345678"
-		]
-	},
-	{
-
-		"id": 2,
-		"name": "Email property2",
-		"description": "This is a email type of property",
-		"channel": "email",
-		"segmentId": 5,
-		"workspaces": [
-			"1234567",
-			"12345679"
-		]
-	}
-]
+{
+    "total": 2,
+    "offset": 0,
+    "limit": 2147483647,
+    "properties": [
+        {
+            "id": 2,
+            "name": "Products pagde",
+            "description": "This property will be required on all pages under Products section of website",
+            "channel": "web",
+            "segmentId": 410923,
+            "modifiedAt": "2019-02-18T12:26:22.000Z",
+            "workspaces": [
+                "12",
+                "15"
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Products page",
+            "description": "This property will be required on all pages under Products section of website",
+            "channel": "web",
+            "segmentId": 410923,
+            "modifiedAt": "2019-02-18T12:25:20.000Z"
+        }
+    ]
+}
 ````
 
 `GET /{tenant}/target/properties`
