@@ -1735,6 +1735,9 @@ GET activity list sorted by multiple criteria
 GET activity list filtered by a date range
 `https://mc.adobe.io/{tenant}/target/activities/?startsAt=1800-09-01T02:04:00.000-07:00/2114-11-30T14:10:00.000-07:00`
 
+GET activity list sorted by workspaces
+`https://mc.adobe.io/{tenant}/target/activities/?workspaces=1234567,12345678`
+
 ## Get AB Activity by ID
 
 > Sample Request for Get AB Activity by ID
@@ -2212,7 +2215,7 @@ Activities created using the API can only be edited using the API. You can't edi
             <td> <em>workspace</em>
             </td>
             <td> String</td>
-            <td> Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium).</td>
+            <td>Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium).</td>
         </tr>
         <tr>
             <td> <em>propertyIds</em>
@@ -2408,6 +2411,7 @@ Activities created using the API can only be edited using the API. You can't edi
         </tr>
     </tbody>
 </table>
+
 
 
 
@@ -4235,7 +4239,9 @@ curl -X GET \
 > Sample Response for Get property
 
 ````json
-[	
+[	"total": 2,
+	"offset": 0,
+	"limit": 2147483647
 	{
 
 		"id": 1,
