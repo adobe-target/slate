@@ -1825,7 +1825,7 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168824 \
     "propertyIds": [
       	1,
       	2
-  	],
+    ],
     "modifiedAt": "2017-05-11T10:11:18Z"
 }
 
@@ -1923,7 +1923,7 @@ curl -X DELETE \
     "propertyIds": [
       	1,
       	2
-  	],
+    ],
     "modifiedAt": "2017-07-09T21:42:42Z"
 }
 
@@ -2018,7 +2018,7 @@ curl -X POST \
     "propertyIds": [
       	1,
       	2
-  	]
+    ]
 }'
 
 ````
@@ -2101,7 +2101,7 @@ curl -X POST \
     "propertyIds": [
       	1,
       	2
-  	],
+    ],
     "modifiedAt": "2017-07-10T05:11:03Z"
 }
 
@@ -2412,8 +2412,6 @@ Activities created using the API can only be edited using the API. You can't edi
 
 
 
-
-
 ## Update AB Activity
 
 > Sample Request for Update AB Activity
@@ -2520,10 +2518,10 @@ curl -X PUT \
 		}
 	],
 	"workspace": "1234567",
-    "propertyIds": [
-      	1,
-      	2
-  	],
+        "propertyIds": [
+      	        1,
+      	        2
+        ],
 	"analytics": {
 		"reportSuite": "mydemoreportsuite",
 		"dataCollectionHost": "mydemoreportsuite.sc.omniture.com"
@@ -2626,15 +2624,14 @@ curl -X PUT \
 				{
 					"name": "event_3",
 					"successEvent": "mbox_shown"
-				}
 			]
 		}
 	],
 	"workspace": "1234567",
-    "propertyIds": [
-      	1,
-      	2
-  	],
+        "propertyIds": [
+      	        1,
+      	        2
+        ],
 	"analytics": {
 		"reportSuite": "mydemoreportsuite",
 		"dataCollectionHost": "mydemoreportsuite.sc.omniture.com"
@@ -2749,7 +2746,7 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168824 \
     "propertyIds": [
       	1,
       	2
-  	],
+    ],
     "analytics": {
         "reportSuite": "<your-tenant-name>iosdemo",
         "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
@@ -2860,7 +2857,7 @@ curl -X DELETE \
     "propertyIds": [
       	1,
       	2
-  	],
+    ],
     "modifiedAt": "2017-07-10T04:09:39Z"
 }
 
@@ -2972,7 +2969,7 @@ curl -X POST \
     "propertyIds": [
       	1,
       	2
-  	],
+    ],
     "analytics": {
         "reportSuite": "<your-tenant-name>westeros",
         "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
@@ -3076,7 +3073,7 @@ curl -X POST \
     "propertyIds": [
       	1,
       	2
-  	],
+    ],
     "analytics": {
         "reportSuite": "<your-tenant-name>westeros",
         "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
@@ -3581,7 +3578,7 @@ curl -X GET \
     "name": "10OFF",
     "content": "Use 10OFF for $10 off for orders over $100",
     "modifiedAt": "2017-03-19T00:06:47Z",
-    "workspace": "workspace1"
+    "workspace": "1234567"
 }
 
 ````
@@ -3589,8 +3586,6 @@ curl -X GET \
 ### `GET /{tenant}/target/offers/content/{id}`
 
 Retrieves the contents of an offer given an offer id.
-
-
 
 ## Create Offer
 
@@ -3606,7 +3601,7 @@ curl -X POST \
   -d ' {
 	 "name": "My new offer",
 	 "content": "<div>The content of the offer</div>",
-     "workspace": "1234567"	
+         "workspace": "1234567"	
  }
 '
 
@@ -4224,7 +4219,7 @@ API methods for Properties. Applicable for Enterprise Permissions (Target Premiu
 
 
 ## List Properties
-> Sample Request for retrieve list of all properties
+> Sample Request to retrieve list of all properties
 
 ````shell
 
@@ -4244,7 +4239,6 @@ curl -X GET \
 	{
 
 		"id": 1,
-
 		"name": "Email property1",
 		"description": "This is a email type of property",
 		"channel": "email",
@@ -4257,7 +4251,6 @@ curl -X GET \
 	{
 
 		"id": 2,
-
 		"name": "Email property2",
 		"description": "This is a email type of property",
 		"channel": "email",
@@ -4276,7 +4269,7 @@ Retrieve list of all properties.
 
 
 ## Get property by ID
-> Sample Request for retrieve single property by property Id
+> Sample Request to retrieve property by property Id
 
 ````shell
 
@@ -4289,13 +4282,12 @@ curl -X GET \
 
 
 ````
-> Sample Response for Get single property by property Id.
+> Sample Response for Get property by property Id.
 
 ````json
 {
 
 	"id": 1,
-
 	"name": "Email property",
 	"description": "This is a email type of property",
 	"channel": "email",
@@ -4309,7 +4301,7 @@ curl -X GET \
 
 `GET /{tenant}/target/properties/{id}`
 
-Retrieve single property by property Id.
+Retrieve property by property Id.
 
 
 # Reports
@@ -4322,7 +4314,7 @@ Retrieve single property by property Id.
 ````shell
 
 curl -X GET \
-  https://mc.adobe.io/<your-tenant-name>/target/proprty/ab/166423/report/performance \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/166423/report/performance \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v1+json' \
