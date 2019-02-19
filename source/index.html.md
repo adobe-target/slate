@@ -1607,7 +1607,7 @@ This collection contains all APIs that require authentication using Adobe I/O
 <aside class="notice">
 Don't forget to replace the {{tenant}}, {{access_token}} and {{api_key}} values with your own in the API calls.
 </aside>
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/8df29390f5e380f44a7c)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/faf7b24288a06c359f4c)
 
 ## Response Codes
 
@@ -1642,7 +1642,7 @@ curl -X GET
 https://mc.adobe.io/<your-tenant-name>/target/activities/ \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -1661,7 +1661,8 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "state": "deactivated",
             "name": "A3 - L4242 - Serversid testing",
             "priority": 0,
-            "modifiedAt": "2017-05-11T10:11:35Z"
+            "modifiedAt": "2017-05-11T10:11:35Z",
+            "workspace": "1234567"
         },
         {
             "id": 168942,
@@ -1670,7 +1671,8 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "state": "deactivated",
             "name": "A3-L4242-XT",
             "priority": 0,
-            "modifiedAt": "2017-05-11T10:11:52Z"
+            "modifiedAt": "2017-05-11T10:11:52Z",
+            "workspace": "1234567"
         },
         {
             "id": 168816,
@@ -1679,7 +1681,8 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "state": "deactivated",
             "name": "A5-L4242",
             "priority": 0,
-            "modifiedAt": "2017-05-11T10:11:33Z"
+            "modifiedAt": "2017-05-11T10:11:33Z",
+            "workspace": "1234567"
         },
         {
             "id": 168824,
@@ -1688,7 +1691,8 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "state": "deactivated",
             "name": "A6-L4242 AB Test SG",
             "priority": 0,
-            "modifiedAt": "2017-05-11T10:11:18Z"
+            "modifiedAt": "2017-05-11T10:11:18Z",
+            "workspace": "1234567"
         }
     ]
 }
@@ -1731,6 +1735,9 @@ GET activity list sorted by multiple criteria
 GET activity list filtered by a date range
 `https://mc.adobe.io/{tenant}/target/activities/?startsAt=1800-09-01T02:04:00.000-07:00/2114-11-30T14:10:00.000-07:00`
 
+GET activity list filtered by workspaces
+`https://mc.adobe.io/{tenant}/target/activities/?workspace=1234567,12345678`
+
 ## Get AB Activity by ID
 
 > Sample Request for Get AB Activity by ID
@@ -1740,7 +1747,7 @@ curl -X GET
 https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168824 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -1817,6 +1824,11 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168824 \
             }
         }
     ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
+    ],
     "modifiedAt": "2017-05-11T10:11:18Z"
 }
 
@@ -1838,7 +1850,7 @@ curl -X DELETE \
   https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168805 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -1910,6 +1922,11 @@ curl -X DELETE \
             }
         }
     ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
+    ],
     "modifiedAt": "2017-07-09T21:42:42Z"
 }
 
@@ -1929,7 +1946,7 @@ curl -X POST \
   https://mc.adobe.io/<your-tenant-name>/target/activities/ab/ \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
     "name": "New API Activity",
@@ -1999,6 +2016,11 @@ curl -X POST \
                 "type": "count_once"
             }
         }
+    ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
     ]
 }'
 
@@ -2077,6 +2099,11 @@ curl -X POST \
                 "type": "count_once"
             }
         }
+    ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
     ],
     "modifiedAt": "2017-07-10T05:11:03Z"
 }
@@ -2183,6 +2210,18 @@ Activities created using the API can only be edited using the API. You can't edi
                     </li>
                 </ul>
             </td>
+        </tr>
+        <tr>
+            <td> <em>workspace</em>
+            </td>
+            <td> String</td>
+            <td>Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium).</td>
+        </tr>
+        <tr>
+            <td> <em>propertyIds</em>
+            </td>
+            <td> Array</td>
+            <td> List of property ids to associate with the activity.</td>
         </tr>
         <tr>
             <td> <em>locations</em>
@@ -2376,6 +2415,7 @@ Activities created using the API can only be edited using the API. You can't edi
 
 
 
+
 ## Update AB Activity
 
 > Sample Request for Update AB Activity
@@ -2385,7 +2425,7 @@ curl -X PUT \
   https://mc.adobe.io/<your-tenant-name>/target/activities/ab/183916 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
 	"name": "New Activity Name",
@@ -2481,6 +2521,11 @@ curl -X PUT \
 			]
 		}
 	],
+	"workspace": "1234567",
+        "propertyIds": [
+      	        1,
+      	        2
+        ],
 	"analytics": {
 		"reportSuite": "mydemoreportsuite",
 		"dataCollectionHost": "mydemoreportsuite.sc.omniture.com"
@@ -2583,10 +2628,14 @@ curl -X PUT \
 				{
 					"name": "event_3",
 					"successEvent": "mbox_shown"
-				}
 			]
 		}
 	],
+	"workspace": "1234567",
+        "propertyIds": [
+      	        1,
+      	        2
+        ],
 	"analytics": {
 		"reportSuite": "mydemoreportsuite",
 		"dataCollectionHost": "mydemoreportsuite.sc.omniture.com"
@@ -2615,7 +2664,7 @@ curl -X GET
 https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168824 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -2697,6 +2746,11 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168824 \
             }
         }
     ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
+    ],
     "analytics": {
         "reportSuite": "<your-tenant-name>iosdemo",
         "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
@@ -2720,7 +2774,7 @@ curl -X DELETE \
   https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168333 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -2803,6 +2857,11 @@ curl -X DELETE \
             }
         }
     ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
+    ],
     "modifiedAt": "2017-07-10T04:09:39Z"
 }
 
@@ -2822,7 +2881,7 @@ curl -X POST \
   https://mc.adobe.io/<your-tenant-name>/target/activities/xt/ \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
     "name": "New XT API Activity",
@@ -2909,6 +2968,11 @@ curl -X POST \
                 "type": "count_once"
             }
         }
+    ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
     ],
     "analytics": {
         "reportSuite": "<your-tenant-name>westeros",
@@ -3008,6 +3072,11 @@ curl -X POST \
                 "type": "count_once"
             }
         }
+    ],
+    "workspace": "1234567",
+    "propertyIds": [
+      	1,
+      	2
     ],
     "analytics": {
         "reportSuite": "<your-tenant-name>westeros",
@@ -3335,7 +3404,7 @@ curl -X GET \
   'https://mc.adobe.io/<your-tenant-name>/target/offers?limit=10' \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v2+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -3351,61 +3420,71 @@ curl -X GET \
             "id": 391769,
             "name": "/l1_a_b_test/experiences/0/pages/0/zones/0/1489440825492",
             "type": "content",
-            "modifiedAt": "2017-03-20T03:03:28Z"
+            "modifiedAt": "2017-03-20T03:03:28Z",
+            "workspace": "1234567"
         },
         {
             "id": 391902,
             "name": "10OFF",
             "type": "content",
-            "modifiedAt": "2017-03-19T00:06:47Z"
+            "modifiedAt": "2017-03-19T00:06:47Z",
+            "workspace": "1234567"
         },
         {
             "id": 391903,
             "name": "SHIPFREE",
             "type": "content",
-            "modifiedAt": "2017-03-19T00:06:29Z"
+            "modifiedAt": "2017-03-19T00:06:29Z",
+            "workspace": "1234567"
         },
         {
             "id": 391904,
             "name": "5OFF",
             "type": "content",
-            "modifiedAt": "2017-03-19T00:06:26Z"
+            "modifiedAt": "2017-03-19T00:06:26Z",
+            "workspace": "1234567"
         },
         {
             "id": 391905,
             "name": "/a1_-_l4206a_-_ab/experiences/0/pages/0/zones/0/1489468580249",
             "type": "content",
-            "modifiedAt": "2017-06-30T19:48:38Z"
+            "modifiedAt": "2017-06-30T19:48:38Z",
+            "workspace": "1234567"
         },
         {
             "id": 391906,
             "name": "/a1_-_l4206a_-_ab/experiences/1/pages/0/zones/0/1489468580252",
             "type": "content",
-            "modifiedAt": "2017-06-14T20:24:39Z"
+            "modifiedAt": "2017-06-14T20:24:39Z",
+            "workspace": "1234567"
         },
         {
             "id": 391907,
             "name": "/a1_-_l4206a_-_ab/experiences/2/pages/0/zones/0/1489468580255",
             "type": "content",
-            "modifiedAt": "2017-04-21T21:34:55Z"
+            "modifiedAt": "2017-04-21T21:34:55Z",
+            "workspace": "1234567"
         },
         {
             "id": 391910,
             "name": "/a1_-_l4206a_-_xt/experiences/0/pages/0/zones/0/1489470215324",
             "type": "content",
-            "modifiedAt": "2017-03-19T03:51:21Z"
+            "modifiedAt": "2017-03-19T03:51:21Z",
+            "workspace": "1234567"
         },
         {
             "id": 391911,
             "name": "/a1_-_l4206a_-_xt/experiences/1/pages/0/zones/0/1489470215327",
             "type": "content",
-            "modifiedAt": "2017-03-14T05:43:36Z"
+            "modifiedAt": "2017-03-14T05:43:36Z",
+            "workspace": "1234567"
         },
         {
             "id": 391919,
             "name": "/a1_-_l4206a_-_xt/experiences/2/pages/0/zones/0/1489474831626",
             "type": "content",
-            "modifiedAt": "2017-03-19T03:51:21Z"
+            "modifiedAt": "2017-03-19T03:51:21Z",
+            "workspace": "1234567"
         }
     ]
 }
@@ -3489,7 +3568,7 @@ curl -X GET \
   https://mc.adobe.io/<your-tenant-name>/target/offers/content/391902 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v2+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -3502,13 +3581,13 @@ curl -X GET \
     "id": 391902,
     "name": "10OFF",
     "content": "Use 10OFF for $10 off for orders over $100",
-    "modifiedAt": "2017-03-19T00:06:47Z"
+    "modifiedAt": "2017-03-19T00:06:47Z",
+    "workspace": "1234567"
 }
 
 ````
 
 ### `GET /{tenant}/target/offers/content/{id}`
-
 
 Retrieves the contents of an offer given an offer id.
 
@@ -3521,11 +3600,12 @@ curl -X POST \
   https://mc.adobe.io/<your-tenant-name>/target/offers/content \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'content-type: application/vnd.adobe.target.v2+json' \
   -H 'x-api-key: <your-api-token>'
   -d ' {
 	 "name": "My new offer",
-	 "content": "<div>The content of the offer</div>"
+	 "content": "<div>The content of the offer</div>",
+         "workspace": "1234567"	
  }
 '
 
@@ -3539,7 +3619,8 @@ curl -X POST \
     "id": 438180,
     "name": "My new offer",
     "content": "<div>The content of the offer</div>",
-    "modifiedAt": "2017-07-10T20:46:53Z"
+    "modifiedAt": "2017-07-10T20:46:53Z",
+    "workspace": "1234567"
 }
 
 ````
@@ -3548,7 +3629,11 @@ curl -X POST \
 
 Creates a new content offer as defined by the request data.
 
-
+| Attribute | Type   | Description                                                  |
+| --------- | ------ | ------------------------------------------------------------ |
+| name      | String | A string to identify the Offer. The name cannot be empty. Max length is 250 characters. |
+| content   | String | Content of an Offer shown to user.                           |
+| workspace | String | Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium). |
 
 ## Update Offer by ID
 
@@ -3559,7 +3644,7 @@ curl -X PUT \
   https://mc.adobe.io/<your-tenant-name>/target/offers/content/438180 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'content-type: application/vnd.adobe.target.v2+json' \
   -H 'x-api-key: <your-api-token>'
   -d ' {
 	"name": "Your existing offer",
@@ -3599,7 +3684,7 @@ curl -X DELETE \
   https://mc.adobe.io/<your-tenant-name>/target/offers/content/438180 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v2+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -3612,7 +3697,8 @@ curl -X DELETE \
     "id": 438180,
     "name": "Your existing offer",
     "content": "<div>Updated content</div>",
-    "modifiedAt": "2017-07-10T20:55:41Z"
+    "modifiedAt": "2017-07-10T20:55:41Z",
+    "workspace": "1234567"
 }
 
 ````
@@ -3637,7 +3723,7 @@ curl -X GET \
   'https://mc.adobe.io/<your-tenant-name>/target/audiences/' \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -3656,70 +3742,80 @@ curl -X GET \
             "name": "A1 -  Active account l-1489628809975",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-16T01:47:07Z"
+            "modifiedAt": "2017-03-16T01:47:07Z",
+            "workspace": "1234567"
         },
         {
             "id": 1216183,
             "name": "A1 - Current Category -1489642111631",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-16T05:28:33Z"
+            "modifiedAt": "2017-03-16T05:28:33Z",
+            "workspace": "1234567"
         },
         {
             "id": 1216184,
             "name": "A1 - Current category -1489642149723",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-16T05:29:11Z"
+            "modifiedAt": "2017-03-16T05:29:11Z",
+            "workspace": "1234567"
         },
         {
             "id": 1222658,
             "name": "A1 - Customer Attribute -1489821120208",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-18T07:45:41Z"
+            "modifiedAt": "2017-03-18T07:45:41Z",
+            "workspace": "1234567"
         },
         {
             "id": 1238132,
             "name": "A1 - L206 - Profile - -1490293696694",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-23T18:28:19Z"
+            "modifiedAt": "2017-03-23T18:28:19Z",
+            "workspace": "1234567"
         },
         {
             "id": 1238133,
             "name": "A1 - L206 - Profile - -1490293722988",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-23T18:28:43Z"
+            "modifiedAt": "2017-03-23T18:28:43Z",
+            "workspace": "1234567"
         },
         {
             "id": 1238134,
             "name": "A1 - L206 - Profile - -1490293734000",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-23T18:28:55Z"
+            "modifiedAt": "2017-03-23T18:28:55Z",
+            "workspace": "1234567"
         },
         {
             "id": 1238135,
             "name": "A1 - L206 - Profile - -1490293749957",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-23T18:29:12Z"
+            "modifiedAt": "2017-03-23T18:29:12Z",
+            "workspace": "1234567"
         },
         {
             "id": 1235754,
             "name": "A1 - L4206 - Alec - Us-1490221177054",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-22T22:19:38Z"
+            "modifiedAt": "2017-03-22T22:19:38Z",
+            "workspace": "1234567"
         },
         {
             "id": 1229960,
             "name": "A1 - L4206 - Cart Amou-1490140690240",
             "description": "--",
             "origin": "target",
-            "modifiedAt": "2017-03-22T01:40:55Z"
+            "modifiedAt": "2017-03-22T01:40:55Z",
+            "workspace": "1234567"
         }
     ]
 }
@@ -3827,7 +3923,7 @@ curl -X GET \
   https://mc.adobe.io/<your-tenant-name>/target/audiences/1397972 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -3857,7 +3953,8 @@ curl -X GET \
             }
         ]
     },
-    "modifiedAt": "2017-05-18T19:44:34Z"
+    "modifiedAt": "2017-05-18T19:44:34Z",
+    "workspace": "1234567"
 }
 
 ````
@@ -3876,7 +3973,7 @@ curl -X POST \
   https://mc.adobe.io/<your-tenant-name>/target/audiences \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
 	"name": "Homepage visitors from California",
@@ -3896,7 +3993,8 @@ curl -X POST \
                 ]
             }
         ]
-    }
+    },
+    "workspace": "1234567"
 }'
 
 ````
@@ -3926,7 +4024,8 @@ curl -X POST \
             }
         ]
     },
-    "modifiedAt": "2017-07-10T22:24:04Z"
+    "modifiedAt": "2017-07-10T22:24:04Z",
+    "workspace": "1234567"
 }
 
 ````
@@ -3947,7 +4046,6 @@ Each audience definition is made up of either target or audience rules.
 * Audience rules allow the API caller to build conjunctions (OR) or disjunctions over pre-built audiences (referred by ids) to create even more powerful definitions
 
 **targetRules** and **audienceRule** cannot be mixed within the same audience definition.
-
 
 <table>
     <thead>
@@ -3984,8 +4082,16 @@ Each audience definition is made up of either target or audience rules.
                 <p>An array of rule objects that refer to pre-built audiences referred by their IDs</p>
             </td>
         </tr>
+        <tr>
+            <td> <em>workspace</em>
+            </td>
+            <td>String</td>
+            <td>Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium).</td>
+        </tr>
     </tbody>
 </table>
+
+
 
 
 ## Update Audience by ID
@@ -3997,7 +4103,7 @@ curl -X PUT \
   https://mc.adobe.io/<your-tenant-name>/target/audiences/1537195 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
 	"name": "Homepage visitors from California",
@@ -4046,7 +4152,8 @@ curl -X PUT \
             }
         ]
     },
-    "modifiedAt": "2017-07-10T22:29:28Z"
+    "modifiedAt": "2017-07-10T22:29:28Z",
+    "workspace": "1234567"
 }
 
 
@@ -4069,7 +4176,7 @@ curl -X DELETE \
   https://mc.adobe.io/<your-tenant-name>/target/audiences/1537214 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/vnd.adobe.target.v1+json' \
+  -H 'Accept: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
 
 ````
@@ -4098,7 +4205,8 @@ curl -X DELETE \
             }
         ]
     },
-    "modifiedAt": "2017-07-10T22:31:18Z"
+    "modifiedAt": "2017-07-10T22:31:18Z",
+    "workspace": "1234567"
 }
 
 ````
@@ -4109,6 +4217,96 @@ curl -X DELETE \
 
 Delete the audience referenced by the specified id.
 
+# Property
+
+API methods for Properties. Applicable for Enterprise Permissions (Target Premium).
+
+
+## List Properties
+> Sample Request to retrieve list of all properties
+
+````shell
+
+curl -X GET \
+  https://mc.adobe.io/<your-tenant-name>/target/properties \
+  -H 'authorization: Bearer <your-bearer-token>' \
+  -H 'cache-control: no-cache' \
+  -H 'Accept: application/vnd.adobe.target.v1+json' \
+  -H 'x-api-key: <your-api-token>'
+
+
+````
+> Sample Response for Get property
+
+````json
+{
+    "total": 2,
+    "offset": 0,
+    "limit": 2147483647,
+    "properties": [
+        {
+            "id": 2,
+            "name": "Products pagde",
+            "description": "This property will be required on all pages under Products section of website",
+            "channel": "web",
+            "segmentId": 410923,
+            "modifiedAt": "2019-02-18T12:26:22.000Z",
+            "workspaces": [
+                "12",
+                "15"
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Products page",
+            "description": "This property will be required on all pages under Products section of website",
+            "channel": "web",
+            "segmentId": 410923,
+            "modifiedAt": "2019-02-18T12:25:20.000Z"
+        }
+    ]
+}
+````
+
+`GET /{tenant}/target/properties`
+
+Retrieve list of all properties.
+
+
+## Get property by ID
+> Sample Request to retrieve property by property Id
+
+````shell
+
+curl -X GET \
+  https://mc.adobe.io/<your-tenant-name>/target/properties/{id} \
+  -H 'authorization: Bearer <your-bearer-token>' \
+  -H 'cache-control: no-cache' \
+  -H 'Accept: application/vnd.adobe.target.v1+json' \
+  -H 'x-api-key: <your-api-token>'
+
+
+````
+> Sample Response for Get property by property Id.
+
+````json
+{
+
+	"id": 1,
+	"name": "Email property",
+	"description": "This is a email type of property",
+	"channel": "email",
+	"segmentId": 5,
+	"workspaces": [
+		"1234567",
+		"12345679"
+	]
+}
+````
+
+`GET /{tenant}/target/properties/{id}`
+
+Retrieve property by property Id.
 
 
 # Reports
