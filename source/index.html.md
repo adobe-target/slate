@@ -1369,7 +1369,7 @@ The request format to fetch a profile using a tntid
 
 Replace "<your-client-code>" and "your-tnt-id" and fire a GET request. Here is an example profile fetch call using a tntid
 
-`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-tenant-name>`
+`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/111492025094307-353046?client=<your-client-code>`
 
 ### Using a thirdPartyId
 
@@ -1381,7 +1381,7 @@ The request format to fetch a profile using a thirdPartyId
 
 Replace "<your-client-code>" and "your-thirdpartyid" and fire a GET request. Here is an example profile fetch call using a thirdpartyid
 
-`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-tenant-name>`
+`http://<your-client-code>.tt.omtrdc.net/rest/v1/profiles/thirdPartyId/a1-mbox3rdPartyId?client=<your-client-code>`
 
 When this call is made, Target attempts to locate the profile first in the cluster noted in the edge request, or wherever the profile is located and return the content. The profile contents are returned in JSON format.
 
@@ -3177,21 +3177,16 @@ curl -X PUT \
 ````
 
 
-Update state for an activity that is referenced by the provided id. Valid values are:
-* approved
-* deactivated
-* saved
+Update state for an activity that is referenced by the provided id. Valid values are:  
+- approved : corresponds to Live in Target UI.   
+- deactivated : corresponds to Inactive in Target UI.   
+- saved : corresponds to Inactive in Target UI.   
 
 
 `PUT: /{tenant}/target/activities/{id}/state`
 
 <aside class="notice">
 You can also use the specific endpoints <b>/activities/ab/{id}/state</b> and <b>/activities/xt/{id}/state</b> for updating the state of an AB or XT activity respectively. Best practice is to use the generic <b>/activities/{id}/state</b> so that you don't have to know or specify the type in the request.
-</aside>
-
-
-<aside class="warning">
-<b>Known Issue</b> : The Target UI has 5 states and the API only provides 3 out of the 5. Also, they use different terminologoes. Approved = Live, Deactivated = Inactive, Saved = Draft.
 </aside>
 
 
