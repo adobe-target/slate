@@ -1650,7 +1650,7 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
 
 ````
 {
-    "total": 5,
+    "total": 4,
     "offset": 0,
     "limit": 2147483647,
     "activities": [
@@ -1662,7 +1662,10 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "name": "A3 - L4242 - Serversid testing",
             "priority": 0,
             "modifiedAt": "2017-05-11T10:11:35Z",
-            "workspace": "1234567"
+            "workspace": "1234567",
+            "propertyIds": [
+                15
+            ]
         },
         {
             "id": 168942,
@@ -1672,7 +1675,10 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "name": "A3-L4242-XT",
             "priority": 0,
             "modifiedAt": "2017-05-11T10:11:52Z",
-            "workspace": "1234567"
+            "workspace": "1234567",
+            "propertyIds": [
+                15
+            ]
         },
         {
             "id": 168816,
@@ -1682,7 +1688,10 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "name": "A5-L4242",
             "priority": 0,
             "modifiedAt": "2017-05-11T10:11:33Z",
-            "workspace": "1234567"
+            "workspace": "1234567",
+            "propertyIds": [
+                15
+            ]
         },
         {
             "id": 168824,
@@ -1692,7 +1701,10 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ \
             "name": "A6-L4242 AB Test SG",
             "priority": 0,
             "modifiedAt": "2017-05-11T10:11:18Z",
-            "workspace": "1234567"
+            "workspace": "1234567",
+            "propertyIds": [
+                15
+            ]
         }
     ]
 }
@@ -1744,7 +1756,7 @@ GET activity list filtered by workspaces
 
 ````shell
 curl -X GET
-https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168824 \
+https://mc.adobe.io/<your-tenant-name>/target/activities/ab/181169 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'Accept: application/vnd.adobe.target.v3+json' \
@@ -1756,80 +1768,49 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168824 \
 ````
 
 {
-    "id": 168824,
-    "thirdPartyId": "60a2f81f-e2bb-45be-9e9a-90162cfcf780",
-    "name": "A6-L4242 AB Test SG",
-    "state": "deactivated",
-    "priority": 0,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
+    "id": 181169,
+    "name": "ab minimal",
+    "state": "saved",
+    "priority": 5,
+    "options": [
+        {
+            "optionLocalId": 0,
+            "name": "Offer 332379",
+            "offerId": 332379
+        }
+    ],
     "locations": {
         "mboxes": [
             {
                 "locationLocalId": 0,
-                "name": "a6-serverside-ab"
+                "name": "homePageHero"
             }
         ]
     },
     "experiences": [
         {
             "experienceLocalId": 0,
-            "name": "Experience A",
-            "visitorPercentage": 34,
-            "offerLocations": [
+            "name": "experienceName",
+            "optionLocations": [
                 {
                     "locationLocalId": 0,
-                    "offerId": 395818
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 1,
-            "name": "Experience B",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395819
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "Experience C",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395820
+                    "optionLocalId": 0
                 }
             ]
         }
     ],
     "metrics": [
         {
-            "metricLocalId": 32767,
-            "name": "MY PRIMARY GOAL",
-            "conversion": true,
-            "mboxes": [
-                {
-                    "name": "order-complete",
-                    "successEvent": "mbox_shown"
-                }
-            ],
-            "action": {
-                "type": "count_once"
-            }
+            "metricLocalId": 3,
+            "name": "conversion",
+            "conversion": true
         }
     ],
-    "workspace": "1234567",
     "propertyIds": [
-      	1,
-      	2
+        195
     ],
-    "modifiedAt": "2017-05-11T10:11:18Z"
+    "workspace": "37740098",
+    "modifiedAt": "2019-02-20T09:41:27Z"
 }
 
 ````
@@ -1847,7 +1828,7 @@ Fetch the current definition of an AB activity if it is found as referenced by t
 ````shell
 
 curl -X DELETE \
-  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/168805 \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/181169 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'Accept: application/vnd.adobe.target.v3+json' \
@@ -1860,74 +1841,49 @@ curl -X DELETE \
 ````
 
 {
-    "id": 168805,
-    "thirdPartyId": "2fc846c4-d5c6-4d67-9ef8-939bb907cc71_1499636562807",
-    "name": "A3 - L4242 - Serversid testing",
+    "id": 181169,
+    "name": "ab minimal",
     "state": "deleted",
-    "priority": 0,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
+    "priority": 5,
+    "options": [
+        {
+            "optionLocalId": 0,
+            "name": "Offer 332379",
+            "offerId": 332379
+        }
+    ],
     "locations": {
         "mboxes": [
             {
                 "locationLocalId": 0,
-                "name": "a3-serverside-ab"
+                "name": "homePageHero"
             }
         ]
     },
     "experiences": [
         {
             "experienceLocalId": 0,
-            "name": "Experience A",
-            "visitorPercentage": 34,
-            "offerLocations": [
+            "name": "experienceName",
+            "optionLocations": [
                 {
                     "locationLocalId": 0,
-                    "offerId": 395818
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 1,
-            "name": "Experience B",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395819
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "Experience C",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395820
+                    "optionLocalId": 0
                 }
             ]
         }
     ],
     "metrics": [
         {
-            "metricLocalId": 32767,
-            "name": "MY PRIMARY GOAL",
-            "conversion": true,
-            "action": {
-                "type": "count_once"
-            }
+            "metricLocalId": 3,
+            "name": "conversion",
+            "conversion": true
         }
     ],
-    "workspace": "1234567",
     "propertyIds": [
-      	1,
-      	2
+        195
     ],
-    "modifiedAt": "2017-07-09T21:42:42Z"
+    "workspace": "37740098",
+    "modifiedAt": "2019-02-20T09:43:01Z"
 }
 
 ````
@@ -1949,79 +1905,45 @@ curl -X POST \
   -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
-    "name": "New API Activity",
-    "startsAt": "2017-05-01T08:00Z",
-    "endsAt": "2017-09-01T07:59:59Z",
-    "state": "saved",
-    "priority": 100,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
-    "locations": {
-        "mboxes": [
-            {
-                "locationLocalId": 0,
-                "name": "x1-serverside-ab"
-            }
-        ]
-    },
-    "experiences": [
-        {
-            "experienceLocalId": 0,
-            "name": "Experience A",
-            "visitorPercentage": 34,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395818
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 1,
-            "name": "Experience B",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395819
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "Experience C",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395820
-                }
-            ]
-        }
-    ],
-    "metrics": [
-        {
-            "metricLocalId": 32767,
-            "name": "MY PRIMARY GOAL",
-            "conversion": true,
-            "mboxes": [
-                {
-                    "name": "order-complete",
-                    "successEvent": "mbox_shown"
-                }
-            ],
-            "action": {
-                "type": "count_once"
-            }
-        }
-    ],
-    "workspace": "1234567",
-    "propertyIds": [
-      	1,
-      	2
+  "name": "ab minimal",
+  "options": [
+    {
+      "optionLocalId": 0,
+      "name": "Offer 1",
+      "offerId": 332379
+    }
+  ],
+  "locations": {
+    "mboxes": [
+      {
+        "locationLocalId": 0,
+        "name": "homePageHero"
+      }
     ]
+  },
+  "experiences": [
+    {
+      "experienceLocalId": 0,
+      "name": "experienceName",
+      "optionLocations": [
+        {
+          "locationLocalId": 0,
+          "optionLocalId": 0
+        }
+      ]
+    }
+  ],
+  "workspace":"1234567",
+  "propertyIds": [
+       15
+   ],
+  "metrics": [
+    {
+      "metricLocalId": 3,
+      "name": "conversion",
+      "conversion": true     
+    }
+  ]
 }'
 
 ````
@@ -2031,81 +1953,46 @@ curl -X POST \
 
 ````
 {
-    "id": 183916,
-    "name": "New API Activity",
-    "startsAt": "2017-05-01T08:00Z",
-    "endsAt": "2017-09-01T07:59:59Z",
-    "state": "saved",
-    "priority": 100,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
-    "locations": {
-        "mboxes": [
-            {
-                "locationLocalId": 0,
-                "name": "x1-serverside-ab"
-            }
-        ]
-    },
-    "experiences": [
+  "id": 181169,
+  "name": "ab minimal",
+  "options": [
+    {
+      "optionLocalId": 0,
+      "name": "Offer 1",
+      "offerId": 332379
+    }
+  ],
+  "locations": {
+    "mboxes": [
+      {
+        "locationLocalId": 0,
+        "name": "homePageHero"
+      }
+    ]
+  },
+  "experiences": [
+    {
+      "experienceLocalId": 0,
+      "name": "experienceName",
+      "optionLocations": [
         {
-            "experienceLocalId": 0,
-            "name": "Experience A",
-            "visitorPercentage": 34,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395818
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 1,
-            "name": "Experience B",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395819
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "Experience C",
-            "visitorPercentage": 33,
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395820
-                }
-            ]
+          "locationLocalId": 0,
+          "optionLocalId": 0
         }
-    ],
-    "metrics": [
-        {
-            "metricLocalId": 32767,
-            "name": "MY PRIMARY GOAL",
-            "conversion": true,
-            "mboxes": [
-                {
-                    "name": "order-complete",
-                    "successEvent": "mbox_shown"
-                }
-            ],
-            "action": {
-                "type": "count_once"
-            }
-        }
-    ],
-    "workspace": "1234567",
-    "propertyIds": [
-      	1,
-      	2
-    ],
-    "modifiedAt": "2017-07-10T05:11:03Z"
+      ]
+    }
+  ],
+  "workspace":"1234567",
+  "propertyIds": [
+       15
+   ],
+  "metrics": [
+    {
+      "metricLocalId": 3,
+      "name": "conversion",
+      "conversion": true     
+    }
+  ]
 }
 
 
@@ -2118,6 +2005,9 @@ Creates a new AB activity with the specified contents and returns the created ac
 
 <aside class="warning">
 Activities created using the API can only be edited using the API. You can't edit it in the UI.
+</aside>
+<aside class="warning">
+<b>Known Issue</b> : AB "auto-allocate" Activities can not be created using V3 version of API."
 </aside>
 
 ### Parameters
@@ -2422,114 +2312,54 @@ Activities created using the API can only be edited using the API. You can't edi
 
 ````shell
 curl -X PUT \
-  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/183916 \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/ab/181170 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
-	"name": "New Activity Name",
-	"state": "approved",
-	"priority": 10,
-	"locations": {
-		"mboxes": [
-			{
-				"locationLocalId": 0,
-				"name": "mbox_1"
-			},
-			{
-				"locationLocalId": 1,
-				"name": "mbox_2"
-			},
-			{
-				"locationLocalId": 2,
-				"name": "mbox_3"
-			}
-		]
-	},
-	"experiences": [
-		{
-			"experienceLocalId": 0,
-			"name": "Tom Hanks Cast Away",
-			"offerLocations": [
-				{
-					"locationLocalId": 0,
-					"offerId": 400546
-				},
-				{
-					"locationLocalId": 1,
-					"offerId": 400547
-				},
-				{
-					"locationLocalId": 2,
-					"offerId": 400546
-				}
-			]
-		},
-		{
-			"experienceLocalId": 1,
-			"name": "Default",
-			"offerLocations": [
-				{
-					"locationLocalId": 0,
-					"offerId": 400546
-				},
-				{
-					"locationLocalId": 1,
-					"offerId": 400547
-				},
-				{
-					"locationLocalId": 2,
-					"offerId": 400546
-				}
-			]
-		}
-	],
-	"metrics": [
-		{
-			"metricLocalId": 3,
-			"name": "display about",
-			"mboxes": [
-				{
-					"name": "event_1",
-					"successEvent": "mbox_shown"
-				}
-			]
-		},
-		{
-			"metricLocalId": 4,
-			"name": "display hero",
-			"mboxes": [
-				{
-					"name": "event_2",
-					"successEvent": "mbox_shown"
-				}
-			]
-		},
-		{
-			"metricLocalId": 32767,
-			"name": "display userimg",
-			"conversion": true,
-			"action": {
-				"type": "count_once"
-			},
-			"mboxes": [
-				{
-					"name": "event_3",
-					"successEvent": "mbox_shown"
-				}
-			]
-		}
-	],
-	"workspace": "1234567",
-        "propertyIds": [
-      	        1,
-      	        2
-        ],
-	"analytics": {
-		"reportSuite": "mydemoreportsuite",
-		"dataCollectionHost": "mydemoreportsuite.sc.omniture.com"
-	}
+    "name": "ab minimal updated",
+    "state": "saved",
+    "priority": 5,
+    "options": [
+        {
+            "optionLocalId": 0,
+            "name": "Offer 332379",
+            "offerId": 332379
+        }
+    ],
+    "locations": {
+        "mboxes": [
+            {
+                "locationLocalId": 0,
+                "name": "homePageHero"
+            }
+        ]
+    },
+    "experiences": [
+        {
+            "experienceLocalId": 0,
+            "name": "experienceName",
+            "optionLocations": [
+                {
+                    "locationLocalId": 0,
+                    "optionLocalId": 0
+                }
+            ]
+        }
+    ],
+    "metrics": [
+        {
+            "metricLocalId": 3,
+            "name": "conversion",
+            "conversion": true
+        }
+    ],
+    "propertyIds": [
+        195
+    ],
+    "workspace": "37740098",
+    "modifiedAt": "2019-02-20T09:44:38Z"
 }'
 
 ````
@@ -2539,107 +2369,49 @@ curl -X PUT \
 ````
 
 {
-	"name": "New Activity Name",
-	"state": "approved",
-	"priority": 10,
-	"locations": {
-		"mboxes": [
-			{
-				"locationLocalId": 0,
-				"name": "mbox_1"
-			},
-			{
-				"locationLocalId": 1,
-				"name": "mbox_2"
-			},
-			{
-				"locationLocalId": 2,
-				"name": "mbox_3"
-			}
-		]
-	},
-	"experiences": [
-		{
-			"experienceLocalId": 0,
-			"name": "Tom Hanks Cast Away",
-			"offerLocations": [
-				{
-					"locationLocalId": 0,
-					"offerId": 400546
-				},
-				{
-					"locationLocalId": 1,
-					"offerId": 400547
-				},
-				{
-					"locationLocalId": 2,
-					"offerId": 400546
-				}
-			]
-		},
-		{
-			"experienceLocalId": 1,
-			"name": "Default",
-			"offerLocations": [
-				{
-					"locationLocalId": 0,
-					"offerId": 400546
-				},
-				{
-					"locationLocalId": 1,
-					"offerId": 400547
-				},
-				{
-					"locationLocalId": 2,
-					"offerId": 400546
-				}
-			]
-		}
-	],
-	"metrics": [
-		{
-			"metricLocalId": 3,
-			"name": "display about",
-			"mboxes": [
-				{
-					"name": "event_1",
-					"successEvent": "mbox_shown"
-				}
-			]
-		},
-		{
-			"metricLocalId": 4,
-			"name": "display hero",
-			"mboxes": [
-				{
-					"name": "event_2",
-					"successEvent": "mbox_shown"
-				}
-			]
-		},
-		{
-			"metricLocalId": 32767,
-			"name": "display userimg",
-			"conversion": true,
-			"action": {
-				"type": "count_once"
-			},
-			"mboxes": [
-				{
-					"name": "event_3",
-					"successEvent": "mbox_shown"
-			]
-		}
-	],
-	"workspace": "1234567",
-        "propertyIds": [
-      	        1,
-      	        2
-        ],
-	"analytics": {
-		"reportSuite": "mydemoreportsuite",
-		"dataCollectionHost": "mydemoreportsuite.sc.omniture.com"
-	}
+    "id": 181170,
+    "name": "ab minimal updated",
+    "state": "saved",
+    "priority": 5,
+    "options": [
+        {
+            "optionLocalId": 0,
+            "name": "Offer 332379",
+            "offerId": 332379
+        }
+    ],
+    "locations": {
+        "mboxes": [
+            {
+                "locationLocalId": 0,
+                "name": "homePageHero"
+            }
+        ]
+    },
+    "experiences": [
+        {
+            "experienceLocalId": 0,
+            "name": "experienceName",
+            "optionLocations": [
+                {
+                    "locationLocalId": 0,
+                    "optionLocalId": 0
+                }
+            ]
+        }
+    ],
+    "metrics": [
+        {
+            "metricLocalId": 3,
+            "name": "conversion",
+            "conversion": true
+        }
+    ],
+    "propertyIds": [
+        195
+    ],
+    "workspace": "37740098",
+    "modifiedAt": "2019-02-20T09:44:38Z"
 }
 
 ````
@@ -2661,7 +2433,7 @@ Refer "Create AB Activity" for the available inputs, limitations and the descrip
 
 ````shell
 curl -X GET
-https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168824 \
+https://mc.adobe.io/<your-tenant-name>/target/activities/xt/181165 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'Accept: application/vnd.adobe.target.v3+json' \
@@ -2672,90 +2444,49 @@ https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168824 \
 
 ````
 {
-    "id": 166425,
-    "thirdPartyId": "04662c10-0831-4306-bb36-5410acc88dff",
-    "name": "Master - Mobile - XT",
-    "state": "approved",
-    "priority": 999,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
+    "id": 181165,
+    "name": "xt minimal updated",
+    "state": "saved",
+    "priority": 5,
+    "options": [
+        {
+            "optionLocalId": 0,
+            "name": "Offer 332379",
+            "offerId": 332379
+        }
+    ],
     "locations": {
         "mboxes": [
             {
                 "locationLocalId": 0,
-                "name": "a1-mobile-xt"
+                "name": "homePageHero"
             }
         ]
     },
     "experiences": [
         {
             "experienceLocalId": 0,
-            "name": "Silver",
-            "audienceIds": [
-                1209736
-            ],
-            "offerLocations": [
+            "name": "experienceName",
+            "optionLocations": [
                 {
                     "locationLocalId": 0,
-                    "offerId": 393707
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "Gold",
-            "audienceIds": [
-                1209737
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 395545
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 3,
-            "name": "Sapphire",
-            "audienceIds": [
-                1209738
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 393708
+                    "optionLocalId": 0
                 }
             ]
         }
     ],
     "metrics": [
         {
-            "metricLocalId": 32767,
-            "name": "metric_placeholder",
-            "conversion": true,
-            "mboxes": [
-                {
-                    "name": "conversion_placeholder",
-                    "successEvent": "mbox_shown"
-                }
-            ],
-            "action": {
-                "type": "count_once"
-            }
+            "metricLocalId": 3,
+            "name": "conversion",
+            "conversion": true
         }
     ],
-    "workspace": "1234567",
     "propertyIds": [
-      	1,
-      	2
+        195
     ],
-    "analytics": {
-        "reportSuite": "<your-tenant-name>iosdemo",
-        "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
-    },
-    "modifiedAt": "2017-06-12T14:27:44Z"
+    "workspace": "37740098",
+    "modifiedAt": "2019-02-20T08:57:59Z"
 }
 
 ````
@@ -2771,7 +2502,7 @@ Gets a Experience Targeted activity that is referenced by the id.
 ````shell
 
 curl -X DELETE \
-  https://mc.adobe.io/<your-tenant-name>/target/activities/xt/168333 \
+  https://mc.adobe.io/<your-tenant-name>/target/activities/xt/181165 \
   -H 'authorization: Bearer <your-bearer-token>' \
   -H 'cache-control: no-cache' \
   -H 'Accept: application/vnd.adobe.target.v3+json' \
@@ -2783,86 +2514,49 @@ curl -X DELETE \
 
 ````
 {
-    "id": 168333,
-    "thirdPartyId": "60cc9620-999f-4052-bdad-1567838db10d_1499659779896",
-    "name": "My XT Activity",
+    "id": 181165,
+    "name": "xt minimal updated",
     "state": "deleted",
-    "priority": 0,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
+    "priority": 5,
+    "options": [
+        {
+            "optionLocalId": 0,
+            "name": "Offer 332379",
+            "offerId": 332379
+        }
+    ],
     "locations": {
         "mboxes": [
             {
                 "locationLocalId": 0,
-                "name": "j1-mobile-xt"
+                "name": "homePageHero"
             }
         ]
     },
     "experiences": [
         {
             "experienceLocalId": 0,
-            "name": "Experience A",
-            "audienceIds": [
-                1209736
-            ],
-            "offerLocations": [
+            "name": "experienceName",
+            "optionLocations": [
                 {
                     "locationLocalId": 0,
-                    "offerId": 393707
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 1,
-            "name": "Experience B",
-            "audienceIds": [
-                1209737
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 0
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "Experience C",
-            "audienceIds": [
-                1209738
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 0
+                    "optionLocalId": 0
                 }
             ]
         }
     ],
     "metrics": [
         {
-            "metricLocalId": 32767,
-            "name": "MY PRIMARY GOAL",
-            "conversion": true,
-            "mboxes": [
-                {
-                    "name": "order-complete",
-                    "successEvent": "mbox_shown"
-                }
-            ],
-            "action": {
-                "type": "count_once"
-            }
+            "metricLocalId": 3,
+            "name": "conversion",
+            "conversion": true
         }
     ],
-    "workspace": "1234567",
     "propertyIds": [
-      	1,
-      	2
+        195
     ],
-    "modifiedAt": "2017-07-10T04:09:39Z"
+    "workspace": "37740098",
+    "modifiedAt": "2019-02-20T09:46:52Z"
 }
 
 ````
@@ -2884,100 +2578,45 @@ curl -X POST \
   -H 'content-type: application/vnd.adobe.target.v3+json' \
   -H 'x-api-key: <your-api-token>'
   -d '{
-    "name": "New XT API Activity",
-    "state": "saved",
-    "priority": 10,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
-    "locations": {
-        "mboxes": [
-            {
-                "locationLocalId": 0,
-                "name": "a1-serverside-xt"
-            }
-        ]
-    },
-    "experiences": [
-        {
-            "experienceLocalId": 0,
-            "name": "USA Experience",
-            "audienceIds": [
-                1224696
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 396067
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 1,
-            "name": "UK Experience",
-            "audienceIds": [
-                1224698
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 396064
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "France Experience",
-            "audienceIds": [
-                1224699
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 396065
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 3,
-            "name": "Australia Experience",
-            "audienceIds": [
-                1224700
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 396066
-                }
-            ]
-        }
-    ],
-    "metrics": [
-        {
-            "metricLocalId": 32767,
-            "name": "metric_placeholder",
-            "conversion": true,
-            "mboxes": [
-                {
-                    "name": "conversion_placeholder",
-                    "successEvent": "mbox_shown"
-                }
-            ],
-            "action": {
-                "type": "count_once"
-            }
-        }
-    ],
-    "workspace": "1234567",
-    "propertyIds": [
-      	1,
-      	2
-    ],
-    "analytics": {
-        "reportSuite": "<your-tenant-name>westeros",
-        "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
+  "name": "xt minimal",
+  "options": [
+    {
+      "optionLocalId": 0,
+      "name": "Offer 332379",
+      "offerId": 332379
     }
+  ],
+  "locations": {
+    "mboxes": [
+      {
+        "locationLocalId": 0,
+        "name": "homePageHero"
+      }
+    ]
+  },
+  "experiences": [
+    {
+      "experienceLocalId": 0,
+      "name": "experienceName",
+      "optionLocations": [
+        {
+          "locationLocalId": 0,
+          "optionLocalId": 0
+        }
+      ]
+    }
+  ],
+  "workspace":"1234567",
+  "propertyIds": [
+       15
+   ],
+  "metrics": [
+    {
+      "metricLocalId": 3,
+      "name": "conversion",
+      "conversion": true     
+    }
+  ]
 }'
 
 ````
@@ -2987,102 +2626,49 @@ curl -X POST \
 ````
 
 {
-    "id": 183919,
-    "name": "New XT API Activity",
+    "id": 181165,
+    "name": "xt minimal updated",
     "state": "saved",
-    "priority": 10,
-    "autoAllocateTraffic": {
-        "enabled": false,
-        "successEvaluationCriteria": "conversion_rate"
-    },
+    "priority": 5,
+    "options": [
+        {
+            "optionLocalId": 0,
+            "name": "Offer 332379",
+            "offerId": 332379
+        }
+    ],
     "locations": {
         "mboxes": [
             {
                 "locationLocalId": 0,
-                "name": "a1-serverside-xt"
+                "name": "homePageHero"
             }
         ]
     },
     "experiences": [
         {
             "experienceLocalId": 0,
-            "name": "USA Experience",
-            "audienceIds": [
-                1224696
-            ],
-            "offerLocations": [
+            "name": "experienceName",
+            "optionLocations": [
                 {
                     "locationLocalId": 0,
-                    "offerId": 396067
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 1,
-            "name": "UK Experience",
-            "audienceIds": [
-                1224698
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 396064
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 2,
-            "name": "France Experience",
-            "audienceIds": [
-                1224699
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 396065
-                }
-            ]
-        },
-        {
-            "experienceLocalId": 3,
-            "name": "Australia Experience",
-            "audienceIds": [
-                1224700
-            ],
-            "offerLocations": [
-                {
-                    "locationLocalId": 0,
-                    "offerId": 396066
+                    "optionLocalId": 0
                 }
             ]
         }
     ],
     "metrics": [
         {
-            "metricLocalId": 32767,
-            "name": "metric_placeholder",
-            "conversion": true,
-            "mboxes": [
-                {
-                    "name": "conversion_placeholder",
-                    "successEvent": "mbox_shown"
-                }
-            ],
-            "action": {
-                "type": "count_once"
-            }
+            "metricLocalId": 3,
+            "name": "conversion",
+            "conversion": true
         }
     ],
-    "workspace": "1234567",
     "propertyIds": [
-      	1,
-      	2
+        15
     ],
-    "analytics": {
-        "reportSuite": "<your-tenant-name>westeros",
-        "dataCollectionHost": "<your-tenant-name>.sc.omtrdc.net"
-    },
-    "modifiedAt": "2017-07-10T06:01:27Z"
+    "workspace": "1234567",
+    "modifiedAt": "2019-02-20T08:57:59Z"
 }
 
 ````
@@ -3096,7 +2682,6 @@ Refer "Create AB Activity" for the available inputs, limitations and the descrip
 <aside class="warning">
 Activities created using the API can only be edited using the API. You can't edit it in the UI.
 </aside>
-
 ## Update XT Activity
 
 `PUT: /{tenant}/target/activities/xt/{id}`
@@ -3132,7 +2717,8 @@ curl -X PUT \
 {
     "id": 168816,
     "name": "New Name for Activity",
-    "modifiedAt": "2017-01-01T00:00Z"
+    "modifiedAt": "2017-01-01T00:00Z",
+    "workspace":"1234567"
 }
 
 ````
@@ -3144,7 +2730,9 @@ Updates the name of the AB activity that is referenced by the supplied id.
 <aside class="notice">
 You can also use the specific endpoints <b>/activities/ab/{id}/name</b> and /<b>activities/xt/{id}/name</b> for updating the name of an AB or XT activity respectively. Best practice is to use the generic <b>/activities/{id}/name</b> so that you don't have to know or specify the type in the request.
 </aside>
-
+<aside class="warning">
+<b>Known Issue</b> : Activity created in non-default workspace can not be updated using this API."
+</aside>
 
 ## Update Activity State
 
@@ -3189,6 +2777,12 @@ Update state for an activity that is referenced by the provided id. Valid values
 You can also use the specific endpoints <b>/activities/ab/{id}/state</b> and <b>/activities/xt/{id}/state</b> for updating the state of an AB or XT activity respectively. Best practice is to use the generic <b>/activities/{id}/state</b> so that you don't have to know or specify the type in the request.
 </aside>
 
+<aside class="warning">
+<b>Known Issue</b> : The Target UI has 5 states and the API only provides 3 out of the 5. Also, they use different terminologoes. Approved = Live, Deactivated = Inactive, Saved = Draft.
+</aside>
+<aside class="warning">
+<b>Known Issue</b> : Activity created in non-default workspace can not be updated using this API."
+</aside>
 
 ## Update Activity Priority
 
@@ -3226,7 +2820,9 @@ Change priority for the AB activity that is referenced by the supplied id. Allow
 <aside class="notice">
 You can also use the specific endpoints <b>/activities/ab/{id}/priority</b> and <b>/activities/xt/{id}/priority </b> for updating the priority of an AB or XT activity respectively. Best practice is to use the generic <b>/activities/{id}/priority </b> so that you don't have to know or specify the type in the request.
 </aside>
-
+<aside class="warning">
+<b>Known Issue</b> : Activity created in non-default workspace can not be updated using this API."
+</aside>
 
 
 
@@ -3275,9 +2871,9 @@ Update the startsAt and endsAt fields of the AB activity referenced by the provi
 <aside class="notice">
 You can also use the specific endpoints <b>/activities/ab/{id}/schedule </b> and <b>/activities/xt/{id}/schedule </b> for updating the schedule of an AB or XT activity respectively. Best practice is to use the generic <b>/activities/{id}/schedule </b> so that you don't have to know or specify the type in the request.
 </aside>
-
-
-
+<aside class="warning">
+<b>Known Issue</b> : Activity created in non-default workspace can not be updated using this API."
+</aside>
 
 ## Get Activity Changelog
 
@@ -3600,9 +3196,8 @@ curl -X POST \
   -d ' {
 	 "name": "My new offer",
 	 "content": "<div>The content of the offer</div>",
-         "workspace": "1234567"	
- }
-'
+     "workspace": "1234567"	
+ 	 }'
 
 ````
 
@@ -3657,7 +3252,8 @@ curl -X PUT \
     "id": 438180,
     "name": "Your existing offer",
     "content": "<div>Updated content</div>",
-    "modifiedAt": "2017-07-10T20:55:41Z"
+    "modifiedAt": "2017-07-10T20:55:41Z",
+    "workspace": "123456"
 }
 
 ````
@@ -3905,6 +3501,9 @@ GET audiences list filtered by negative values
 
 GET audiences list sorted by multiple criteria
 `https://mc.adobe.io/{tenant}/target/audiences/?sortBy=name&sortBy=id`
+
+GET audiences list filtered by workspaces
+`https://mc.adobe.io/{tenant}/target/audiences/?workspace=1234567,12345678`
 
 GET audiences list filtered by a date range
 `https://mc.adobe.io/{tenant}/target/audiences/?startsAt=1800-09-01T02:04:00.000-07:00/2114-11-30T14:10:00.000-07:00`
@@ -4231,7 +3830,7 @@ curl -X GET \
 
 
 ````
-> Sample Response for Get property
+> Sample Response to retrieve list of all properties
 
 ````json
 {
