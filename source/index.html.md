@@ -2215,7 +2215,7 @@ Activities created using the API can only be edited using the API. You can't edi
             <td> <em>workspace</em>
             </td>
             <td> String</td>
-            <td>Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium).</td>
+            <td>Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium). Refer <a href='https://docs.adobe.com/content/help/en/target/using/administer/manage-users/enterprise/properties-overview.html#obtain-your-workspace-id'>this</a> to obtain desired workspaceId.</td>
         </tr>
         <tr>
             <td> <em>propertyIds</em>
@@ -2411,6 +2411,9 @@ Activities created using the API can only be edited using the API. You can't edi
         </tr>
     </tbody>
 </table>
+
+
+
 
 
 
@@ -3628,7 +3631,7 @@ Creates a new content offer as defined by the request data.
 | --------- | ------ | ------------------------------------------------------------ |
 | name      | String | A string to identify the Offer. The name cannot be empty. Max length is 250 characters. |
 | content   | String | Content of an Offer shown to user.                           |
-| workspace | String | Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium). |
+| workspace | String | Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium). Refer <a href='https://docs.adobe.com/content/help/en/target/using/administer/manage-users/enterprise/properties-overview.html#obtain-your-workspace-id'>this</a> to obtain desired workspaceId. |
 
 ## Update Offer by ID
 
@@ -4081,10 +4084,11 @@ Each audience definition is made up of either target or audience rules.
             <td> <em>workspace</em>
             </td>
             <td>String</td>
-            <td>Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium).</td>
+            <td>Optional id of workspace to which the activity belongs. Max length is 250 characters. By default, Default workspace is assumed. Applicable for Enterprise Permissions (Target Premium). Refer <a href='https://docs.adobe.com/content/help/en/target/using/administer/manage-users/enterprise/properties-overview.html#obtain-your-workspace-id'>this</a> to obtain desired workspaceId.</td>
         </tr>
     </tbody>
 </table>
+
 
 
 
