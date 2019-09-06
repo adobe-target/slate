@@ -1420,10 +1420,11 @@ There are two ways to update profiles via API:
 
 ### Single Profile Update
 
-Specify the profile parameters in the format profile.paramName=value.
-There is a limit of one million profile updates in a 24-hour period.
+The Single Profile Update API allows sending a profile update for a single user and is generally used when an update must occur in relation to a transaction occurring in a channel that has not implemented Target.
 
-To update the profile for a pcId, use :
+The Single Profile Update API is limited to performing 1 million updates in any rolling 24-hour period. Updates generally occur in under 1 hour, but may take as long as 24 hours to be reflected. If you need to send more updates, or require updates to be processed in shorter timeframes, consider sending transactional profile updates via client-side update (preferred), or via the [Server-Side Delivery API](http://developers.adobetarget.com/api/#server-side-delivery).
+
+Specify the profile parameters in the format profile.paramName=value. To update the profile for a pcId, use:
 
 `https://<your-client-code>.tt.omtrdc.net/m2/client/profile/update?mboxPC=1368007744041-575948.01_00&profile.attr=0&profile.attr2=1...`
 
@@ -1442,14 +1443,13 @@ The Single Profile Update API is for updates only. If nothing is found, a profil
 * Parameters and values are case sensitive.
 * Both GET and POST are supported.
 * The current size limitations for limit is 8KB for GET and 60KB for POST.
-* The calls to the profile update API do not count toward your mbox charges.
 
 **Response**
 
 A sample response for the above requests looks like this.
 `trueRequest successfully submitted`
 
-This response indicates the response has been submitted and will be processed soon. In general, lag time is less than a minute.
+This response indicates the response has been submitted and will be processed soon.
 
 ### Bulk Profile Update
 
